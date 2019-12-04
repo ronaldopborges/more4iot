@@ -1,0 +1,46 @@
+# iotprotocols
+
+Progresso até agora:\
+Serviço -> Comunicador de Entrada, com: CoAP, MQTT, REST e AMQP.\
+Recebe mensagens nesses protocolos citados acima(msgs json conforme o documento) e repassa pro serviço indicado na msg json\
+Serviço -> Gerenciador de Dispositivos\
+Serviço -> Gerenciador de Dados\
+Serviço -> Gerenciador de Atuações\
+Serviço -> Comunicador de Atuação\
+Notifica dispositivos atuadores pelos protocolos CoAP, MQTT, REST e AMQP
+
+
+Se quiser testar\
+Precisa ter instalado na máquina:\
+Docker e node js.
+
+
+O arquivo /InputCommunicator/index.js faz o seguinte: se conecta ao broker MQTT da hive, a um broker local do rabbitmq(AMQP) que está localhost em um container docker, e abre servers CoAP e REST.
+
+Antes de tudo, instale as dependências do projeto, com o terminal no diretório do projeto, digite:\
+npm install
+
+Passo a passo para testar o mqtt:\
+1 - Rodar no diretorio do Input Communicator, o terminal e executar: node index.js\
+2 - Abrir no navegador o link: http://www.hivemq.com/demos/websocket-client/ \
+3 - No campo host preencher com: broker.hivemq.com \
+4 - Clicar em connect\
+5 - Mudar o campo topic para iotufersa\
+6 - Escrever uma mensagem(json conforme o documento do middleware) e clicar em publish
+
+
+
+Passo a passo para testar o amqp:\
+1 - Ter o docker instalado\
+2 - Executar apenas um dos dois comandos abaixo.. se for a primeira vez, ou se não for a primeira vez\
+    (se for a primeira vez que for instalar o container do broker rabbitmq)\
+    - Com o docker rodando digitar o seguinte comando no terminal:\
+    docker run -d --hostname my-rabbit --name rabbit13 -p 8080:15672 -p 5672:5672 -p 25676:25676 rabbitmq:3-management\
+    (se já tiver rodado o comando acima alguma vez, então ja tem um container, basta executar este comando abaixo em vez disso)\
+    - Com o docker rodando digitar o seguinte comando no terminal:\
+    docker run -d rabbitmq:3-management\
+    Se quiser testar se o broker está online, antes de executar o index.js basta abrir no navegador: localhost:8080 ,senha: guest/guest\
+3 - Agora rode o arquivo index.js, no diretório do Input Communicator abra o terminal e execute: node index.js\
+4 - No diretório do projeto, abra outro terminal e execute: node amqp_sender.js\
+5 - Cada vez que é executado o amqp_sender.js é enviado uma msg(pode alterar a msg no arquivo amqp_sender) amqp para o broker local para o topico que o input communicator está inscrito
+    

@@ -21,6 +21,3 @@
 + **Action Communicator**
     + Receive actuation data from action manager
 	+ Send actuation data to actuator devices(currently by the following protocols: AMQP, MQTT, REST and COAP)
-
-#### Services Documentation
-+ https://app.swaggerhub.com/apis-docs/iotufersa/middlewareiotufersa/1.0.0#/

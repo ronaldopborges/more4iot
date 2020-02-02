@@ -1,12 +1,15 @@
 const express = require('express');
 const routes = require('./routes');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 const addresses = require('../config/addresses');
+const swaggerDocument = YAML.load('./yaml_3.0.yaml');
 
 module.exports = () => { 
 const server = express();
 
-// para o express entender que vou usar json
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 server.use(express.json());
 server.use(cors())
 // utilizar as configurações que tão no routes.js

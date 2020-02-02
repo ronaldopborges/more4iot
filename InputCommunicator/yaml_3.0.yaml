@@ -1,0 +1,476 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: middleware-iot-api
+  description: The API for the Multi Protocol IOT Middleware project
+paths:
+  /devices/inscribe:
+    post:
+      tags:
+        - Device Manager
+      description: inscribe a device
+      operationId: inscribeDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: integer
+                lon:
+                  type: integer
+                resource:
+                  type: array
+                  items:
+                    type: string
+                timeToGenerateData:
+                  type: integer
+                uri:
+                  type: string
+                protocol:
+                  type: string
+                describe:
+                  type: string
+                type:
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: successfully registered device
+  /devices/update:
+    post:
+      tags:
+        - Device Manager
+      description: update a device
+      operationId: updateDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: integer
+                lon:
+                  type: integer
+                resource:
+                  type: array
+                  items:
+                    type: string
+                timeToGenerateData:
+                  type: integer
+                uri:
+                  type: string
+                protocol:
+                  type: string
+                describe:
+                  type: string
+                type:
+                  type: string
+                uuid:
+                  type: string
+      responses:
+        "200":
+          description: successfully updated device
+  "/devices/{uuid}":
+    get:
+      tags:
+        - Device Manager
+      description: returns a registered device
+      operationId: getDevice
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          description: uuid of desired device
+          schema:
+            type: string
+      responses:
+        "200":
+          description: return a device if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: integer
+                  lon:
+                    type: integer
+                  resource:
+                    type: array
+                    items:
+                      type: string
+                  timeToGenerateData:
+                    type: string
+                  uri:
+                    type: string
+                  protocol:
+                    type: string
+                  describe:
+                    type: string
+                  type:
+                    type: string
+                  uuid:
+                    type: string
+  /devices:
+    get:
+      tags:
+        - Device Manager
+      description: returns all registered devices
+      operationId: getAllDevices
+      responses:
+        "200":
+          description: All the devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: integer
+                    lon:
+                      type: integer
+                    resource:
+                      type: array
+                      items:
+                        type: string
+                    timeToGenerateData:
+                      type: string
+                    uri:
+                      type: string
+                    protocol:
+                      type: string
+                    describe:
+                      type: string
+                    type:
+                      type: string
+                    uuid:
+                      type: string
+  "/devices/delete/{uuid}":
+    delete:
+      tags:
+        - Device Manager
+      description: delete a device by uuid
+      operationId: deleteDevice
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          description: uuid of target device to delete
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully removed device
+  /datas/persist:
+    post:
+      tags:
+        - Data Manager
+      description: persist data
+      operationId: persistData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: integer
+                lon:
+                  type: integer
+                resource:
+                  type: string
+                value:
+                  type: string
+                uuid:
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: successfully registered data
+  "/datas/{uuid}":
+    get:
+      tags:
+        - Data Manager
+      description: returns data of a device
+      operationId: getData
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          description: uuid of desired device
+          schema:
+            type: string
+      responses:
+        "200":
+          description: return a device if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: integer
+                  lon:
+                    type: integer
+                  resource:
+                    type: string
+                  value:
+                    type: string
+                  uuid:
+                    type: string
+                  id:
+                    type: string
+                  timestamp:
+                    type: string
+  /datas:
+    get:
+      tags:
+        - Data Manager
+      description: returns all registered data
+      operationId: getAllData
+      responses:
+        "200":
+          description: All the datas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: integer
+                    lon:
+                      type: integer
+                    resource:
+                      type: string
+                    value:
+                      type: string
+                    uuid:
+                      type: string
+                    id:
+                      type: integer
+                    timestamp:
+                      type: string
+  "/datas/last/{uuid}":
+    get:
+      tags:
+        - Data Manager
+      description: returns the last data of a device
+      operationId: getLastData
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          description: uuid of desired device
+          schema:
+            type: string
+      responses:
+        "200":
+          description: return the last data of a device if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: integer
+                  lon:
+                    type: integer
+                  resource:
+                    type: string
+                  value:
+                    type: string
+                  uuid:
+                    type: string
+                  id:
+                    type: string
+                  timestamp:
+                    type: string
+  "/datas/delete/{uuid}":
+    delete:
+      tags:
+        - Data Manager
+      description: delete all data of a device by uuid
+      operationId: deleteData
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          description: uuid of target device to delete its data
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully removed device's data
+  /actions/inscribe:
+    post:
+      tags:
+        - Action Manager
+      description: Inscribe actions
+      operationId: inscribeAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                command:
+                  type: string
+                uuidAtuador:
+                  type: string
+                uuidSensor:
+                  type: string
+                lifetime:
+                  type: string
+                status:
+                  type: boolean
+        required: true
+      responses:
+        "200":
+          description: successfully registered action
+  "/actions/{uuidSensor}":
+    get:
+      tags:
+        - Action Manager
+      description: returns all actions by a device's uuid
+      operationId: getActions
+      parameters:
+        - in: path
+          name: uuidSensor
+          required: true
+          description: uuid of desired device
+          schema:
+            type: string
+      responses:
+        "200":
+          description: return all actions related to a device by uuid, if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  command:
+                    type: string
+                  uuidAtuador:
+                    type: string
+                  uuidSensor:
+                    type: string
+                  id:
+                    type: integer
+                  lifetime:
+                    type: string
+                  status:
+                    type: boolean
+  /actions:
+    get:
+      tags:
+        - Action Manager
+      description: returns all registered actions
+      operationId: getAllActions
+      responses:
+        "200":
+          description: All the actions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    command:
+                      type: string
+                    uuidAtuador:
+                      type: string
+                    uuidSensor:
+                      type: string
+                    id:
+                      type: integer
+                    lifetime:
+                      type: string
+                    status:
+                      type: boolean
+  "/actions/notify/{uuidSensor}":
+    get:
+      tags:
+        - Action Manager
+      description: notify the action communicator about recent added device's data
+      operationId: notifyActionCommunicator
+      parameters:
+        - in: path
+          name: uuidSensor
+          required: true
+          description: uuid of the device
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully notified
+  /actioncommunicator/notify:
+    post:
+      tags:
+        - Action Communicator
+      description: get the actuator's uri from the device manager and notify the actuator
+        about actions commands
+      operationId: notifyActuator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                command:
+                  type: string
+                uuidAtuador:
+                  type: string
+                uuidSensor:
+                  type: string
+                lifetime:
+                  type: string
+                status:
+                  type: boolean
+                id:
+                  type: integer
+        required: true
+      responses:
+        "200":
+          description: successfully received
+  /inputcommunicator:
+    post:
+      tags:
+        - Input Communicator
+      description: accepts requests for services and its methods
+      operationId: inputRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service:
+                  type: string
+                method:
+                  type: string
+                data:
+                  type: string
+                  example: "{JSON BLOCK ACCORDING TO THE DESIRED SERVICE}"
+        required: true
+      responses:
+        "200":
+          description: successfully received
+servers:
+  - url: http://localhost:3350
+    description: Device Manager
+  - url: http://localhost:3349
+    description: Data Manager
+  - url: http://localhost:3348
+    description: Action Manager
+  - url: http://localhost:3341
+    description: Action Communicator
+  - url: http://localhost:3344
+    description: Input Communicator

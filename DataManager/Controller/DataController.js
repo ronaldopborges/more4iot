@@ -1,7 +1,7 @@
-const DataRepository = require('../Repository/DataRepository');
-const axios = require('axios');
-const addresses = require('../../config/addresses');
-const config = require('../../config/routesConfig');
+const DataRepository = require('../repository/DataRepository');
+const axios = require('./node_modules/axios');
+const addresses = require('../config/addresses');
+const config = require('../config/routesConfig');
 
 const persistData = async (req, res) => {
     data = req.body;

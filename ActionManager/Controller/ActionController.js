@@ -1,8 +1,8 @@
 const ActionRepository = require('../repository/ActionRepository');
 const Action = require('../model/Action');
 const axios = require('./node_modules/axiose_modules/axios');
-const config = require('../../config/routesConfig');
-const addresses = require('../../config/addresses');
+const config = require('../config/routesConfig');
+const addresses = require('../config/addresses');
 
 const inscribeAction = async (req, res) => {
     data = req.body;

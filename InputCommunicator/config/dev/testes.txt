@@ -1,0 +1,75 @@
+{
+    "service": "DeviceManager",
+    "method": "InscribeDevice",
+    "data":
+{
+	"lat": "25",
+	"lon": "23",
+	"resource": [ "temperatura", "umidade"],
+	"timeToGenerateData": "3",
+	"uri": "http://localhost:4848/atuador",
+	"protocol": "REST",
+	"describe": "atuador da sala 4",
+	"typeDevice": "atuador"
+}
+}
+
+
+{
+    "service": "DeviceManager",
+    "method": "InscribeDevice",
+    "data":
+{
+	"lat": "18",
+	"lon": "18",
+	"resource": [ "temperatura", "umidade"],
+	"timeToGenerateData": "3",
+	"uri": "xxxx",
+	"protocol": "REST",
+	"describe": "sensor da sala 4",
+	"typeDevice": "sensor"
+}
+}
+
+
+{
+    "service": "ActionManager",
+    "method": "InscribeAction",
+    "data":
+    {
+	"uuidAtuador": "",
+	"uuidSensor": "",
+	"command": "ligar",
+	"lifetime": "20",
+	"status": true
+}
+}
+
+{
+    "service": "ActionManager",
+    "method": "InscribeAction",
+    "data":
+    {
+	"uuidAtuador": "",
+	"uuidSensor": "",
+	"command": "desligar",
+	"lifetime": "20",
+	"status": true
+}
+}
+
+
+{
+    "service": "DataManager",
+    "method": "PersistData",
+    "data":
+    {
+	"lat": "20",
+	"lon": "20",
+	"resource": "temperatura",
+	"timeToGenerateData": "3",
+	"value": "10",
+	"uuid": ""
+}    
+}
+

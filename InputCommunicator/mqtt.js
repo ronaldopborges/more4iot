@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const addresses = require('../config/addresses');
+const addresses = require('./config/addresses');
 
 module.exports = topic => {
 try {

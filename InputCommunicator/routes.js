@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('../config/routesConfig');
+const config = require('./config/routesConfig');
 
 const routes = express.Router();
 

@@ -1,4 +1,4 @@
-const Action = require('../Model/Action');
+const Action = require('../model/Action');
 
 const save = async actionparam => {
     try {

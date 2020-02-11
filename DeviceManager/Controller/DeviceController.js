@@ -1,5 +1,5 @@
-const DeviceRepository = require('../Repository/DeviceRepository');
-const Device = require('../Model/Device');
+const DeviceRepository = require('../repository/DeviceRepository');
+const Device = require('../model/Device');
 
 const inscribeDevice = async (req, res) => {
     device = req.body;

@@ -1,6 +1,6 @@
 const express = require('express');
-const DataController = require('./Controller/DataController');
-const config = require('../config/routesConfig');
+const DataController = require('./controller/DataController');
+const config = require('./config/routesConfig');
 
 const routes = express.Router();
 

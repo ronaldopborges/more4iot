@@ -1,6 +1,6 @@
-const config = require('../../config/routesConfig');
-const addresses = require('../../config/addresses');
-const { services, methods, protocols } = require('../../config/options');
+const config = require('../config/routesConfig');
+const addresses = require('../config/addresses');
+const { protocols } = require('../config/options');
 const axios = require('axios');
 const mqtt = require('mqtt');
 const amqp = require('amqplib/callback_api');

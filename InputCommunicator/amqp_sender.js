@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
-const config = require('../config/options');
-const addresses = require('../config/addresses');
+const config = require('./config/options');
+const addresses = require('./config/addresses');
 
 const msgDados = `{
     "service": "GerenciadorDeDados",

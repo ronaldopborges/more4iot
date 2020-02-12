@@ -1,4 +1,4 @@
-const Data = require('../Model/Data');
+const Data = require('../model/Data');
 
 const save = async dataparam => {
     try {

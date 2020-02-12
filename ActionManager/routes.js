@@ -1,6 +1,6 @@
 const express = require('express');
-const ActionController = require('./Controller/ActionController');
-const config = require('../config/routesConfig');
+const ActionController = require('./controller/ActionController');
+const config = require('./config/routesConfig');
 
 const routes = express.Router();
 

@@ -1,4 +1,4 @@
-const Device = require('../Model/Device')
+const Device = require('../model/Device')
 
 const save = async deviceparam => {
     try {

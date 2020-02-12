@@ -3,7 +3,7 @@ const routes = require('./routes');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const addresses = require('../config/addresses');
+const addresses = require('./config/addresses');
 const swaggerDocument = YAML.load('./yaml_3.0.yaml');
 
 module.exports = () => { 

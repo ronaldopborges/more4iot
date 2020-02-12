@@ -1,5 +1,5 @@
 const amqp = require('amqplib/callback_api');
-const addresses = require('../config/addresses');
+const addresses = require('./config/addresses');
 
 
 module.exports = (amqptopic) => {

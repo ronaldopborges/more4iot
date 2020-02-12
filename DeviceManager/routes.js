@@ -1,6 +1,6 @@
 const express = require('express');
-const DeviceController = require('./Controller/DeviceController');
-const config = require('../config/routesConfig');
+const DeviceController = require('./controller/DeviceController');
+const config = require('./config/routesConfig');
 
 const routes = express.Router();
 

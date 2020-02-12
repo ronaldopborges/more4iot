@@ -3,9 +3,9 @@ const amqp = require('./amqp');
 const coap = require('./coap');
 const axios = require('axios');
 const rest = require('./rest');
-const config = require('../config/routesConfig');
-const addresses = require('../config/addresses');
-const { services, topic, methods } = require('../config/options');
+const config = require('./config/routesConfig');
+const addresses = require('./config/addresses');
+const { services, topic, methods } = require('./config/options');
 
 
 global.sender = msg => {

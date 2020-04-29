@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const device = require('./node_modules/uuid/v1');
+const device = require('../node_modules/uuid/v1');
 
 const DeviceSchema = new Schema(
     {

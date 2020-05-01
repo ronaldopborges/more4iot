@@ -20,13 +20,21 @@ const seedDevice = {
   "typeDevice": "Sensor"
 }
 
-it("Testando se deleta um Device no banco pela api rest delete", async done => {
+it("Should successfully delete a device from database", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
   const res = await request.delete(`/devices/delete/007`)
 
   expect(res.body).toBe(true)
+
+  done()
+})
+
+it("Should refuse to delete a nonexistent device from database", async done => {
+  const res = await request.delete(`/devices/delete/015`)
+
+  expect(res.body).toBeFalsy()
 
   done()
 })

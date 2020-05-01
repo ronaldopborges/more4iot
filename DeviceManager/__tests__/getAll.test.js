@@ -6,7 +6,7 @@ const databaseName = 'test004' + '?retryWrites=true&w=majority'
 const Device = require('../Model/device')
 
 setupDB(databaseName)
-const seedsDevice =[ {
+const seedsDevice = [{
   "uuid": "007",
   "lat": 0,
   "lon": 0,
@@ -18,7 +18,7 @@ const seedsDevice =[ {
   "protocol": "MQTT",
   "describe": "Example",
   "typeDevice": "Sensor"
-},{
+}, {
   "uuid": "006",
   "lat": 0,
   "lon": 0,
@@ -30,7 +30,7 @@ const seedsDevice =[ {
   "protocol": "MQTT",
   "describe": "Example",
   "typeDevice": "Sensor"
-},{
+}, {
   "uuid": "008",
   "lat": 0,
   "lon": 0,
@@ -44,8 +44,8 @@ const seedsDevice =[ {
   "typeDevice": "Sensor"
 },
 ]
-it("Testando se busca um Device no banco pela api rest get", async done => {
-  for (const d of seedsDevice){
+it("Should return all devices stored in database", async done => {
+  for (const d of seedsDevice) {
     const seededDevice = new Device.db(d)
     await seededDevice.save()
 

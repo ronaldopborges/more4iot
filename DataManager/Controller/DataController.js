@@ -1,18 +1,23 @@
 const DataRepository = require('../repository/DataRepository');
-const axios = require('./node_modules/axios');
+const axios = require('../node_modules/axios');
 const addresses = require('../config/addresses');
 const config = require('../config/routesConfig');
 
 const persistData = async (req, res) => {
-    data = req.body;
-    response = await DataRepository.save(data);
-    if (response) {
-        axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
-        }).catch((error) => {
-            console.log(error);
-        })
-    }return res.send(response);
+    const data = req.body;
+    let deviceExists = await axios.get(`${addresses.req_deviceManagerIpAndPort}${config.req_deviceManagerRouteCheckDevice}${data.uuid}`).then((resp) => {
+        return resp.data;
+    })
+    if (deviceExists.uuid == data.uuid) {
+        let response = await DataRepository.save(data);
+        if (response) {
+            axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
+            }).catch((error) => {
+            })
+        } return res.send(response);
+    } return res.send(false)
 }
+
 const getData = async (req, res) => {
     const response = await DataRepository.findByUuid(req.params.uuid);
     if (response)
@@ -38,7 +43,7 @@ const deleteData = async (req, res) => {
     if (req.params.uuid != undefined) {
         try {
             const response = await DataRepository.deleteByUuid(req.params.uuid);
-            return response;
+            return res.send(response);
         } catch (error) {
             return res.json({ error: error.message })
         }

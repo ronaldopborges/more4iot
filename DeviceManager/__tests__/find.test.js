@@ -19,14 +19,39 @@ const seedDevice = {
   "describe": "Example",
   "typeDevice": "Sensor"
 }
+const seedDevice2 = {
+  "uuid": "008",
+  "lat": 0,
+  "lon": 0,
+  "resource": [
+    "Teste"
+  ],
+  "timeToGenerateData": 0,
+  "uri": "testeUri",
+  "protocol": "MQTT",
+  "describe": "Example",
+  "typeDevice": "Sensor"
+}
 
-it("Testando se busca um Device no banco pela api rest get", async done => {
+it("Should return a specific searched device", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
   const res = await request.get(`/devices/007`)
 
-  expect(res.body.describe).toBeTruthy()
+  expect(res.body.uuid).toBe("007")
 
   done()
 })
+
+it("Should return false when trying to search for nonexistent device", async done => {
+  const seededDevice2 = new Device.db(seedDevice2)
+  await seededDevice2.save()
+
+  const res2 = await request.get(`/devices/010`)
+
+  expect(res2.body).toBeFalsy()
+
+  done()
+})
+

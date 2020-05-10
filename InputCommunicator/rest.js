@@ -6,6 +6,9 @@ const YAML = require('yamljs');
 const addresses = require('./config/addresses');
 const swaggerDocument = YAML.load('./yaml_3.0.yaml');
 
+/**
+ * Turns online a REST server, which will redirect all messages received to the global sender from index.js
+ */
 module.exports = () => { 
 const server = express();
 

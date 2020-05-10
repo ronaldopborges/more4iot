@@ -4,11 +4,22 @@ const axios = require('./node_modules/axiose_modules/axios');
 const config = require('../config/routesConfig');
 const addresses = require('../config/addresses');
 
+/**
+ * Handles a REST request and send the data to the ActionRepository, for it to persist a new action object into database
+ * @param  {Request} req The REST request with the body which contains all the data of the new action object
+ * @param  {Response}   res   Response, to return a response to the requester(success/error/some data, etc) 
+ */
 const inscribeAction = async (req, res) => {
     data = req.body;
     response = await ActionRepository.save(data);
     return res.send(response);
 }
+
+/**
+ * Handless a REST request and send the data to the ActionRepository, for it to get and return all action objects of a specific device from database
+ * @param  {Request} req The REST request with the body which contains the UUID of the target device to get all the action objects
+ * @param  {Response}   res   Response, to return a response to the requester(success/error/some data, etc)  
+ */
 const getActions = async (req, res) => {
     const response = await ActionRepository.findByUuidSensor(req.params.uuidSensor);
     if (response)
@@ -16,6 +27,12 @@ const getActions = async (req, res) => {
     else
         return res.send(false);
 }
+
+/**
+ * Handles a REST request and send the data to the ActionRepository, for it to return an array with all registered action objects from all devices from database
+ * @param  {Request} req The REST request, no body needed
+ * @param  {Response}   res   Response, to return a response to the requester(success/error/array of data, etc)  
+ */
 const getAllActions = async (req, res) => {
     const response = await ActionRepository.findAll();
     if (response)
@@ -23,6 +40,12 @@ const getAllActions = async (req, res) => {
     else
         return res.send(false);
 }
+
+/**
+ * Handles a REST request which contains a sensor's uuid that just received new data and check with the ActionRepository if there are any currently active action object for this sensor, if so, updates the lifetime  of the action and notify the Action Communicator
+ * @param  {Request} req The REST request, with the UUID of the sensor which just received new data
+ * @param  {Response}   res   Response, to return a response to the requester(success/error/array of data, etc)  
+ */
 const notifyActionCommunicator = async (req, res) => {
     var flag = 0;
     const response = await ActionRepository.findByActiveUuidSensor(req.params.uuidSensor);

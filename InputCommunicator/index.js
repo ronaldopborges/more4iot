@@ -7,7 +7,10 @@ const config = require('./config/routesConfig');
 const addresses = require('./config/addresses');
 const { services, topic, methods } = require('./config/options');
 
-
+/**
+ * Receives a json string from a protocol and handles it to get a 'object' with attributes for 'service', 'method' and object 'data'. Then handles the object to communicate and send the 'data object' and 'method' to the correct 'service'
+ * @param  {String} msg A string in json structure with attributes for 'service'(desired service to request), 'method'(desired method to the service to use), object 'data'(data to send to the desired service)
+ */
 global.sender = msg => {
     msg = JSON.parse(msg);
     const { service, method, data } = msg;

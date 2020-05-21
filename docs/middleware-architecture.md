@@ -1,0 +1,1 @@
+![middleware-architecture](../docs/imgs/middleware-architecture.png)

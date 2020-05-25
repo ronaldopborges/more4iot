@@ -10,7 +10,7 @@ const inscribeDevice = async (req, res) => {
     device = req.body;
     device.uuid = await Device.generateUuid();
     response = await DeviceRepository.save(device);
-    return res.send(response);
+    return res.json(response);
 }
 
 /**

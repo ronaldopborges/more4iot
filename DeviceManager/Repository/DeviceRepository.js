@@ -6,9 +6,10 @@ const Device = require('../model/Device')
  */
 const save = async device => {
     try {
+        console.log(device)
         const newDevice = await Device.db.create(device);
         if (newDevice)
-            return true;
+            return newDevice;
         else return false;
     } catch (error) {
         return false;

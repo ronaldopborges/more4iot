@@ -9,7 +9,7 @@ const coap = require('coap');
 
 /**
  * Handles a REST request which contains an action object. From this action object, gets the attribute uuidAtuador, with it, requests the DeviceManager to get this actuator's URL and PROTOCOL and then send the action object to the actuator through his url using the correct protocol
- * @param  {Request} req The REST request with the body which contains the UUID of the target device to get the last registered data object
+ * @param  {Request} req The REST request with the body which contains the Action Object with the  UUID of the target device get his address and protocol, to send him the Action Object
  * @param  {Response}   res   Response, to return a response to the requester(success/error/some data, etc)  
  */
 const sendToActuator = async (req, res) => {

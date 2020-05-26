@@ -1,8 +1,12 @@
 const Data = require('../model/Data');
 
-const save = async dataparam => {
+/**
+ * Registers a new data object into database
+ * @param  {Object} dataObj The data object with all the attributes required to register into database
+ */
+const save = async dataObj => {
     try {
-        const newData = await Data.db.create(dataparam);
+        const newData = await Data.db.create(dataObj);
         if (newData)
             return true;
         else
@@ -11,9 +15,14 @@ const save = async dataparam => {
         return false;
     }
 }
-const findLastByUuid = async dataparam => {
+
+/**
+ * Get the last registered data object of a device from database
+ * @param  {string} deviceUuid UUID of the target device to get the data object
+ */
+const findLastByUuid = async deviceUuid => {
     try {
-        const dataExists = await Data.db.findOne({ uuid: dataparam }, {}, { sort: { 'createdAt': -1 } });
+        const dataExists = await Data.db.findOne({ uuid: deviceUuid }, {}, { sort: { 'createdAt': -1 } });
         if (dataExists) {
             return dataExists;
         } else
@@ -23,6 +32,11 @@ const findLastByUuid = async dataparam => {
     }
 
 }
+
+/**
+ * Get all registered data objects of a device from database
+ * @param  {string} deviceUuid UUID of the target device to get all registered data object
+ */
 const findByUuid = async dataparam => {
     try {
         const oneExists = await Data.db.findOne({ uuid: dataparam });
@@ -37,6 +51,10 @@ const findByUuid = async dataparam => {
     }
 
 }
+
+/**
+ * Get all registered data objects from all devices
+ */
 const findAll = async () => {
     try {
         const all = await Data.db.find({})
@@ -48,11 +66,16 @@ const findAll = async () => {
         return false;
     }
 }
-const deleteByUuid = async dataparam => {
+
+/**
+ * Deletes all registered data objects of a device from the database
+ * @param  {string} deviceUuid UUID of the target device to delete
+ */
+const deleteByUuid = async deviceUuid => {
     try {
-        const dataExists = await Data.db.findOne({ uuid: dataparam });
+        const dataExists = await Data.db.findOne({ uuid: deviceUuid });
         if (dataExists) {
-            await Data.db.deleteMany({ uuid: dataparam });
+            await Data.db.deleteMany({ uuid: deviceUuid });
             return true;
         }
         else

@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const device = require('./node_modules/uuid/v1');
+const device = require('../node_modules/uuid/v1');
 
 const DeviceSchema = new Schema(
     {
@@ -43,12 +43,15 @@ const DeviceSchema = new Schema(
     {
         timestamps: true,
     });
-    
-    const generateUuid = async () => {
-        const hash = await device();
-        return hash;
-    };
 
-    
+/**
+ * Generates an unique id for a new device
+ */
+const generateUuid = async () => {
+    const hash = await device();
+    return hash;
+};
+
+
 exports.db = model('Device', DeviceSchema);
 exports.generateUuid = generateUuid;

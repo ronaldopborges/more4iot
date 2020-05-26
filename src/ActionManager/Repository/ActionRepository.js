@@ -1,8 +1,12 @@
 const Action = require('../model/Action');
 
-const save = async actionparam => {
+/**
+ * Registers a new action object into database
+ * @param  {Object} actionObj The action object with all the attributes required to register into database
+ */
+const save = async actionObj => {
     try {
-        const newAction = await Action.db.create(actionparam);
+        const newAction = await Action.db.create(actionObj);
         if (newAction)
             return true;
         else
@@ -11,11 +15,16 @@ const save = async actionparam => {
         return false;
     }
 }
-const findByUuidSensor = async actionparam => {
+
+/**
+ * Get all registered action objects of a sensor from database, by uuid
+ * @param  {string} deviceUuid UUID of the target sensor to get the all registered action objects
+ */
+const findByUuidSensor = async deviceUuid => {
     try {
-        const oneExists = await Action.db.findOne({ uuidSensor: actionparam });
+        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidSensor: actionparam });
+            const actionExists = await Action.db.find({ uuidSensor: deviceUuid });
             return actionExists;
         }
         else
@@ -25,9 +34,14 @@ const findByUuidSensor = async actionparam => {
     }
 
 }
-const update = async actionparam => {
+
+/**
+ * Updates the data of an action object from database
+ * @param  {Object} actionUpdated Action object which contains the _id and updated attribute(s) to update into database
+ */
+const update = async actionUpdated => {
     try {
-        const updatedAction = await Action.db.findByIdAndUpdate(actionparam._id, actionparam, { new: true });
+        const updatedAction = await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
         if (updatedAction)
             return updatedAction;
         else
@@ -37,11 +51,16 @@ const update = async actionparam => {
     }
 
 }
-const findByActiveUuidSensor = async actionparam => {
+
+/**
+ * Get all currently active actions(checks its status)
+ * @param  {string} deviceUuid UUID of the target device sensor to get all currently active actions
+ */
+const findByActiveUuidSensor = async deviceUuid => {
     try {
-        const oneExists = await Action.db.findOne({ uuidSensor: actionparam, status: true, lifetime: { $gt: 0 } });
+        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid, status: true, lifetime: { $gt: 0 } });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidSensor: actionparam, status: true, lifetime: { $gt: 0 } });
+            const actionExists = await Action.db.find({ uuidSensor: deviceUuid, status: true, lifetime: { $gt: 0 } });
             return actionExists;
         }
         else
@@ -51,6 +70,11 @@ const findByActiveUuidSensor = async actionparam => {
     }
 
 }
+
+
+/**
+ * Get all registered action objects from all devices
+ */
 const findAll = async () => {
     try {
         const all = await Action.db.find({})

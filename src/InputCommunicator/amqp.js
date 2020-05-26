@@ -1,7 +1,10 @@
 const amqp = require('amqplib/callback_api');
 const addresses = require('./config/addresses');
 
-
+/**
+ * Connect to the AMQP broker from addresses and subscribe to a topic passed as parameter. Redirects any messages received in this topic to the global sender from index.js
+ * @param  {String} amqptopic The topic name to subscribe to on the AMQP broker
+ */
 module.exports = (amqptopic) => {
     try {
         amqp.connect(addresses.amqpBroker, (err, conn) => {

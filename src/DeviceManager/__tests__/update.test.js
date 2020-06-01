@@ -8,12 +8,11 @@ const Device = require('../Model/device')
 setupDB(databaseName)
 const seedDevice = {
   "uuid": "007",
-  "lat": 0,
-  "lon": 0,
+  "latDefault": 0,
+  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
-  "timeToGenerateData": 0,
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",
@@ -26,12 +25,11 @@ it("Should successfully update an device description", async done => {
 
   const res = await request.post(`/devices/update`).send({
     "uuid": "007",
-    "lat": 0,
-    "lon": 0,
+    "latDefault": 0,
+    "lonDefault": 0,
     "resource": [
       "Teste"
     ],
-    "timeToGenerateData": 0,
     "uri": "testeUri",
     "protocol": "MQTT",
     "describe": "ExampleUpdated",
@@ -49,12 +47,11 @@ it("Should refuse to update a device with no matching type param", async done =>
 
   const res = await request.post(`/devices/update`).send({
     "uuid": "001",
-    "lat": "NO MATCHING PARAM",
-    "lon": 0,
+    "latDefault": "NO MATCHING PARAM",
+    "lonDefault": 0,
     "resource": [
       "Teste"
     ],
-    "timeToGenerateData": 0,
     "uri": "testeUri",
     "protocol": "MQTT",
     "describe": "ExampleUpdated",
@@ -73,12 +70,11 @@ it("Should refuse to update an nonexistent device uuid", async done => {
 
   const res = await request.post(`/devices/update`).send({
     "uuid": "001",
-    "lat": 0,
-    "lon": 0,
+    "latDefault": 0,
+    "lonDefault": 0,
     "resource": [
       "Teste"
     ],
-    "timeToGenerateData": 0,
     "uri": "testeUri",
     "protocol": "MQTT",
     "describe": "ExampleUpdated",

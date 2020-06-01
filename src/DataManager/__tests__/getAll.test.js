@@ -9,30 +9,34 @@ setupDB(databaseName)
 const seedsData = [{
   "lat": 4,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "4545"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "4545"
 },
 {
   "lat": 5,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "132"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "132"
 },
 {
   "lat": 5,
   "lon": 4,
-  "resource": "string",
-  "value": "string",
-  "uuid": "132"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "132"
 },
 {
   "lat": 5,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "122"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "122"
 }
 ]
 

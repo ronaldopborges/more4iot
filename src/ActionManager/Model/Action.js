@@ -10,13 +10,23 @@ const ActionSchema = new Schema(
             type: String,
             required: true,
         },
-        command: {
-            type: String,
+        dataSensor: {
+            type: Schema.Types.Mixed,
             required: true,
         },
-        lifetime: {
-            type: Number,
+        dataAtuador: {
+            type: Schema.Types.Mixed,
             required: true,
+        },
+        lifetimeAtuacao: {
+            lifetime: {
+                type: Number,
+                required: true,
+            },
+            quant: {
+                type: Number,
+                required: true
+            }
         },
         status: {
             type: Boolean,

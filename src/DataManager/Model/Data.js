@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const DataSchema = new Schema(
     {
-        uuid: {
+        deviceUuid: {
             type: String,
             required: true,
         },
@@ -14,12 +14,8 @@ const DataSchema = new Schema(
             type: Number,
             required: true,
         },
-        resource: {
-            type: String,
-            required: true
-        },
-        value: {
-            type: String,
+        object: {
+            type: Schema.Types.Mixed,
             required: true
         },
     },

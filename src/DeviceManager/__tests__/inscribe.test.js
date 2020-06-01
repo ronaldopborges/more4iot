@@ -9,19 +9,18 @@ setupDB(databaseName)
 it("Should successfully store a device into database", async done => {
   const res = await request.post('/devices/inscribe')
     .send({
-      "lat": 0,
-      "lon": 0,
+      "latDefault": 0,
+      "lonDefault": 0,
       "resource": [
         "Teste"
       ],
-      "timeToGenerateData": 0,
       "uri": "testeUri",
       "protocol": "MQTT",
       "describe": "Example",
       "typeDevice": "Sensor"
     })
 
-  expect(res.body).toBe(true)
+  expect(res.body._id).toBeTruthy()
 
   done()
 })
@@ -29,12 +28,11 @@ it("Should successfully store a device into database", async done => {
 it("Should refuse missing required param when trying to store a device", async done => {
   const res = await request.post('/devices/inscribe')
     .send({
-      "lat": 0,
-      "lon": 0,
+      "latDefault": 0,
+      "lonDefault": 0,
       "resource": [
         "Teste"
       ],
-      "timeToGenerateData": 0,
       "uri": "testeUri",
       "describe": "Example",
       "typeDevice": "Sensor"
@@ -48,12 +46,11 @@ it("Should refuse missing required param when trying to store a device", async d
 it("Should refuse no matching param type when trying to store a device", async done => {
   const res = await request.post('/devices/inscribe')
     .send({
-      "lat": 0,
+      "lat": "no matching type",
       "lon": 0,
       "resource": [
         "Teste"
       ],
-      "timeToGenerateData": "NO MATCHING PARAM TYPE",
       "uri": "testeUri",
       "protocol": "MQTT",
       "describe": "Example",

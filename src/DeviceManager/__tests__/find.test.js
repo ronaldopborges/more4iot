@@ -8,12 +8,11 @@ const Device = require('../Model/device')
 setupDB(databaseName)
 const seedDevice = {
   "uuid": "007",
-  "lat": 0,
-  "lon": 0,
+  "latDefault": 0,
+  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
-  "timeToGenerateData": 0,
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",
@@ -21,12 +20,11 @@ const seedDevice = {
 }
 const seedDevice2 = {
   "uuid": "008",
-  "lat": 0,
-  "lon": 0,
+  "latDefault": 0,
+  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
-  "timeToGenerateData": 0,
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",

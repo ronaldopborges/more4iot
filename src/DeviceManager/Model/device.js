@@ -8,21 +8,17 @@ const DeviceSchema = new Schema(
             required: true,
             unique: true,
         },
-        lat: {
+        latDefault: {
             type: Number,
             required: true,
         },
-        lon: {
+        lonDefault: {
             type: Number,
             required: true,
         },
         resource: [{
             type: String
         }],
-        timeToGenerateData: {
-            type: Number,
-            required: true
-        },
         uri: {
             type: String,
             required: true

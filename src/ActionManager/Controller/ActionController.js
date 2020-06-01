@@ -1,6 +1,6 @@
 const ActionRepository = require('../repository/ActionRepository');
 const Action = require('../model/Action');
-const axios = require('./node_modules/axiose_modules/axios');
+const axios = require('axios');
 const config = require('../config/routesConfig');
 const addresses = require('../config/addresses');
 

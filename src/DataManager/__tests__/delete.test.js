@@ -9,16 +9,18 @@ setupDB(databaseName)
 const seedsData = [{
   "lat": 4,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
 },
 {
   "lat": 5,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
 }
 ]
 jest.setTimeout(30000);

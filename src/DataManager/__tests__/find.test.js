@@ -9,23 +9,25 @@ setupDB(databaseName)
 const seedData = {
   "lat": 0,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
 }
 const seedData2 = {
   "lat": 0,
   "lon": 0,
-  "resource": "string",
-  "value": "string",
-  "uuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "object": {
+    "gps": 10,
+  },
+  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
 }
 
 it("Should return all data from a specific device", async done => {
   const seededData = new Data.db(seedData)
   await seededData.save()
 
-  const res = await request.get(`/datas/${seedData.uuid}`)
+  const res = await request.get(`/datas/${seedData.deviceUuid}`)
 
   expect(res.body).toBeTruthy()
 
@@ -47,7 +49,7 @@ it("Should return LAST data stored for a specic device", async done => {
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
-  const res = await request.get(`/datas/last/${seedData2.uuid}`)
+  const res = await request.get(`/datas/last/${seedData2.deviceUuid}`)
 
   expect(res.body).toBeTruthy()
 

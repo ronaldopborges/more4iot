@@ -1,37 +1,31 @@
 const express = require('express');
 const config = require('./config/routesConfig');
-const httpProxy = require('express-http-proxy');
 const routes = express.Router();
-const addresses = require('./config/addresses');
-
-const deviceManagerServiceProxy = httpProxy(addresses.req_deviceManagerIpAndPort);
-const dataManagerServiceProxy = httpProxy(addresses.req_dataManagerIpAndPort);
-const actionManagerServiceProxy = httpProxy(addresses.req_actionManagerIpAndPort);
-const actionCommunicatorServiceProxy = httpProxy(addresses.req_actionCommunicatorIpAndPort);
+const Controller = require('./Controller/ServiceCatalogerController')
 
 
 // GATEWAY TO DEVICE MANAGER
-routes.post(`/${config.deviceManagerRouteSave}`, (req, res, next) => deviceManagerServiceProxy(req, res, next));
-routes.get(`/${config.deviceManagerRouteCheckDevice}`, (req, res, next) => deviceManagerServiceProxy(req, res, next));
-routes.post(`/${config.deviceManagerRouteUpdate}`, (req, res, next) => deviceManagerServiceProxy(req, res, next));
-routes.delete(`/${config.deviceManagerRouteDelete}`, (req, res, next) => deviceManagerServiceProxy(req, res, next));
-routes.get(`/${config.deviceManagerRouteGetAll}`, (req, res, next) => deviceManagerServiceProxy(req, res, next));
+routes.post(`/${config.deviceManagerRouteSave}`, Controller.deviceManager);
+routes.get(`/${config.deviceManagerRouteCheckDevice}`, Controller.deviceManager);
+routes.post(`/${config.deviceManagerRouteUpdate}`, Controller.deviceManager);
+routes.delete(`/${config.deviceManagerRouteDelete}`, Controller.deviceManager);
+routes.get(`/${config.deviceManagerRouteGetAll}`, Controller.deviceManager);
 
 // GATEWAY TO DATA MANAGER
-routes.post(`/${config.dataManagerRouteSave}`, (req, res, next) => dataManagerServiceProxy(req, res, next));
-routes.get(`/${config.dataManagerRouteGetDataByUuid}`, (req, res, next) => dataManagerServiceProxy(req, res, next));
-routes.get(`/${config.dataManagerRouteGetAll}`, (req, res, next) => dataManagerServiceProxy(req, res, next));
-routes.get(`/${config.dataManagerRouteGetLastByUuid}`, (req, res, next) => dataManagerServiceProxy(req, res, next));
-routes.delete(`/${config.dataManagerRouteDelete}`, (req, res, next) => dataManagerServiceProxy(req, res, next));
+routes.post(`/${config.dataManagerRouteSave}`, Controller.dataManager);
+routes.get(`/${config.dataManagerRouteGetDataByUuid}`, Controller.dataManager);
+routes.get(`/${config.dataManagerRouteGetAll}`, Controller.dataManager);
+routes.get(`/${config.dataManagerRouteGetLastByUuid}`, Controller.dataManager);
+routes.delete(`/${config.dataManagerRouteDelete}`, Controller.dataManager);
 
 // GATEWAY TO ACTION MANAGER
-routes.post(`/${config.actionManagerRouteSave}`, (req, res, next) => actionManagerServiceProxy(req, res, next));
-routes.get(`/${config.actionManagerRouteGetActionsByUuid}`, (req, res, next) => actionManagerServiceProxy(req, res, next));
-routes.get(`/${config.actionManagerRouteGetAll}`, (req, res, next) => actionManagerServiceProxy(req, res, next));
-routes.get(`/${config.actionManagerRouteNotifyActionCommunicator}`, (req, res, next) => actionManagerServiceProxy(req, res, next));
+routes.post(`/${config.actionManagerRouteSave}`, Controller.actionManager);
+routes.get(`/${config.actionManagerRouteGetActionsByUuid}`, Controller.actionManager);
+routes.get(`/${config.actionManagerRouteGetAll}`, Controller.actionManager);
+routes.get(`/${config.actionManagerRouteNotifyActionCommunicator}`, Controller.actionManager);
 
 // GATEWAY TO ACTION COMMUNICATOR
-routes.post(`/${config.actionCommunicatorRouteNotify}`, (req, res, next) => actionCommunicatorServiceProxy(req, res, next));
+routes.post(`/${config.actionCommunicatorRouteNotify}`, Controller.actionCommunicator);
 
 module.exports = routes;
 

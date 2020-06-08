@@ -12,7 +12,7 @@ const addresses = require('../config/addresses');
 const inscribeAction = async (req, res) => {
     data = req.body;
     response = await ActionRepository.save(data);
-    return res.send(response);
+    return res.json(response);
 }
 
 /**

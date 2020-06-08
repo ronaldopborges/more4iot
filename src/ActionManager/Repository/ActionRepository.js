@@ -8,7 +8,7 @@ const save = async actionObj => {
     try {
         const newAction = await Action.db.create(actionObj);
         if (newAction)
-            return true;
+            return newAction;
         else
             return false;
     } catch (error) {

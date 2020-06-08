@@ -16,11 +16,11 @@ const persistData = async (req, res) => {
 
     if (deviceExists) {
         let response = await DataRepository.save(data);
-        // if (response) {
-        //     axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
-        //     }).catch((error) => {
-        //     })
-        // } 
+        if (response) {
+            axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
+            }).catch((error) => {
+            })
+        } 
         return res.send(response);
     } return res.send(false)
 }

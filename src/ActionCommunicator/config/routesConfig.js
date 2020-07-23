@@ -7,13 +7,11 @@ const actionManagerRouteGetActionsByUuid = 'actions/:uuidSensor';
 const actionManagerRouteGetAll = 'actions';
 const actionManagerRouteNotifyActionCommunicator = 'actions/notify/:uuidSensor';
 
-
 const deviceManagerRouteSave = 'devices/inscribe';
 const deviceManagerRouteUpdate = 'devices/update';
 const deviceManagerRouteGetAll = 'devices';
 const deviceManagerRouteCheckDevice = 'devices/:uuid';
 const deviceManagerRouteDelete = 'devices/delete/:uuid';
-
 
 const dataManagerRouteSave = 'datas/persist';
 const dataManagerRouteGetDataByUuid = 'datas/:uuid';
@@ -41,10 +39,7 @@ const req_actionManagerRouteGetActionsByUuid = 'actions/';
 const req_actionManagerRouteGetAll = 'actions';
 const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify/';
 
-
-
 const req_actionCommunicatorRouteNotify = 'actioncommunicator/notify';
-
 
 const inputCommunicatorRoute = 'inputcommunicator';
 

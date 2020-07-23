@@ -18,6 +18,6 @@ mongoose.connect(DATABASE_URL,
       useCreateIndex: true
   });
 
-server.listen(addresses.deviceManagerPort, () => {
+server.listen(process.env.DEVICE_MANAGER_PORT, () => {
   console.log("Device manager online...")
 });

@@ -3,11 +3,24 @@ version: '3'
 networks:
   default:
     external:
-      name: cestao
+      name: middleware
 
 services:
-  nfce-service:
+  m-device-manager:
     build: .
-    container_name: nfce-service
+    container_name: m-device-manager
     ports:
-      - '3000:3000'
+     - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
+    depends_on:
+      - mongo
+    
+  mongo:
+    image: mongo
+    container_name: m-device-manager-mongo
+    environment: 
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_DATABASE_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_DATABASE_ROOT_PASSWORD}
+    ports: 
+      - ${DEVICE_MANAGER_MONGODB_PORT}:${DEVICE_MANAGER_MONGODB_PORT}
+    

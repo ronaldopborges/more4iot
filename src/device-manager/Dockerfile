@@ -1,10 +1,10 @@
 FROM node:current-slim
 
-WORKDIR /usr/nfce-service
+WORKDIR /usr/m-device-manager
 COPY package.json .
 RUN npm install
 
-EXPOSE 3000
+EXPOSE ${DEVICE_MANAGER_PORT}
 CMD ["npm", "start"]
 
 COPY . .

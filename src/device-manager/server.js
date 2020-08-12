@@ -10,6 +10,8 @@ server.use(express.json());
 server.use(cors());
 server.use(routes);
 
+console.log(DATABASE_URL);
+
 mongoose.connect(DATABASE_URL,
   {
       useNewUrlParser: true,

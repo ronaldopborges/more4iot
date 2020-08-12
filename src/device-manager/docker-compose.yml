@@ -22,15 +22,5 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DEVICE_MANAGER_DB_PASSWORD}
     ports: 
       - ${DEVICE_MANAGER_DB_PORT}:${DEVICE_MANAGER_DB_PORT}
-  mongo-express:
-    image: mongo-express
-    restart: always
-    depends_on:
-      - devicemanager-mongo
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=devicemanager-mongo
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${DEVICE_MANAGER_DB_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${DEVICE_MANAGER_DB_PASSWORD}
-    ports:
-      - 8081:8081
+
     

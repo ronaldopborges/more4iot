@@ -12,25 +12,25 @@ services:
     ports:
      - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
     depends_on:
-      - devicemanager-mongo
+      - mongo
     
-  devicemanager-mongo:
+  mongo:
     image: mongo
-    container_name: devicemanager-mongo
+    container_name: mongo
     environment: 
-      - MONGO_INITDB_ROOT_USERNAME=${DEVICE_MANAGER_DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DEVICE_MANAGER_DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
     ports: 
-      - ${DEVICE_MANAGER_DB_PORT}:${DEVICE_MANAGER_DB_PORT}
+      - ${MONGO_PORT}:${MONGO_PORT}
   mongo-express:
     image: mongo-express
     restart: always
     depends_on:
-      - devicemanager-mongo
+      - mongo
     environment:
-      - ME_CONFIG_MONGODB_SERVER=devicemanager-mongo
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${DEVICE_MANAGER_DB_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${DEVICE_MANAGER_DB_PASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASS}
     ports:
-      - 8081:8081
+      - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
     

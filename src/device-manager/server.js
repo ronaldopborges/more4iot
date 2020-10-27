@@ -15,7 +15,7 @@ console.log(DATABASE_URL);
 mongoose.connect(DATABASE_URL,
   {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: false,
       useFindAndModify: false,
       useCreateIndex: true
   });

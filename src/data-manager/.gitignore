@@ -1,5 +1,5 @@
 *.lock
-package-lock.json
+*lock.json
 
 # Logs
 logs

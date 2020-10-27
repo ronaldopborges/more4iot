@@ -7,13 +7,17 @@
   "author": "IoTUfersa",
   "license": "MIT",
   "private": false,
+  "scripts":{
+    "start": "node server.js"
+  },
   "dependencies": {
     "amqplib": "^0.5.5",
     "axios": "^0.19.2",
     "coap": "^0.23.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mqtt": "^3.0.0"
+    "mqtt": "^3.0.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

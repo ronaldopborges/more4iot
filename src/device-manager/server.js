@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const addresses = require('./config/addresses');
 const routes = require('./routes');
 const { DATABASE_URL } = require('./config/env');
 
@@ -10,12 +9,10 @@ server.use(express.json());
 server.use(cors());
 server.use(routes);
 
-console.log(DATABASE_URL);
-
 mongoose.connect(DATABASE_URL,
   {
       useNewUrlParser: true,
-      useUnifiedTopology: false,
+      useUnifiedTopology: true,
       useFindAndModify: false,
       useCreateIndex: true
   });

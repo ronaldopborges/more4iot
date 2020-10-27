@@ -2,9 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
-const addresses = require('./config/addresses');
-const { DATABASE_URL } = require('./config/env');
+const { DATABASE_URL, SERVICE_PORT} = require('./config/env');
 
 const server = express();
 server.use(express.json());
@@ -19,8 +17,6 @@ mongoose.connect(DATABASE_URL,
     useCreateIndex: true
   });
 
-server.listen(addresses.actionManagerPort, () => {
+server.listen(SERVICE_PORT, () => {
   console.log("Action manager online...")
 });
-
-module.exports = server

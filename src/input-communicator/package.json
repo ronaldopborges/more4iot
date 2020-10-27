@@ -7,6 +7,9 @@
   "author": "IoTUfersa",
   "license": "MIT",
   "private": false,
+  "scripts":{
+    "start": "node index.js"
+  },
   "dependencies": {
     "amqplib": "^0.5.5",
     "axios": "^0.19.2",

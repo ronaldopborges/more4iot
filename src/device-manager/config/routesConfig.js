@@ -1,6 +1,4 @@
-
 const actionCommunicatorRouteNotify = 'actioncommunicator/notify';
-
 
 const actionManagerRouteSave = 'actions/inscribe';
 const actionManagerRouteGetActionsByUuid = 'actions/:uuidSensor';
@@ -41,16 +39,9 @@ const req_actionManagerRouteGetActionsByUuid = 'actions/';
 const req_actionManagerRouteGetAll = 'actions';
 const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify/';
 
-
-
 const req_actionCommunicatorRouteNotify = 'actioncommunicator/notify';
 
-
 const inputCommunicatorRoute = 'inputcommunicator';
-
-
-
-
 
 
 exports.actionCommunicatorRouteNotify = actionCommunicatorRouteNotify;

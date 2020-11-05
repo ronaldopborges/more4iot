@@ -1,12 +1,14 @@
-const { setupDB } = require('./test-setup')
-const server = require('../server')
-const supertest = require('supertest')
-const request = supertest(server)
-const databaseName = 'test003' + '?retryWrites=true&w=majority'
-const Data = require('../Model/data')
+const { setupDB }   = require('./test-setup')
+const server        = require('../server')
+const supertest     = require('supertest')
+const request       = supertest(server)
+const databaseName  = 'test003' + '?retryWrites=true&w=majority'
+const Data          = require('../Model/data')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
-const seedsData = [{
+
+const seedsData     = [{
   "lat": 4,
   "lon": 0,
   "object": {

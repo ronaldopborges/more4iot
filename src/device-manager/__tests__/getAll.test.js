@@ -1,12 +1,14 @@
-const { setupDB } = require('./test-setup')
-const server = require('../server')
-const supertest = require('supertest')
-const request = supertest(server)
-const databaseName = 'test004' + '?retryWrites=true&w=majority'
-const Device = require('../Model/device')
+const { setupDB }     = require('./test-setup')
+const server          = require('../server')
+const supertest       = require('supertest')
+const request         = supertest(server)
+const databaseName    = 'test004' + '?retryWrites=true&w=majority'
+const Device          = require('../Model/device')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
-const seedsDevice = [{
+
+const seedsDevice     = [{
   "uuid": "007",
   "latDefault": 0,
   "lonDefault": 0,

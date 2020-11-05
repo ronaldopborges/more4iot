@@ -1,5 +1,5 @@
-const DeviceRepository = require('../repository/DeviceRepository');
-const Device = require("../model/device");
+const DeviceRepository  = require('../repository/DeviceRepository');
+const Device            = require("../model/device");
 
 /**
  * Handles a REST request and send the data to the DeviceRepository, for it to register a new device into database

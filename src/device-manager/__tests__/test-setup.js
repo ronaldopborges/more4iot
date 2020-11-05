@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const { DATABASE_URL_TESTING } = require('../config/env');
-mongoose.promise = global.Promise
+const mongoose                  = require('mongoose')
+const { DATABASE_URL_TESTING }  = require('../config/env');
+mongoose.promise                = global.Promise
 
 async function removeAllCollections () {
   const collections = Object.keys(mongoose.connection.collections)

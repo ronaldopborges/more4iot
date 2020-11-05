@@ -1,8 +1,7 @@
-const express = require('express');
-const DeviceController = require('./controller/DeviceController');
-const config = require('./config/routesConfig');
-
-const routes = express.Router();
+const express               = require('express');
+const DeviceController      = require('./controller/DeviceController');
+const config                = require('./config/routesConfig');
+const routes                = express.Router();
 
  routes.post(`/${config.deviceManagerRouteSave}`,DeviceController.inscribeDevice);
  routes.get(`/${config.deviceManagerRouteCheckDevice}`,DeviceController.checkDevice);
@@ -10,4 +9,4 @@ const routes = express.Router();
  routes.delete(`/${config.deviceManagerRouteDelete}`,DeviceController.deleteDevice);
  routes.get(`/${config.deviceManagerRouteGetAll}`,DeviceController.getAllDevices);
 
- module.exports = routes;
+ module.exports             = routes;

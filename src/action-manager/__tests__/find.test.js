@@ -1,9 +1,11 @@
-const { setupDB } = require('./test-setup')
-const server = require('../server')
-const supertest = require('supertest')
-const request = supertest(server)
-const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Action = require('../Model/action')
+const { setupDB }   = require('./test-setup')
+const server        = require('../server')
+const supertest     = require('supertest')
+const request       = supertest(server)
+const databaseName  = 'test002' + '?retryWrites=true&w=majority'
+const Action        = require('../Model/action')
+
+jest.setTimeout(30000);
 
 setupDB(databaseName)
 const seedAction = {

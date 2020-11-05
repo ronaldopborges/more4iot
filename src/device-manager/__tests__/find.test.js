@@ -1,12 +1,14 @@
-const { setupDB } = require('./test-setup')
-const server = require('../server')
-const supertest = require('supertest')
-const request = supertest(server)
-const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Device = require('../Model/device')
+const { setupDB }     = require('./test-setup')
+const server          = require('../server')
+const supertest       = require('supertest')
+const request         = supertest(server)
+const databaseName    = 'test002' + '?retryWrites=true&w=majority'
+const Device          = require('../Model/device')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
-const seedDevice = {
+
+const seedDevice      = {
   "uuid": "007",
   "latDefault": 0,
   "lonDefault": 0,
@@ -18,7 +20,7 @@ const seedDevice = {
   "describe": "Example",
   "typeDevice": "Sensor"
 }
-const seedDevice2 = {
+const seedDevice2     = {
   "uuid": "008",
   "latDefault": 0,
   "lonDefault": 0,

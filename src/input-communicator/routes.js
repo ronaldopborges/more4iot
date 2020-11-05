@@ -1,7 +1,6 @@
-const express = require('express');
-const config = require('./config/routesConfig');
-
-const routes = express.Router();
+const express     = require('express');
+const config      = require('./config/routesConfig');
+const routes      = express.Router();
 
  routes.post(`/${config.inputCommunicatorRoute}`,async (req, res) => {
    const response = await sender(JSON.stringify(req.body));   
@@ -10,4 +9,4 @@ const routes = express.Router();
     res.send(response)
  });
 
- module.exports = routes;
+ module.exports   = routes;

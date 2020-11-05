@@ -12,6 +12,7 @@ const save = async actionObj => {
         else
             return false;
     } catch (error) {
+        console.log(error)
         return false;
     }
 }
@@ -58,9 +59,10 @@ const update = async actionUpdated => {
  */
 const findByActiveUuidSensor = async deviceUuid => {
     try {
-        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid, status: true, lifetime: { $gt: 0 } });
+        //console.log(deviceUuid)
+        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid, status: true });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidSensor: deviceUuid, status: true, lifetime: { $gt: 0 } });
+            const actionExists = await Action.db.find({ uuidSensor: deviceUuid, status: true });
             return actionExists;
         }
         else
@@ -87,8 +89,8 @@ const findAll = async () => {
     }
 }
 
-exports.findByActiveUuidSensor = findByActiveUuidSensor;
-exports.findAll = findAll;
-exports.findByUuidSensor = findByUuidSensor;
-exports.save = save;
-exports.update = update;
+exports.findByActiveUuidSensor  = findByActiveUuidSensor;
+exports.findAll                 = findAll;
+exports.findByUuidSensor        = findByUuidSensor;
+exports.save                    = save;
+exports.update                  = update;

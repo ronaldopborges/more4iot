@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node server.js",
+    "start": "node start.js",
     "test": "jest --runInBand --detectOpenHandles --verbose",
     "test:watch": "jest --watch"
   },

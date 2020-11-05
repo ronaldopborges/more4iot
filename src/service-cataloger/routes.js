@@ -1,8 +1,7 @@
-const express = require('express');
-const config = require('./config/routesConfig');
-const routes = express.Router();
-const Controller = require('./controller/ServiceCatalogerController')
-
+const express       = require('express');
+const config        = require('./config/routesConfig');
+const routes        = express.Router();
+const Controller    = require('./Controller/ServiceCatalogerController')
 
 // GATEWAY TO DEVICE MANAGER
 routes.post(`/${config.deviceManagerRouteSave}`, Controller.deviceManager);

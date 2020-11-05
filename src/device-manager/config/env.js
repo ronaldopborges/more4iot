@@ -1,7 +1,6 @@
-const dotenv = require('dotenv');
+const dotenv    = require('dotenv');
 dotenv.config();
-module.exports = {
-  SERVICE_PORT: process.env.DEVICE_MANAGER_PORT,
-  DATABASE_URL: process.env.DEVICE_MANAGER_DB_URL,
-  DATABASE_URL_TESTING: process.env.DEVICE_MANAGER_DB_URL_TEST
+module.exports  = {
+  DATABASE_URL: process.env.MONGODB_DATABASE_URL,
+  DATABASE_URL_TESTING: process.env.MONGODB_DATABASE_URL_TESTING
 };

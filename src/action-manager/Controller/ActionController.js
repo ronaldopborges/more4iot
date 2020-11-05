@@ -10,8 +10,8 @@ const addresses = require('../config/addresses');
  * @param  {Response}   res   Response, to return a response to the requester(success/error/some data, etc) 
  */
 const inscribeAction = async (req, res) => {
-    data = req.body;
-    response = await ActionRepository.save(data);
+    data        = req.body;
+    response    = await ActionRepository.save(data);
     return res.json(response);
 }
 
@@ -47,11 +47,11 @@ const getAllActions = async (req, res) => {
  * @param  {Response}   res   Response, to return a response to the requester(success/error/array of data, etc)  
  */
 const notifyActionCommunicator = async (req, res) => {
-    var flag = 0;
-    const response = await ActionRepository.findByActiveUuidSensor(req.params.uuidSensor);
+    var flag        = 0;
+    const response  = await ActionRepository.findByActiveUuidSensor(req.params.uuidSensor);
     if (response) {
         response.forEach(async action => {
-            action = Action.updateLifetime(action);
+            action      = Action.updateLifetime(action);
             var updated = await ActionRepository.update(action);
             if(!updated)
             flag = flag + 1;
@@ -66,7 +66,7 @@ const notifyActionCommunicator = async (req, res) => {
         return res.send(false);
 }
 
-exports.notifyActionCommunicator = notifyActionCommunicator;
-exports.getAllActions = getAllActions;
-exports.getActions = getActions;
-exports.inscribeAction = inscribeAction;
+exports.notifyActionCommunicator    = notifyActionCommunicator;
+exports.getAllActions               = getAllActions;
+exports.getActions                  = getActions;
+exports.inscribeAction              = inscribeAction;

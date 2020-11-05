@@ -1,7 +1,7 @@
-const coap = require('coap') // or coap
-  , req = coap.request('coap://localhost/Matteo')
+const coap  = require('coap') // or coap
+  ,   req   = coap.request('coap://localhost/Matteo')
 
-const msg = {
+const msg   = {
   service: "GerenciadorDeDispositivos",
   method: "RegistrarDispositivo",
   data:

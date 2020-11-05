@@ -1,7 +1,7 @@
-const DataRepository = require('../repository/DataRepository');
-const axios = require('../node_modules/axios');
-const addresses = require('../config/addresses');
-const config = require('../config/routesConfig');
+const DataRepository    = require('../repository/DataRepository');
+const axios             = require('../node_modules/axios');
+const addresses         = require('../config/addresses');
+const config            = require('../config/routesConfig');
 
 /**
  * Handles a REST request and send the data to the DataRepository, for it to persist a new data object into database
@@ -11,13 +11,14 @@ const config = require('../config/routesConfig');
 const persistData = async (req, res) => {
     const data = req.body;
     let deviceExists = await axios.get(`${addresses.req_deviceManagerIpAndPort}${config.req_deviceManagerRouteCheckDevice}${data.deviceUuid}`).then((resp) => {
-        return resp.data;
+       deviceExists2 = resp.data;
     })
 
-    if (deviceExists) {
+    if (deviceExists2) {
         let response = await DataRepository.save(data);
         if (response) {
-            axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
+            axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.deviceUuid}`).then((res) => {
+                //console.log(res.data);
             }).catch((error) => {
             })
         } 

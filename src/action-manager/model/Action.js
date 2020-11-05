@@ -20,7 +20,7 @@ const ActionSchema = new Schema(
         },
         lifetimeAtuacao: {
             lifetime: {
-                type: Number,
+                type: Boolean,
                 required: true,
             },
             quant: {

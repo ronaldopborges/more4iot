@@ -6,7 +6,7 @@ const Device = require('../model/device');
  */
 const save = async device => {
     try {
-        //console.log(device)
+        console.log(device)
         const newDevice = await Device.db.create(device);
         if (newDevice)
             return newDevice;

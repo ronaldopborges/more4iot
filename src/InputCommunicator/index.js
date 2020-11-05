@@ -1,11 +1,11 @@
-const mqtt                          = require('./mqtt');
-const amqp                          = require('./amqp');
-const coap                          = require('./coap');
-const axios                         = require('axios');
-const rest                          = require('./rest');
-const config                        = require('./config/routesConfig');
-const addresses                     = require('./config/addresses');
-const { services, topic, methods }  = require('./config/options');
+const mqtt = require('./mqtt');
+const amqp = require('./amqp');
+const coap = require('./coap');
+const axios = require('axios');
+const rest = require('./rest');
+const config = require('./config/routesConfig');
+const addresses = require('./config/addresses');
+const { services, topic, methods } = require('./config/options');
 
 /**
  * Receives a json string from a protocol and handles it to get a 'object' with attributes for 'service', 'method' and object 'data'. Then handles the object to communicate and send the 'data object' and 'method' to the correct 'service'

@@ -1,7 +1,8 @@
-const express           = require('express');
-const DataController    = require('./controller/DataController');
-const config            = require('./config/routesConfig');
-const routes            = express.Router();
+const express = require('express');
+const DataController = require('./controller/DataController');
+const config = require('./config/routesConfig');
+
+const routes = express.Router();
 
  routes.post(`/${config.dataManagerRouteSave}`,DataController.persistData);
  routes.get(`/${config.dataManagerRouteGetDataByUuid}`,DataController.getData);
@@ -9,4 +10,4 @@ const routes            = express.Router();
  routes.get(`/${config.dataManagerRouteGetLastByUuid}`,DataController.getLastData);
  routes.delete(`/${config.dataManagerRouteDelete}`,DataController.deleteData);
 
- module.exports         = routes;
+ module.exports = routes;

@@ -1,9 +1,9 @@
-const services      = Object.freeze({
+const services = Object.freeze({
     "ActionManager": "ActionManager",
     "DeviceManager": "DeviceManager",
     "DataManager": "DataManager"
 })
-const methods       = Object.freeze({
+const methods = Object.freeze({
     "DataManager": {
         "PersistData": "PersistData",
         "GetData": "GetData",
@@ -24,16 +24,16 @@ const methods       = Object.freeze({
 
     }
 })
-const protocols     = Object.freeze({
+const protocols = Object.freeze({
     "MQTT": "MQTT",
     "AMQP": "AMQP",
     "REST": "REST",
     "COAP": "COAP"
 })
 
-const topic         = 'iotufersa';
+const topic = 'iotufersa';
 
-exports.services    = services;
-exports.methods     = methods;
-exports.protocols   = protocols;
-exports.topic       = topic;
+exports.services = services;
+exports.methods = methods;
+exports.protocols = protocols;
+exports.topic = topic;

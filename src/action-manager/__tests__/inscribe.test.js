@@ -1,10 +1,9 @@
-const { setupDB }   = require('./test-setup')
-const server        = require('../server')
-const supertest     = require('supertest')
-const request       = supertest(server)
-const databaseName  = 'test001' + '?retryWrites=true&w=majority'
+const { setupDB } = require('./test-setup')
+const server = require('../server')
+const supertest = require('supertest')
+const request = supertest(server)
+const databaseName = 'test001' + '?retryWrites=true&w=majority'
 
-jest.setTimeout(30000);
 setupDB(databaseName)
 
 it("Should successfully store an action into database", async done => {

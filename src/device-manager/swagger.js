@@ -67,7 +67,7 @@ module.exports = {
         consumes: ["application/json"],
         produces: ["application/json"],
         parameters: [{
-          in: "device",
+          in: "body",
           name: "device",
           description: "Device object that needs to be inscribe to the device manager",
           required: true,

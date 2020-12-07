@@ -56,25 +56,48 @@ module.exports = {
         }
       }
     },
+    requestBodies: {
+      Device: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: "#/components/schemas/Device"
+            }
+          },
+          'application/xml': {
+            schema: {
+              $ref: "#/components/schemas/Device"
+            }
+          }
+        },
+        description: "Device object that needs to be added to the device manager service",
+        required: true
+      }
+    }
   },
   paths: {
+    '/devices': {
+      get: {
+        tags: ["device"],
+        summary: "Get all devices",
+        description: "",
+        operationId: "getAllDevice",
+        responses: {
+          "200": {
+            description: "All devices"
+          },
+        }
+      }
+    },
     '/devices/inscribe': {
       post: {
         tags: ["device"],
         summary: "Inscribe a new device",
         description: "",
         operationId: "inscribeDevice",
-        consumes: ["application/json"],
-        produces: ["application/json"],
-        parameters: [{
-          in: "body",
-          name: "device",
-          description: "Device object that needs to be inscribe to the device manager",
-          required: true,
-          schema: {
-            $ref: "#/components/schemas/Device"
-          }
-        }],
+        requestBody: {
+          $ref: "#/components/requestBodies/Device"
+        },
         responses: {
           "200": {
             description: "Device inscribe"
@@ -84,6 +107,75 @@ module.exports = {
           }
         }
       }
-    }
+    },
+    '/devices/update': {
+      put: {
+        tags: ["device"],
+        summary: "Update a new device",
+        description: "",
+        operationId: "updateDevice",
+        requestBody: {
+          $ref: "#/components/requestBodies/Device"
+        },
+        responses: {
+          "200": {
+            description: "Device updated"
+          },
+          "400": {
+            description: "Invalid input"
+          }
+        }
+      }
+    },
+    '/devices/{uuid}': {
+      get: {
+        tags: ["device"],
+        summary: "Find and check the device with uuid",
+        description: "",
+        operationId: "findByUuidDevice",
+        parameters: [{
+          name: "uuid",
+          in: "path",
+          description: "Uuid of device",
+          required: true,
+          schema:{
+            type: "string",
+          }
+        }],
+        responses: {
+          "200": {
+            description: "get Device",
+          },
+          "400": {
+            description: "Invalid input"
+          }
+        }
+      }
+    },
+    '/devices/delete/{uuid}':{
+      delete: {
+        tags: ["device"],
+        summary: "Delete Device",
+        description: "",
+        operationId: "deleteDevice",
+        parameters: [{
+          name: "uuid",
+          in: "path",
+          description: "Uuid of device",
+          required: true,
+          schema:{
+            type: "string",
+          }
+        }],
+        responses: {
+          "200": {
+            description: "delete Device",
+          },
+          "400": {
+            description: "Invalid input"
+          }
+        }
+      }
+    },
   }
 }

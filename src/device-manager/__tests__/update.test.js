@@ -25,7 +25,7 @@ it("Should successfully update an device description", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
-  const res = await request.post(`/devices/update`).send({
+  const res = await request.put(`/devices/update`).send({
     "uuid": "007",
     "latDefault": 0,
     "lonDefault": 0,
@@ -47,7 +47,7 @@ it("Should refuse to update a device with no matching type param", async done =>
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
-  const res = await request.post(`/devices/update`).send({
+  const res = await request.put(`/devices/update`).send({
     "uuid": "001",
     "latDefault": "NO MATCHING PARAM",
     "lonDefault": 0,
@@ -70,7 +70,7 @@ it("Should refuse to update an nonexistent device uuid", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
-  const res = await request.post(`/devices/update`).send({
+  const res = await request.put(`/devices/update`).send({
     "uuid": "001",
     "latDefault": 0,
     "lonDefault": 0,

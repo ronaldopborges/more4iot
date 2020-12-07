@@ -9,8 +9,7 @@
   "private": false,
   "scripts": {
     "start": "node start.js",
-    "test": "jest --runInBand --detectOpenHandles --verbose",
-    "test:watch": "jest --watch"
+    "test": "jest --runInBand --detectOpenHandles --verbose"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -23,7 +22,7 @@
   },
   "devDependencies": {
     "jest": "^25.5.4",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.6",
     "supertest": "^4.0.2"
   }
 }

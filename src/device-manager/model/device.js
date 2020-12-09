@@ -40,14 +40,10 @@ const DeviceSchema = new Schema(
         timestamps: true,
     });
 
-/**
- * Generates an unique id for a new device
- */
 const generateUuid = async () => {
     const hash = await device();
     return hash;
 };
-
 
 exports.db = model('Device', DeviceSchema);
 exports.generateUuid = generateUuid;

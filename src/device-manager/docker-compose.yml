@@ -6,21 +6,21 @@ networks:
       name: middleware
 
 services:
-  m-device-manager:
-    build: .
-    container_name: m-device-manager
+  devicemanager:
+    build: ./device-manager
+    container_name: devicemanager
     ports:
      - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
     depends_on:
-      - mongo
+      - devicemanager-mongo
     
-  mongo:
+  devicemanager-mongo:
     image: mongo
-    container_name: m-device-manager-mongo
+    container_name: devicemanager-mongo
     environment: 
-      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_DATABASE_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_DATABASE_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${DEVICE_MANAGER_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DEVICE_MANAGER_DB_PASSWORD}
     ports: 
-      - ${DEVICE_MANAGER_MONGODB_PORT}:${DEVICE_MANAGER_MONGODB_PORT}
+      - ${DEVICE_MANAGER_DB_PORT}:${DEVICE_MANAGER_DB_PORT}
+
     

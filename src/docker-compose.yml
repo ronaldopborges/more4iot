@@ -1,0 +1,57 @@
+version: "3"
+
+networks:
+  default:
+    external:
+      name: middleware
+
+services:
+  devicemanager:
+    build: ./device-manager
+    container_name: devicemanager
+    ports:
+     - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
+  datamanager:
+    build: ./data-manager
+    container_name: datamanager
+    ports:
+      - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
+  inputcommunicator:
+    build: ./input-communicator
+    container_name: inputcommunicator
+    ports:
+      - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
+  actionmanager:
+    build: ./action-manager
+    container_name: actionmanager
+    ports:
+      - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
+  servicecataloger:
+    build: ./service-cataloger
+    container_name: servicecataloger
+    ports:
+      - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
+  actioncommunicator:
+    build: ./action-communicator
+    container_name: actioncommunicator
+    ports:
+      - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+  # mongo:
+  #   image: mongo
+  #   container_name: mongo
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
+  #   ports:
+  #     - ${MONGO_PORT}:${MONGO_PORT}
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #   environment:
+  #     - ME_CONFIG_MONGODB_SERVER=mongo
+  #     - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
+  #     - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASS}
+  #   ports:
+  #     - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}

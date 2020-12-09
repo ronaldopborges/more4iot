@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { DATABASE_URL_TESTING } = require('../config/env');
 mongoose.promise = global.Promise
 
-async function removeAllCollections () {
+async function removeAllCollections() {
   const collections = Object.keys(mongoose.connection.collections)
   for (const collectionName of collections) {
     const collection = mongoose.connection.collections[collectionName]
@@ -10,7 +10,7 @@ async function removeAllCollections () {
   }
 }
 
-async function dropAllCollections () {
+async function dropAllCollections() {
   const collections = Object.keys(mongoose.connection.collections)
   for (const collectionName of collections) {
     const collection = mongoose.connection.collections[collectionName]
@@ -28,17 +28,17 @@ async function dropAllCollections () {
 }
 
 module.exports = {
-  setupDB (databaseName) {
+  setupDB(databaseName) {
     // Connect to Mongoose
     beforeAll(async () => {
       const url = DATABASE_URL_TESTING + databaseName
       await mongoose.connect(url,
-          {
-              useNewUrlParser: true,
-              useUnifiedTopology: true,
-              useFindAndModify: false,
-              useCreateIndex: true
-          });          
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useFindAndModify: false,
+          useCreateIndex: true
+        });
       await removeAllCollections()
       await dropAllCollections()
     })

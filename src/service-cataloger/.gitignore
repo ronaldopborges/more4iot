@@ -1,4 +1,4 @@
-*.lock
+*lock
 *lock.json
 
 # Logs

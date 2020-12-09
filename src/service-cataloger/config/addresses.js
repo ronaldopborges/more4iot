@@ -26,8 +26,8 @@ const amqpBroker                            = 'amqp://localhost:5672';
 
 const mqttBroker                            = 'mqtt://broker.hivemq.com';
 
-exports.amqpBroker                          = amqpBroker;
-exports.mqttBroker                          = mqttBroker;
+exports.amqpBroker = amqpBroker;
+exports.mqttBroker = mqttBroker;
 
 exports.route_swagger_api                   = route_swagger_api;
 

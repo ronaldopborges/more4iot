@@ -1,11 +1,11 @@
-const config         = require('../config/routesConfig');
-const addresses      = require('../config/addresses');
-const { protocols }  = require('../config/options');
-const axios          = require('axios');
-const mqtt           = require('mqtt');
-const amqp           = require('amqplib/callback_api');
-const client         = mqtt.connect(addresses.mqttBroker);
-const coap           = require('coap');
+const config = require('../config/routesConfig');
+const addresses = require('../config/addresses');
+const { protocols } = require('../config/options');
+const axios = require('axios');
+const mqtt = require('mqtt');
+const amqp = require('amqplib/callback_api');
+const client = mqtt.connect(addresses.mqttBroker);
+const coap = require('coap');
 
 /**
  * Handles a REST request which contains an action object. From this action object, gets the attribute uuidAtuador, with it, requests the DeviceManager to get this actuator's URL and PROTOCOL and then send the action object to the actuator through his url using the correct protocol
@@ -13,16 +13,16 @@ const coap           = require('coap');
  * @param  {Response}   res   Response, to return a response to the requester(success/error/some data, etc)  
  */
 const sendToActuator = async (req, res) => {
-    const actions   = req.body;
-    const message   = {
+    const actions = req.body;
+    const message = {
         uuidSensor: "0",
         command: {}
     };
-    var flag        = 0;
+    var flag = 0;
     actions.forEach((action, index) => {
-        message.command     = action.dataAtuador;
-        message.uuidSensor  = action.uuidSensor;
-        axios.get(`${addresses.req_deviceManagerIpAndPort}${config.req_deviceManagerRouteCheckDevice}${action.uuidAtuador}`).then(res => {
+        message.command = action.dataAtuador;
+        message.uuidSensor = action.uuidSensor;
+        axios.get(`${addresses.req_deviceManagerIpAndPort}/${config.req_deviceManagerRouteCheckDevice}/${action.uuidAtuador}`).then(res => {
             if (res.data) {
                 console.log(`Atuador: ${action.uuidAtuador}, sensor: ${action.uuidSensor}, Comando: ${action.command} Endereço URI do atuador: ${res.data.uri}`);
                 if (res.data.protocol == protocols.REST) {

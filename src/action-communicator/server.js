@@ -9,6 +9,6 @@ server.use(express.json());
 server.use(cors())
 server.use(routes);
 
-server.listen(SERVICE_PORT, () => {
+server.listen(addresses.actionCommunicatorPort, () => {
     console.log("Action Communicator online...")
 });

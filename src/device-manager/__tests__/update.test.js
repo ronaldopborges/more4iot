@@ -5,7 +5,9 @@ const request = supertest(server)
 const databaseName = 'test005' + '?retryWrites=true&w=majority'
 const Device = require('../Model/device')
 
-setupDB(databaseName)
+jest.setTimeout(30000);
+setupDB(databaseName);
+
 const seedDevice = {
   "uuid": "007",
   "latDefault": 0,

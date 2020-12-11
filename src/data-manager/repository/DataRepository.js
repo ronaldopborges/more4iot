@@ -1,9 +1,5 @@
 const Data = require('../model/Data');
 
-/**
- * Registers a new data object into database
- * @param  {Object} dataObj The data object with all the attributes required to register into database
- */
 const save = async dataObj => {
     try {
         const newData = await Data.db.create(dataObj);
@@ -16,10 +12,6 @@ const save = async dataObj => {
     }
 }
 
-/**
- * Get the last registered data object of a device from database
- * @param  {string} deviceUuid UUID of the target device to get the data object
- */
 const findLastByUuid = async deviceUuid => {
     try {
         const dataExists = await Data.db.findOne({ deviceUuid: deviceUuid }, {}, { sort: { 'createdAt': -1 } });

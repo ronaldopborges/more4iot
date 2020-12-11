@@ -2,12 +2,14 @@ const { setupDB } = require('./test-setup')
 const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
+const routesConfig = require('../config/routesConfig')
 const databaseName = 'test001' + '?retryWrites=true&w=majority'
 
-setupDB(databaseName)
+jest.setTimeout(30000);
+setupDB(databaseName);
 
 it("Should successfully store data into database", async done => {
-  const res = await request.post('/datas/persist')
+  const res = await request.post(`/${routesConfig.dataManagerRouteSave}`)
     .send({
       "lat": 0,
       "lon": 0,
@@ -22,8 +24,8 @@ it("Should successfully store data into database", async done => {
   done()
 })
 
-it("Should refuse to store data when the uuid device isnt recognized in database", async done => {
-  const res = await request.post('/datas/persist')
+it("Should refuse to store data when the uuid device isn't recognized in database", async done => {
+  const res = await request.post(`/${routesConfig.dataManagerRouteSave}`)
     .send({
       "lat": 0,
       "lon": 0,
@@ -39,7 +41,7 @@ it("Should refuse to store data when the uuid device isnt recognized in database
 })
 
 it("Should refuse no matching param type when trying to persist data", async done => {
-  const res = await request.post('/datas/persist')
+  const res = await request.post(`/${routesConfig.dataManagerRouteSave}`)
     .send({
       "lat": 0,
       "lon": "NO MATCHING",
@@ -55,7 +57,7 @@ it("Should refuse no matching param type when trying to persist data", async don
 })
 
 it("Should refuse missing required param when trying to persist data", async done => {
-  const res = await request.post('/datas/persist')
+  const res = await request.post(`/${routesConfig.dataManagerRouteSave}`)
     .send({
       "lat": 0,
       "object": {

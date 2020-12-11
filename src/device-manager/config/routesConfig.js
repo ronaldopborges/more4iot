@@ -20,7 +20,7 @@ const dataManagerRouteDelete                                = 'datas/delete/:uui
 const req_deviceManagerRouteSave                            = 'devices/inscribe';
 const req_deviceManagerRouteUpdate                          = 'devices/update';
 const req_deviceManagerRouteGetAll                          = 'devices';
-const req_deviceManagerRouteCheckDevice                     = 'devices/';
+const req_deviceManagerRouteCheckDevice                     = 'devices/:uuid';
 const req_deviceManagerRouteDelete                          = 'devices/delete/';
 
 const req_dataManagerRouteSave                              = 'datas/persist';

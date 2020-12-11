@@ -4,7 +4,8 @@ const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test001' + '?retryWrites=true&w=majority'
 
-setupDB(databaseName)
+jest.setTimeout(30000);
+setupDB(databaseName);
 
 it("Should successfully store a device into database", async done => {
   const res = await request.post('/devices/inscribe')

@@ -3,9 +3,11 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Data = require('../Model/data')
+const Data = require('../model/data')
 
-setupDB(databaseName)
+jest.setTimeout(30000);
+setupDB(databaseName);
+
 const seedData = {
   "lat": 0,
   "lon": 0,

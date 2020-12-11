@@ -3,7 +3,8 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test004' + '?retryWrites=true&w=majority'
-const Device = require('../Model/device')
+const Device = require('../model/Device')
+const routeConfig = require('../config/routesConfig')
 
 jest.setTimeout(30000);
 setupDB(databaseName);
@@ -50,7 +51,7 @@ it("Should return all devices stored in database", async done => {
 
   }
 
-  const res = await request.get(`/devices`)
+  const res = await request.get(`/${routeConfig.deviceManagerRouteGetAll}`)
 
   expect(res.body[0].describe).toBeTruthy()
 

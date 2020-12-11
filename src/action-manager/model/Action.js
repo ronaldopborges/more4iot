@@ -41,9 +41,9 @@ const ActionSchema = new Schema(
 db = model('Action', ActionSchema);
 const updateLifetime = actionparam => {
     const response = actionparam;
-    if (response) {
-        response.lifetime = response.lifetime - 1;
-        if (response.lifetime == 0)
+    if (response.lifetime == true) {
+        response.quant -= 1;
+        if (response.quant == 0)
             response.status = false;
         return response;
     }

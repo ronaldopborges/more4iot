@@ -3,7 +3,8 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Device = require('../Model/device')
+const Device = require('../model/Device')
+const routeConfig = require('../config/routesConfig')
 
 jest.setTimeout(30000);
 setupDB(databaseName);
@@ -37,7 +38,7 @@ it("Should return a specific searched device", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
-  const res = await request.get(`/devices/007`)
+  const res = await request.get(`/${routeConfig.deviceManagerRouteCheckDevice}/007`)
 
   expect(res.body.uuid).toBe("007")
 
@@ -48,7 +49,7 @@ it("Should return false when trying to search for nonexistent device", async don
   const seededDevice2 = new Device.db(seedDevice2)
   await seededDevice2.save()
 
-  const res2 = await request.get(`/devices/010`)
+  const res2 = await request.get(`/${routeConfig.deviceManagerRouteCheckDevice}/010`)
 
   expect(res2.body).toBeFalsy()
 

@@ -3,7 +3,8 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test003' + '?retryWrites=true&w=majority'
-const Device = require('../Model/device')
+const Device = require('../model/Device')
+const routeConfig = require('../config/routesConfig')
 
 jest.setTimeout(30000);
 setupDB(databaseName);
@@ -25,7 +26,7 @@ it("Should successfully delete a device from database", async done => {
   const seededDevice = new Device.db(seedDevice)
   await seededDevice.save()
 
-  const res = await request.delete(`/devices/delete/007`)
+  const res = await request.delete(`/${routeConfig.deviceManagerRouteDelete}/007`)
 
   expect(res.body).toBe(true)
 
@@ -33,7 +34,7 @@ it("Should successfully delete a device from database", async done => {
 })
 
 it("Should refuse to delete a nonexistent device from database", async done => {
-  const res = await request.delete(`/devices/delete/015`)
+  const res = await request.delete(`/${routeConfig.deviceManagerRouteDelete}/015`)
 
   expect(res.body).toBeFalsy()
 

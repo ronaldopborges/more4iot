@@ -13,10 +13,6 @@ const save = async actionObj => {
     }
 }
 
-/**
- * Get all registered action objects of a sensor from database, by uuid
- * @param  {string} deviceUuid UUID of the target sensor to get the all registered action objects
- */
 const findByUuidSensor = async deviceUuid => {
     try {
         const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid });
@@ -32,10 +28,6 @@ const findByUuidSensor = async deviceUuid => {
 
 }
 
-/**
- * Updates the data of an action object from database
- * @param  {Object} actionUpdated Action object which contains the _id and updated attribute(s) to update into database
- */
 const update = async actionUpdated => {
     try {
         const updatedAction = await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
@@ -49,10 +41,6 @@ const update = async actionUpdated => {
 
 }
 
-/**
- * Get all currently active actions(checks its status)
- * @param  {string} deviceUuid UUID of the target device sensor to get all currently active actions
- */
 const findByActiveUuidSensor = async deviceUuid => {
     try {
         //console.log(deviceUuid)
@@ -69,10 +57,6 @@ const findByActiveUuidSensor = async deviceUuid => {
 
 }
 
-
-/**
- * Get all registered action objects from all devices
- */
 const findAll = async () => {
     try {
         const all = await Action.db.find({})
@@ -85,8 +69,8 @@ const findAll = async () => {
     }
 }
 
-exports.findByActiveUuidSensor  = findByActiveUuidSensor;
-exports.findAll                 = findAll;
-exports.findByUuidSensor        = findByUuidSensor;
-exports.save                    = save;
-exports.update                  = update;
+exports.findByActiveUuidSensor = findByActiveUuidSensor;
+exports.findAll = findAll;
+exports.findByUuidSensor = findByUuidSensor;
+exports.save = save;
+exports.update = update;

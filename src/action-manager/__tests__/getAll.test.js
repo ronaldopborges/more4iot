@@ -3,9 +3,12 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test004' + '?retryWrites=true&w=majority'
-const Action = require('../Model/action')
+const Action = require('../model/Action')
+const routeConfig = require('../config/routesConfig')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
+
 const seedsAction = [{
   "uuidSensor": "100p",
   "uuidAtuador": "100p",
@@ -18,7 +21,7 @@ const seedsAction = [{
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
@@ -34,7 +37,7 @@ const seedsAction = [{
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
@@ -50,7 +53,7 @@ const seedsAction = [{
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
@@ -66,20 +69,20 @@ const seedsAction = [{
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
 },
 ]
+
 it("Should return all actions from all sensors stored in database", async done => {
   for (const d of seedsAction) {
     const seededAction = new Action.db(d)
     await seededAction.save()
-
   }
 
-  const res = await request.get(`/actions`)
+  const res = await request.get(`/${routeConfig.actionManagerRouteGetAll}`)
 
   expect(res.body).toEqual(
     expect.arrayContaining([

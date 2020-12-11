@@ -3,11 +3,13 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test001' + '?retryWrites=true&w=majority'
+const routeConfig = require('../config/routesConfig')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
 
 it("Should successfully store an action into database", async done => {
-  const res = await request.post('/actions/inscribe')
+  const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
     .send({
       "uuidSensor": "100p",
       "uuidAtuador": "100p",
@@ -20,7 +22,7 @@ it("Should successfully store an action into database", async done => {
         "liveLon": -3.50
       },
       "lifetimeAtuacao": {
-        "lifetime": 100,
+        "lifetime": true,
         "quant": 10
       },
       "status": true
@@ -32,7 +34,7 @@ it("Should successfully store an action into database", async done => {
 })
 
 it("Should refuse missing required param when trying to store an action", async done => {
-  const res = await request.post('/actions/inscribe')
+  const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
   .send({
     "uuidSensor": "100p",
     "dataSensor": {
@@ -44,7 +46,7 @@ it("Should refuse missing required param when trying to store an action", async 
       "liveLon": -3.50
     },
     "lifetimeAtuacao": {
-      "lifetime": 100,
+      "lifetime": true,
       "quant": 10
     },
     "status": true
@@ -56,7 +58,7 @@ it("Should refuse missing required param when trying to store an action", async 
 })
 
 it("Should refuse no matching param type when trying to store an action", async done => {
-  const res = await request.post('/actions/inscribe')
+  const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
   .send({
     "uuidSensor": "100p",
     "uuidAtuador": "100p",
@@ -69,7 +71,7 @@ it("Should refuse no matching param type when trying to store an action", async 
       "liveLon": -3.50
     },
     "lifetimeAtuacao": {
-      "lifetime": 100,
+      "lifetime": true,
       "quant": "no match"
     },
     "status": true

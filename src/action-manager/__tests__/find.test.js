@@ -3,9 +3,12 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Action = require('../Model/action')
+const Action = require('../model/Action')
+const routeConfig = require('../config/routesConfig')
 
+jest.setTimeout(30000);
 setupDB(databaseName)
+
 const seedAction = {
   "uuidSensor": "100p",
   "uuidAtuador": "100p",
@@ -18,11 +21,12 @@ const seedAction = {
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
 }
+
 const seedAction2 = {
   "uuidSensor": "200p",
   "uuidAtuador": "200p",
@@ -35,17 +39,17 @@ const seedAction2 = {
     "liveLon": -3.50
   },
   "lifetimeAtuacao": {
-    "lifetime": 100,
+    "lifetime": true,
     "quant": 10
   },
   "status": true
 }
 
-it("Should return all actions of a specific sensor's uuid", async done => {
+it("Should return all actions of a specific sensor uuid", async done => {
   const seededAction = new Action.db(seedAction)
   await seededAction.save()
 
-  const res = await request.get(`/actions/100p`)
+  const res = await request.get(`/${routeConfig.actionManagerRouteGetActionsByUuid}/100p`)
 
   expect(res.body).toEqual(
     expect.arrayContaining([
@@ -60,7 +64,7 @@ it("Should return false when trying to search for nonexistent action", async don
   const seededAction2 = new Action.db(seedAction2)
   await seededAction2.save()
 
-  const res2 = await request.get(`/actions/010`)
+  const res2 = await request.get(`/${routeConfig.actionManagerRouteGetActionsByUuid}/010`)
 
   expect(res2.body).toBeFalsy()
 

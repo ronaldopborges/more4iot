@@ -3,7 +3,8 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test003' + '?retryWrites=true&w=majority'
-const Data = require('../model/data')
+const Data = require('../model/Data')
+const routeConfig = require('../config/routesConfig')
 
 jest.setTimeout(30000);
 setupDB(databaseName);
@@ -34,7 +35,7 @@ it("Should successfully delete all data from a specific device.", async done => 
 
   }
 
-  const res = await request.delete(`/datas/delete/17a69100-1451-11ea-a85a-bbc0ff709da3`)
+  const res = await request.delete(`/${routeConfig.dataManagerRouteDelete}/17a69100-1451-11ea-a85a-bbc0ff709da3`)
 
   expect(res.body).toBe(true)
 
@@ -42,7 +43,7 @@ it("Should successfully delete all data from a specific device.", async done => 
 })
 
 it("Should refuse to delete all data from nonexistent device.", async done => {
-  const res = await request.delete(`/datas/delete/wronguuid`)
+  const res = await request.delete(`/${routeConfig.dataManagerRouteDelete}/wronguuid`)
 
   expect(res.body).toBeFalsy()
 

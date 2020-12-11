@@ -25,10 +25,6 @@ const findLastByUuid = async deviceUuid => {
 
 }
 
-/**
- * Get all registered data objects of a device from database
- * @param  {string} deviceUuid UUID of the target device to get all registered data object
- */
 const findByUuid = async dataparam => {
     try {
         const oneExists = await Data.db.findOne({ deviceUuid: dataparam });
@@ -44,9 +40,6 @@ const findByUuid = async dataparam => {
 
 }
 
-/**
- * Get all registered data objects from all devices
- */
 const findAll = async () => {
     try {
         const all = await Data.db.find({})
@@ -59,10 +52,6 @@ const findAll = async () => {
     }
 }
 
-/**
- * Deletes all registered data objects of a device from the database
- * @param  {string} deviceUuid UUID of the target device to delete
- */
 const deleteByUuid = async deviceUuid => {
     try {
         const dataExists = await Data.db.findOne({ deviceUuid: deviceUuid });

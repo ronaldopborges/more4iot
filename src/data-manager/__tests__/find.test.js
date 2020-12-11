@@ -3,7 +3,8 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test002' + '?retryWrites=true&w=majority'
-const Data = require('../model/data')
+const Data = require('../model/Data')
+const routeConfig = require('../config/routesConfig')
 
 jest.setTimeout(30000);
 setupDB(databaseName);
@@ -29,7 +30,7 @@ it("Should return all data from a specific device", async done => {
   const seededData = new Data.db(seedData)
   await seededData.save()
 
-  const res = await request.get(`/datas/${seedData.deviceUuid}`)
+  const res = await request.get(`/${routeConfig.dataManagerRouteGetAll}/${seedData.deviceUuid}`)
 
   expect(res.body).toBeTruthy()
 
@@ -40,7 +41,7 @@ it("Should return false when trying to search all data for nonexistent device", 
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
-  const res = await request.get(`/datas/wrongUuid`)
+  const res = await request.get(`/${routeConfig.dataManagerRouteGetAll}/wrongUuid`)
 
   expect(res.body).toBeFalsy()
 
@@ -51,7 +52,7 @@ it("Should return LAST data stored for a specic device", async done => {
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
-  const res = await request.get(`/datas/last/${seedData2.deviceUuid}`)
+  const res = await request.get(`/${routeConfig.dataManagerRouteGetLastByUuid}/${seedData2.deviceUuid}`)
 
   expect(res.body).toBeTruthy()
 
@@ -62,7 +63,7 @@ it("Should return false when trying to get LAST stored data for nonexistent devi
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
-  const re = await request.get(`/datas/last/wrongUuid`)
+  const re = await request.get(`/${routeConfig.dataManagerRouteGetLastByUuid}/wrongUuid`)
 
   expect(re.body).toBeFalsy()
 

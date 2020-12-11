@@ -1,38 +1,38 @@
 const actionCommunicatorRouteNotify = 'actioncommunicator/notify';
 
 const actionManagerRouteSave = 'actions/inscribe';
-const actionManagerRouteGetActionsByUuid = 'actions/:uuidSensor';
+const actionManagerRouteGetActionsByUuid = 'actions';
 const actionManagerRouteGetAll = 'actions';
-const actionManagerRouteNotifyActionCommunicator = 'actions/notify/:uuidSensor';
+const actionManagerRouteNotifyActionCommunicator = 'actions/notify';
 
 const deviceManagerRouteSave = 'devices/inscribe';
 const deviceManagerRouteUpdate = 'devices/update';
 const deviceManagerRouteGetAll = 'devices';
-const deviceManagerRouteCheckDevice = 'devices/:uuid';
-const deviceManagerRouteDelete = 'devices/delete/:uuid';
+const deviceManagerRouteCheckDevice = 'devices';
+const deviceManagerRouteDelete = 'devices/delete';
 
 const dataManagerRouteSave = 'datas/persist';
-const dataManagerRouteGetDataByUuid = 'datas/:uuid';
+const dataManagerRouteGetDataByUuid = 'datas';
 const dataManagerRouteGetAll = 'datas';
-const dataManagerRouteGetLastByUuid = 'datas/last/:uuid';
-const dataManagerRouteDelete = 'datas/delete/:uuid';
+const dataManagerRouteGetLastByUuid = 'datas/last';
+const dataManagerRouteDelete = 'datas/delete';
 
 const req_deviceManagerRouteSave = 'devices/inscribe';
 const req_deviceManagerRouteUpdate = 'devices/update';
 const req_deviceManagerRouteGetAll = 'devices';
-const req_deviceManagerRouteCheckDevice = 'devices/:uuid';
-const req_deviceManagerRouteDelete = 'devices/delete/';
+const req_deviceManagerRouteCheckDevice = 'devices';
+const req_deviceManagerRouteDelete = 'devices/delete';
 
 const req_dataManagerRouteSave = 'datas/persist';
-const req_dataManagerRouteGetDataByUuid = 'datas/';
+const req_dataManagerRouteGetDataByUuid = 'datas';
 const req_dataManagerRouteGetAll = 'datas';
-const req_dataManagerRouteGetLastByUuid = 'datas/last/';
-const req_dataManagerRouteDelete = 'datas/delete/';
+const req_dataManagerRouteGetLastByUuid = 'datas/last';
+const req_dataManagerRouteDelete = 'datas/delete';
 
 const req_actionManagerRouteSave = 'actions/inscribe';
-const req_actionManagerRouteGetActionsByUuid = 'actions/';
+const req_actionManagerRouteGetActionsByUuid = 'actions';
 const req_actionManagerRouteGetAll = 'actions';
-const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify/';
+const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify';
 
 const req_actionCommunicatorRouteNotify = 'actioncommunicator/notify';
 

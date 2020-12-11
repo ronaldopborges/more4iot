@@ -5,14 +5,14 @@ const config = require('../config/routesConfig');
 
 const persistData = async (req, res) => {
     const data = req.body;
-    let deviceExists = await axios.get(`${addresses.req_deviceManagerIpAndPort}${config.req_deviceManagerRouteCheckDevice}${data.deviceUuid}`).then((resp) => {
+    let deviceExists = await axios.get(`${addresses.req_deviceManagerIpAndPort}/${config.req_deviceManagerRouteCheckDevice}/${data.deviceUuid}`).then((resp) => {
         return resp.data;
     })
 
     if (deviceExists) {
         let response = await DataRepository.save(data);
         if (response) {
-            axios.get(`${addresses.req_actionManagerIpAndPort}${config.req_actionManagerRouteNotifyActionCommunicator}${data.uuid}`).then((res) => {
+            axios.get(`${addresses.req_actionManagerIpAndPort}/${config.req_actionManagerRouteNotifyActionCommunicator}/${data.uuid}`).then((res) => {
             }).catch((error) => {
             })
         }

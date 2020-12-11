@@ -6,7 +6,7 @@ const swaggerOptions = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 
 server.use(
-    addresses.route_swagger_api,
+    `/${addresses.route_swagger_api}`,
     swaggerUi.serve,
     swaggerUi.setup(swaggerOptions)
 );

@@ -6,7 +6,7 @@ module.exports = {
     description: "Persist and manage data info",
   },
   tags: [{
-    name: "device",
+    name: "data",
     description: "Everything about your Data"
   }],
   schemes: [
@@ -14,93 +14,73 @@ module.exports = {
   ],
   components: {
     schemas: {
-      Device: {
+      Data: {
         type: "object",
         properties: {
-          uuid: {
+          deviceUuid: {
             type: "string",
             required: true,
           },
-          latDefault: {
+          lat: {
             type: "number",
             format: "double",
-            required: true,
           },
-          lonDefault: {
+          lon: {
             type: "number",
             format: "double",
-            required: true,
           },
-          resource: {
-            type: "array",
-            items: {
-              type: "string"
-            }
-          },
-          uri: {
-            type: "string",
-            required: true
-          },
-          protocol: {
-            type: "string",
-            required: true
-          },
-          describe: {
-            type: "string",
-            required: true
-          },
-          typeDevice: {
-            type: "string",
+          data: {
+            type: "object",
             required: true
           },
         }
       }
     },
     requestBodies: {
-      Device: {
+      Data: {
         content: {
           'application/json': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Data"
             }
           },
           'application/xml': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Data"
             }
           }
         },
-        description: "Device object that needs to be added to the device manager service",
+        description: "Data object that needs to be added to the data manager service",
         required: true
       }
     }
   },
   paths: {
-    '/devices': {
+    '/datas': {
       get: {
-        tags: ["device"],
-        summary: "Get all devices",
+        tags: ["data"],
+        summary: "Get all data from all device",
         description: "",
-        operationId: "getAllDevice",
+        operationId: "getAllData",
         responses: {
           "200": {
-            description: "All devices"
+            description: "All data"
           },
         }
       }
     },
-    '/devices/inscribe': {
+    '/datas/persist': {
       post: {
-        tags: ["device"],
-        summary: "Inscribe a new device",
+        tags: ["data"],
+        summary: "persist a new data",
         description: "",
-        operationId: "inscribeDevice",
+        operationId: "persistData",
         requestBody: {
-          $ref: "#/components/requestBodies/Device"
+          $ref: "#/components/requestBodies/Data"
         },
         responses: {
           "200": {
-            description: "Device inscribe"
+            description: "Data persisted"
           },
           "400": {
             description: "Invalid input"
@@ -108,43 +88,24 @@ module.exports = {
         }
       }
     },
-    '/devices/update': {
-      put: {
-        tags: ["device"],
-        summary: "Update a new device",
-        description: "",
-        operationId: "updateDevice",
-        requestBody: {
-          $ref: "#/components/requestBodies/Device"
-        },
-        responses: {
-          "200": {
-            description: "Device updated"
-          },
-          "400": {
-            description: "Invalid input"
-          }
-        }
-      }
-    },
-    '/devices/{uuid}': {
+    '/datas/last/{uuid}': {
       get: {
-        tags: ["device"],
-        summary: "Find and check the device with uuid",
+        tags: ["data"],
+        summary: "get the last data from device",
         description: "",
-        operationId: "findByUuidDevice",
+        operationId: "getLastData",
         parameters: [{
           name: "uuid",
           in: "path",
           description: "Uuid of device",
           required: true,
-          schema:{
+          schema: {
             type: "string",
           }
         }],
         responses: {
           "200": {
-            description: "get Device",
+            description: "Last data from device"
           },
           "400": {
             description: "Invalid input"
@@ -152,24 +113,49 @@ module.exports = {
         }
       }
     },
-    '/devices/delete/{uuid}':{
-      delete: {
-        tags: ["device"],
-        summary: "Delete Device",
+    '/datas/{uuid}': {
+      get: {
+        tags: ["data"],
+        summary: "Get all data from device",
         description: "",
-        operationId: "deleteDevice",
+        operationId: "getData",
         parameters: [{
           name: "uuid",
           in: "path",
           description: "Uuid of device",
           required: true,
-          schema:{
+          schema: {
             type: "string",
           }
         }],
         responses: {
           "200": {
-            description: "delete Device",
+            description: "All data from device",
+          },
+          "400": {
+            description: "Invalid input"
+          }
+        }
+      }
+    },
+    '/datas/delete/{uuid}': {
+      delete: {
+        tags: ["data"],
+        summary: "Delete data",
+        description: "",
+        operationId: "deleteData",
+        parameters: [{
+          name: "uuid",
+          in: "path",
+          description: "Uuid of device",
+          required: true,
+          schema: {
+            type: "string",
+          }
+        }],
+        responses: {
+          "200": {
+            description: "delete data",
           },
           "400": {
             description: "Invalid input"

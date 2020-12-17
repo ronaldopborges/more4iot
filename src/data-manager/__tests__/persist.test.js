@@ -13,10 +13,10 @@ it("Should successfully store data into database", async done => {
     .send({
       "lat": 0,
       "lon": 0,
-      "object": {
+      "data": {
         "gps": 10,
       },
-      "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+      "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
     })
 
   expect(res.body).toBe(true)
@@ -29,7 +29,7 @@ it("Should refuse to store data when the uuid device isn't recognized in databas
     .send({
       "lat": 0,
       "lon": 0,
-      "object": {
+      "data": {
         "gps": 10,
       },
       "deviceUuid": "wdsadasd"
@@ -45,10 +45,10 @@ it("Should refuse no matching param type when trying to persist data", async don
     .send({
       "lat": 0,
       "lon": "NO MATCHING",
-      "object": {
+      "data": {
         "gps": 10,
       },
-      "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+      "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
     })
 
   expect(res.body).toBeFalsy()
@@ -60,10 +60,7 @@ it("Should refuse missing required param when trying to persist data", async don
   const res = await request.post(`/${routesConfig.dataManagerRouteSave}`)
     .send({
       "lat": 0,
-      "object": {
-        "gps": 10,
-      },
-      "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+      "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
     })
 
   expect(res.body).toBeFalsy()

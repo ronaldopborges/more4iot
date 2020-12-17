@@ -12,18 +12,18 @@ setupDB(databaseName);
 const seedsData = [{
   "lat": 4,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
-  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 },
 {
   "lat": 5,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
-  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 ]
 jest.setTimeout(30000);
@@ -35,7 +35,7 @@ it("Should successfully delete all data from a specific device.", async done => 
 
   }
 
-  const res = await request.delete(`/${routeConfig.dataManagerRouteDelete}/17a69100-1451-11ea-a85a-bbc0ff709da3`)
+  const res = await request.delete(`/${routeConfig.dataManagerRouteDelete}/2227dbe0-363b-11eb-88ae-1356f9478859`)
 
   expect(res.body).toBe(true)
 

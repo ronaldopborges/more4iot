@@ -12,18 +12,18 @@ setupDB(databaseName);
 const seedData = {
   "lat": 0,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
-  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 const seedData2 = {
   "lat": 0,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
-  "deviceUuid": "17a69100-1451-11ea-a85a-bbc0ff709da3"
+  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 
 it("Should return all data from a specific device", async done => {
@@ -37,13 +37,13 @@ it("Should return all data from a specific device", async done => {
   done()
 })
 
-it("Should return false when trying to search all data for nonexistent device", async done => {
+it("Should return empty when trying to search all data for nonexistent device", async done => {
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
   const res = await request.get(`/${routeConfig.dataManagerRouteGetAll}/wrongUuid`)
 
-  expect(res.body).toBeFalsy()
+  expect(res.body).toEqual({});
 
   done()
 })
@@ -65,7 +65,7 @@ it("Should return false when trying to get LAST stored data for nonexistent devi
 
   const re = await request.get(`/${routeConfig.dataManagerRouteGetLastByUuid}/wrongUuid`)
 
-  expect(re.body).toBeFalsy()
+  expect(re.body).toEqual({});
 
   done()
 })

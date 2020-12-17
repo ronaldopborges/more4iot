@@ -8,13 +8,11 @@ const DataSchema = new Schema(
         },
         lat: {
             type: Number,
-            required: true,
         },
         lon: {
             type: Number,
-            required: true,
         },
-        object: {
+        data: {
             type: Schema.Types.Mixed,
             required: true
         },

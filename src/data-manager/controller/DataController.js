@@ -25,7 +25,7 @@ const getData = async (req, res) => {
     if (response)
         return res.json(response);
     else
-        return res.send(false);
+        return res.send({});
 }
 
 const getLastData = async (req, res) => {
@@ -33,7 +33,7 @@ const getLastData = async (req, res) => {
     if (response)
         return res.json(response);
     else
-        return res.send(false);
+        return res.send({});
 }
 
 const getAllData = async (req, res) => {
@@ -41,7 +41,7 @@ const getAllData = async (req, res) => {
     if (response)
         return res.json(response);
     else
-        return res.send(false);
+        return res.send({});
 }
 
 const deleteData = async (req, res) => {

@@ -12,7 +12,7 @@ setupDB(databaseName);
 const seedsData = [{
   "lat": 4,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
   "deviceUuid": "4545"
@@ -20,7 +20,7 @@ const seedsData = [{
 {
   "lat": 5,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
   "deviceUuid": "132"
@@ -28,7 +28,7 @@ const seedsData = [{
 {
   "lat": 5,
   "lon": 4,
-  "object": {
+  "data": {
     "gps": 10,
   },
   "deviceUuid": "132"
@@ -36,7 +36,7 @@ const seedsData = [{
 {
   "lat": 5,
   "lon": 0,
-  "object": {
+  "data": {
     "gps": 10,
   },
   "deviceUuid": "122"

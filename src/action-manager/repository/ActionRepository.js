@@ -37,7 +37,6 @@ const update = async actionUpdated => {
     } catch (error) {
         return false;
     }
-
 }
 
 const findByActiveUuidSensor = async deviceUuid => {
@@ -53,7 +52,6 @@ const findByActiveUuidSensor = async deviceUuid => {
     } catch (error) {
         return false;
     }
-
 }
 
 const findAll = async () => {

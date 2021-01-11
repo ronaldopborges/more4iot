@@ -4,7 +4,6 @@ const axios = require('axios');
 const config = require('../config/routesConfig');
 const addresses = require('../config/addresses');
 
-
 const inscribeAction = async (req, res) => {
     data = req.body;
     response = await ActionRepository.save(data);

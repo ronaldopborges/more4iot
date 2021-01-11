@@ -6,7 +6,7 @@ module.exports = {
     description: "Persist and manage action info",
   },
   tags: [{
-    name: "device",
+    name: "action",
     description: "Everything about your Action"
   }],
   schemes: [
@@ -14,93 +14,94 @@ module.exports = {
   ],
   components: {
     schemas: {
-      Device: {
+      Action: {
         type: "object",
         properties: {
-          uuid: {
+          uuidAtuador: {
             type: "string",
             required: true,
           },
-          latDefault: {
-            type: "number",
-            format: "double",
+          uuidSensor: {
+            type: "string",
             required: true,
           },
-          lonDefault: {
-            type: "number",
-            format: "double",
+          dataSensor: {
+            type: "object",
             required: true,
           },
-          resource: {
-            type: "array",
-            items: {
-              type: "string"
+          dataAtuador: {
+            type: "object",
+            required: true,
+          },
+          lifetimeAtuacao: {
+            type: "object",
+            required: true,
+            properties: {
+              lifetime: {
+                type: "boolean",
+                required: true,
+                default: false
+              },
+              quant: {
+                type: "number",
+                format: "integer",
+                required: true
+              }
             }
           },
-          uri: {
-            type: "string",
-            required: true
-          },
-          protocol: {
-            type: "string",
-            required: true
-          },
-          describe: {
-            type: "string",
-            required: true
-          },
-          typeDevice: {
-            type: "string",
-            required: true
+          status: {
+            type: "boolean",
+            required: true,
+            default: true
           },
         }
       }
     },
     requestBodies: {
-      Device: {
+      Action: {
         content: {
           'application/json': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Action"
             }
           },
           'application/xml': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Action"
             }
           }
         },
-        description: "Device object that needs to be added to the device manager service",
+        description: "Action object that needs to be added to the action manager service",
         required: true
       }
     }
   },
   paths: {
-    '/devices': {
+    '/actions': {
       get: {
-        tags: ["device"],
-        summary: "Get all devices",
+        tags: ["action"],
+        summary: "Get all actions",
         description: "",
-        operationId: "getAllDevice",
+        operationId: "getAllActions",
         responses: {
           "200": {
-            description: "All devices"
+            description: "All actions"
           },
         }
       }
     },
-    '/devices/inscribe': {
+    '/actions/inscribe': {
       post: {
-        tags: ["device"],
-        summary: "Inscribe a new device",
+        tags: ["action"],
+        summary: "Inscribe a new action",
         description: "",
-        operationId: "inscribeDevice",
+        operationId: "inscribeAction",
         requestBody: {
-          $ref: "#/components/requestBodies/Device"
+          $ref: "#/components/requestBodies/Action"
         },
         responses: {
           "200": {
-            description: "Device inscribe"
+            description: "Action inscribe"
           },
           "400": {
             description: "Invalid input"
@@ -108,43 +109,24 @@ module.exports = {
         }
       }
     },
-    '/devices/update': {
-      put: {
-        tags: ["device"],
-        summary: "Update a new device",
-        description: "",
-        operationId: "updateDevice",
-        requestBody: {
-          $ref: "#/components/requestBodies/Device"
-        },
-        responses: {
-          "200": {
-            description: "Device updated"
-          },
-          "400": {
-            description: "Invalid input"
-          }
-        }
-      }
-    },
-    '/devices/{uuid}': {
+    '/actions/{uuid}': {
       get: {
-        tags: ["device"],
-        summary: "Find and check the device with uuid",
+        tags: ["action"],
+        summary: "Find all action from uuid",
         description: "",
-        operationId: "findByUuidDevice",
+        operationId: "getActions",
         parameters: [{
-          name: "uuid",
+          name: "uuidSensor",
           in: "path",
           description: "Uuid of device",
           required: true,
-          schema:{
+          schema: {
             type: "string",
           }
         }],
         responses: {
           "200": {
-            description: "get Device",
+            description: "get all actions from device",
           },
           "400": {
             description: "Invalid input"
@@ -152,24 +134,24 @@ module.exports = {
         }
       }
     },
-    '/devices/delete/{uuid}':{
-      delete: {
-        tags: ["device"],
-        summary: "Delete Device",
+    '/actions/notify': {
+      get: {
+        tags: ["action"],
+        summary: "notify action communicator about receive data from device",
         description: "",
-        operationId: "deleteDevice",
+        operationId: "notifyActionCommunicator",
         parameters: [{
-          name: "uuid",
+          name: "uuidSensor",
           in: "path",
           description: "Uuid of device",
           required: true,
-          schema:{
+          schema: {
             type: "string",
           }
         }],
         responses: {
           "200": {
-            description: "delete Device",
+            description: "notified if your action from about device exists"
           },
           "400": {
             description: "Invalid input"

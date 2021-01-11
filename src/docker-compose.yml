@@ -16,11 +16,6 @@ services:
     container_name: datamanager
     ports:
       - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
-  inputcommunicator:
-    build: ./input-communicator
-    container_name: inputcommunicator
-    ports:
-      - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
   actionmanager:
     build: ./action-manager
     container_name: actionmanager
@@ -31,11 +26,16 @@ services:
     container_name: servicecataloger
     ports:
       - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
-  actioncommunicator:
-    build: ./action-communicator
-    container_name: actioncommunicator
-    ports:
-      - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+  # inputcommunicator:
+  #   build: ./input-communicator
+  #   container_name: inputcommunicator
+  #   ports:
+  #     - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
+  # actioncommunicator:
+  #   build: ./action-communicator
+  #   container_name: actioncommunicator
+  #   ports:
+  #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
   # mongo:
   #   image: mongo
   #   container_name: mongo

@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 server.use(
     `/${addresses.route_swagger_api}`,
     swaggerUi.serve,
-    swaggerUi.setup(swaggerOptions)
+    swaggerUi.setup(swaggerOptions, {customSiteTitle: "Action Manager API"})
 );
 
 mongoose.connect(DATABASE_URL,

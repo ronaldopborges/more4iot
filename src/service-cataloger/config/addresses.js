@@ -1,4 +1,4 @@
-const route_swagger_api                     = '/api';                     
+const route_swagger_api                     = 'api';                     
 
 const actionCommunicatorPort                = 3444;
 

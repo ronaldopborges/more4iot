@@ -9,17 +9,19 @@ const swaggerDocument = YAML.load('./yaml_3.0.yaml');
 /**
  * Turns online a REST server, which will redirect all messages received to the global sender from index.js
  */
-module.exports = () => { 
-const server = express();
+module.exports = () => {
+    const server = express();
 
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-server.use(express.json());
-server.use(cors())
-// utilizar as configurações que tão no routes.js
-server.use(routes);
+    server.use(
+        `/${addresses.route_swagger_api}`,
+        swaggerUi.serve,
+        swaggerUi.setup(swaggerDocument, {customSiteTitle: "Device Manager API"})
+    );
+    server.use(express.json());
+    server.use(cors())
+    server.use(routes);
 
-// ligando o servidor para ouvir a porta
-server.listen(addresses.inputCommunicatorRestPort, () => {
-    console.log("[x] Rest online.")
-});
+    server.listen(addresses.inputCommunicatorRestPort, () => {
+        console.log("[x] Rest online.")
+    });
 }

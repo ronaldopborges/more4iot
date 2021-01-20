@@ -1,4 +1,4 @@
-const actionCommunicatorRouteNotify = 'actioncommunicator/notify';
+const actionCommunicatorRouteNotify = 'actionCommunicator/notify';
 
 const actionManagerRouteSave = 'actions/inscribe';
 const actionManagerRouteGetActionsByUuid = 'actions';
@@ -34,7 +34,7 @@ const req_actionManagerRouteGetActionsByUuid = 'actions';
 const req_actionManagerRouteGetAll = 'actions';
 const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify';
 
-const req_actionCommunicatorRouteNotify = 'actioncommunicator/notify';
+const req_actionCommunicatorRouteNotify = 'actionCommunicator/notify';
 
 const inputCommunicatorRoute = 'inputcommunicator';
 

@@ -12,18 +12,24 @@ const { services, topic, methods } = require('./config/options');
  * @param  {String} msg A string in json structure with attributes for 'service'(desired service to request), 'method'(desired method to the service to use), object 'data'(data to send to the desired service)
  */
 global.sender = async msg => {
-    msg = JSON.parse(msg);
-    let outputCommunication = false;
-    await axios.post(`${addresses.req_dataManagerIpAndPort}${config.req_dataManagerRouteSave}`, msg).then((res) => {
-        outputCommunication = true;
-    }).catch((error) => {
+    try {
+        msg = JSON.parse(msg);
+        let outputCommunication = false;
+        await axios.post(`${addresses.req_dataManagerIpAndPort}${config.req_dataManagerRouteSave}`, msg).then((res) => {
+            outputCommunication = true;
+        }).catch((error) => {
+            console.log(error);
+        })
+        return outputCommunication;
+    } catch (error) {
         console.log(error);
-    })
-    return outputCommunication;
+    }
+
+    return false;
 }
 
 mqtt(topic);
-amqp(topic);
-coap();
+//amqp(topic);
+//coap();
 rest();
 

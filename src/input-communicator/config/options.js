@@ -31,7 +31,7 @@ const protocols = Object.freeze({
     "COAP": "COAP"
 })
 
-const topic = 'iotufersa';
+const topic = 'inputCommunicator';
 
 exports.services = services;
 exports.methods = methods;

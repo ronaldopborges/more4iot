@@ -47,7 +47,7 @@ try {
         }
     });
 }
-catch (e) { 
+catch (e) {
     console.log("Erro ao conectar ao servidor AMQP.")
-    
+
 }

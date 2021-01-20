@@ -1,30 +1,33 @@
 const route_swagger_api = 'api';
 
 const actionCommunicatorPort = 3444;
-
 const actionManagerPort = 3555;
-
 const deviceManagerPort = 3333;
-
 const serviceCatalogerPort = 3666;
-
 const dataManagerPort = 3777;
-
 const inputCommunicatorRestPort = 3888;
 
-const req_deviceManagerIpAndPort = 'http://localhost:' + deviceManagerPort;
+//protocols ports
+const mqttPort = 1883;
+const amqpPort = 5762;
 
-const req_serviceCatalogerIpAndPort = 'http://localhost:' + serviceCatalogerPort;
+const hostHttp = 'http://localhost:';
+const hostAmqp = 'amqp://localhost:';
+const hostMqtt = 'mqtt://localhost:';
 
-const req_dataManagerIpAndPort = 'http://localhost:' + dataManagerPort;
+const req_deviceManagerIpAndPort = hostHttp + deviceManagerPort;
 
-const req_actionManagerIpAndPort = 'http://localhost:' + actionManagerPort;
+const req_serviceCatalogerIpAndPort = hostHttp + serviceCatalogerPort;
 
-const req_actionCommunicatorIpAndPort = 'http://localhost:' + actionCommunicatorPort;
+const req_dataManagerIpAndPort = hostHttp + dataManagerPort;
 
-const amqpBroker = 'amqp://localhost:5672';
+const req_actionManagerIpAndPort = hostHttp + actionManagerPort;
 
-const mqttBroker = 'mqtt://broker.hivemq.com';
+const req_actionCommunicatorIpAndPort = hostHttp + actionCommunicatorPort;
+
+const amqpBroker = hostAmqp + amqpPort;
+
+const mqttBroker = hostMqtt + mqttPort;
 
 exports.amqpBroker = amqpBroker;
 exports.mqttBroker = mqttBroker;

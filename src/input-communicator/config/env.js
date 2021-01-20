@@ -1,0 +1,8 @@
+const dotenv = require('dotenv');
+dotenv.config();
+module.exports = {
+  MQTT_PUBLISHER_USER: process.env.RABBITMQ_PUBLISHER_USER,
+  MQTT_PUBLISHER_PASSWORD: process.env.RABBITMQ_PUBLISHER_PASSWORD,
+  MQTT_SUBSCRIBER_USER: process.env.RABBITMQ_SUBSCRIBER_USER,
+  MQTT_SUBSCRIBER_PASSWORD: process.env.RABBITMQ_SUBSCRIBER_PASSWORD,
+};

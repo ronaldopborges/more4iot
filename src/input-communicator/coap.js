@@ -3,7 +3,7 @@ const coap = require('coap') // or coap
 /**
  * Turns online a COAP server, which will redirect all messages received to the global sender from index.js
  */
-module.exports = () => {
+module.exports = async () => {
     server = coap.createServer()
 
     server.on('request', function (req, res) {

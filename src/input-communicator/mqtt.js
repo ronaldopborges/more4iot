@@ -7,7 +7,7 @@ const addresses = require('./config/addresses');
  * @param  {String} topic The topic name to subscribe to on the MQTT broker
  */
 
-module.exports = (topic) => {
+module.exports = async (topic) => {
 
     var mqttOptions = {
         host: 'mqtt://'+addresses.hostnameMqtt,

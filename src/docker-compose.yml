@@ -1,10 +1,5 @@
 version: "3"
 
-networks:
-  default:
-    external:
-      name: middleware
-
 services:
   devicemanager:
     build: ./device-manager
@@ -33,11 +28,11 @@ services:
       - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
     depends_on:
       - rabbitmq
-  actioncommunicator:
-    build: ./action-communicator
-    container_name: actioncommunicator
-    ports:
-      - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+  # actioncommunicator:
+  #   build: ./action-communicator
+  #   container_name: actioncommunicator
+  #   ports:
+  #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
   rabbitmq:
     image: rabbitmq:management-alpine
     command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'

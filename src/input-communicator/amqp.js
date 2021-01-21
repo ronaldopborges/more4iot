@@ -6,7 +6,7 @@ const { MQTT_SUBSCRIBER_USER, MQTT_SUBSCRIBER_PASSWORD } = require('./config/env
  * Connect to the AMQP broker from addresses and subscribe to a topic passed as parameter. Redirects any messages received in this topic to the global sender from index.js
  * @param  {String} amqptopic The topic name to subscribe to on the AMQP broker
  */
-module.exports = (amqptopic) => {
+module.exports = async (amqptopic) => {
 
     var amqpOptions = {
         protocol: 'amqp',

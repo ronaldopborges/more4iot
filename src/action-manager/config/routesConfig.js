@@ -36,7 +36,7 @@ const req_actionManagerRouteNotifyActionCommunicator = 'actions/notify';
 
 const req_actionCommunicatorRouteNotify = 'actionCommunicator/notify';
 
-const inputCommunicatorRoute = 'inputcommunicator';
+const inputCommunicatorRoute = 'inputCommunicator';
 
 exports.actionCommunicatorRouteNotify = actionCommunicatorRouteNotify;
 

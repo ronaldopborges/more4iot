@@ -9,28 +9,35 @@ const inputCommunicatorRestPort = 3888;
 
 //protocols ports
 const mqttPort = 1883;
-const amqpPort = 5762;
+const amqpPort = 5672;
 
-const hostHttp = 'http://localhost:';
-const hostAmqp = 'amqp://localhost:';
-const hostMqtt = 'mqtt://localhost:';
+const hostnameHttp = 'localhost:';
+const hostnameAmqp = 'localhost:';
+const hostnameMqtt = 'localhost:';
 
-const req_deviceManagerIpAndPort = hostHttp + deviceManagerPort;
+const req_deviceManagerIpAndPort = 'http://' + hostnameHttp + deviceManagerPort;
 
-const req_serviceCatalogerIpAndPort = hostHttp + serviceCatalogerPort;
+const req_serviceCatalogerIpAndPort = 'http://' + hostnameHttp + serviceCatalogerPort;
 
-const req_dataManagerIpAndPort = hostHttp + dataManagerPort;
+const req_dataManagerIpAndPort = 'http://' + hostnameHttp + dataManagerPort;
 
-const req_actionManagerIpAndPort = hostHttp + actionManagerPort;
+const req_actionManagerIpAndPort = 'http://' + hostnameHttp + actionManagerPort;
 
-const req_actionCommunicatorIpAndPort = hostHttp + actionCommunicatorPort;
+const req_actionCommunicatorIpAndPort = 'http://' + hostnameHttp + actionCommunicatorPort;
 
-const amqpBroker = hostAmqp + amqpPort;
+const amqpBroker = 'amqp://' + hostnameAmqp + amqpPort;
 
-const mqttBroker = hostMqtt + mqttPort;
+const mqttBroker = 'mqtt://' + hostnameMqtt + mqttPort;
 
 exports.amqpBroker = amqpBroker;
 exports.mqttBroker = mqttBroker;
+
+exports.amqpPort = amqpPort;
+exports.mqttPort = mqttPort;
+
+exports.hostnameAmqp = hostnameAmqp;
+exports.hostnameHttp = hostnameHttp;
+exports.hostnameMqtt = hostnameMqtt;
 
 exports.route_swagger_api = route_swagger_api;
 

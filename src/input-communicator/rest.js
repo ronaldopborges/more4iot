@@ -15,13 +15,13 @@ module.exports = () => {
     server.use(
         `/${addresses.route_swagger_api}`,
         swaggerUi.serve,
-        swaggerUi.setup(swaggerDocument, {customSiteTitle: "Device Manager API"})
+        swaggerUi.setup(swaggerDocument, {customSiteTitle: "Input Communicator API"})
     );
     server.use(express.json());
     server.use(cors())
     server.use(routes);
 
     server.listen(addresses.inputCommunicatorRestPort, () => {
-        console.log("[x] Rest online.")
+        console.log("[x] Rest online...");
     });
 }

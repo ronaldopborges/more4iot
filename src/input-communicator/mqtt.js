@@ -7,10 +7,10 @@ const addresses = require('./config/addresses');
  * @param  {String} topic The topic name to subscribe to on the MQTT broker
  */
 
-module.exports = topic => {
+module.exports = (topic) => {
 
     var mqttOptions = {
-        host: 'mqtt://' + addresses.hostnameMqtt,
+        host: 'mqtt://'+addresses.hostnameMqtt,
         port: addresses.mqttPort,
         clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
         username: MQTT_SUBSCRIBER_USER,
@@ -18,14 +18,13 @@ module.exports = topic => {
     };
 
     try {
-        const client = mqtt.connect(mqttOptions)
+        const client = mqtt.connect('mqtt://'+addresses.hostnameMqtt, mqttOptions)
         client.on('connect', () => {
             client.subscribe(topic);
             console.log("[*] Inscrito no topico MQTT: %s.", topic);
         });
 
         client.on('message', (topic, message) => {
-            console.log(message.toString);
             sender(message.toString());
         });
     } catch (e) {

@@ -15,7 +15,7 @@ global.sender = async msg => {
     try {
         msg = JSON.parse(msg);
         let outputCommunication = false;
-        await axios.post(`${addresses.req_dataManagerIpAndPort}${config.req_dataManagerRouteSave}`, msg).then((res) => {
+        await axios.post(`/${addresses.req_dataManagerIpAndPort}${config.req_dataManagerRouteSave}`, msg).then((res) => {
             outputCommunication = true;
         }).catch((error) => {
             console.log(error);

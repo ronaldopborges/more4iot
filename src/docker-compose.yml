@@ -1,57 +1,69 @@
 version: "3"
 
 services:
-  devicemanager:
-    build: ./device-manager
-    container_name: devicemanager
+  redis:
+    image: redis:alpine
+    container_name: redis
     ports:
-      - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
-  datamanager:
-    build: ./data-manager
-    container_name: datamanager
-    ports:
-      - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
-  actionmanager:
-    build: ./action-manager
-    container_name: actionmanager
-    ports:
-      - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
-  servicecataloger:
-    build: ./service-cataloger
-    container_name: servicecataloger
-    ports:
-      - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
-  inputcommunicator:
-    build: ./input-communicator
-    container_name: inputcommunicator
-    ports:
-      - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
-    depends_on:
-      - rabbitmq
+      - "6379:6379"
+  # serviceregistry:
+  #   build: ./service-registry
+  #   container_name: serviceregistry
+  #   ports:
+  #     - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
+  #   depends_on: 
+  #     - redis
+  # devicemanager:
+  #   build: ./device-manager
+  #   container_name: devicemanager
+  #   ports:
+  #     - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
+  # datamanager:
+  #   build: ./data-manager
+  #   container_name: datamanager
+  #   ports:
+  #     - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
+  # actionmanager:
+  #   build: ./action-manager
+  #   container_name: actionmanager
+  #   ports:
+  #     - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
+  # servicecataloger:
+  #   build: ./service-cataloger
+  #   container_name: servicecataloger
+  #   ports:
+  #     - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
+  # inputcommunicator:
+  #  build: ./input-communicator
+  #  container_name: inputcommunicator
+  #  ports:
+  #    - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
+  #  depends_on:
+  #    - rabbitmq
   # actioncommunicator:
   #   build: ./action-communicator
   #   container_name: actioncommunicator
   #   ports:
   #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'
-    container_name: rabbitmq
-    volumes:
-      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
-      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
-      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    ports:
-      - 5672:5672
-      - 15672:15672
-      - 1883:1883
-  node-red:
-    image: nodered/node-red:latest
-    ports:
-      - "1880:1880"
+  # rabbitmq:
+  #   image: rabbitmq:management-alpine
+  #   command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'
+  #   container_name: rabbitmq
+  #   volumes:
+  #     - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+  #     - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+  #     - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+  #     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  #     - 1883:1883
+  # node-red:
+  #   image: nodered/node-red:latest
+  #   ports:
+  #     - "1880:1880"
   # mongo:
   #   image: mongo
   #   container_name: mongo

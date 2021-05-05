@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const { DATABASE_URL_TESTING } = require('../config/env');
+const dotenv = require('dotenv').config();
+const { DATABASE_URL_TESTING } = require('../config/mongo');
 mongoose.promise = global.Promise
 
 async function removeAllCollections() {

@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const routes = require('./routes');
 const addresses = require('./config/addresses');
+const {SERVICE_REGISTRY_PORT} = require('./config/registry');
 
 const server = express();
 server.use(express.json());
@@ -18,6 +19,6 @@ server.use(
   swaggerUi.setup(swaggerOptions, {customSiteTitle: "Service Registry API"})
 );
 
-server.listen(addresses.serviceRegistryPort, () => {
-  console.log("Service registry online...")
+const sv = server.listen(SERVICE_REGISTRY_PORT || 0, () => {
+  console.log(`Service registry online... ${sv.address().port}`)
 });

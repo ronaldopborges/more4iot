@@ -5,7 +5,7 @@ const swaggerOptions = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 
 const routes = require('./routes');
-const addresses = require('./config/addresses');
+const {ROUTE_SWAGGER_API} = require('./config/more4iot');
 const {SERVICE_REGISTRY_PORT} = require('./config/registry');
 
 const server = express();
@@ -14,7 +14,7 @@ server.use(cors());
 server.use(routes);
 
 server.use(
-  `/${addresses.route_swagger_api}`,
+  `/${ROUTE_SWAGGER_API}`,
   swaggerUi.serve,
   swaggerUi.setup(swaggerOptions, {customSiteTitle: "Service Registry API"})
 );

@@ -22,17 +22,17 @@ services:
       - "8081:8081"
     depends_on: 
       - redis
-  serviceregistry:
-    build: ./service-registry
-    container_name: serviceregistry
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-    ports:
-      - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
-    depends_on: 
-      - redis
+  # serviceregistry:
+  #   build: ./service-registry
+  #   container_name: serviceregistry
+  #   environment:
+  #     - REDIS_HOST=redis
+  #     - REDIS_PORT=6379
+  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+  #   ports:
+  #     - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
+  #   depends_on: 
+  #     - redis
   # devicemanager:
   #   build: ./device-manager
   #   container_name: devicemanager
@@ -47,8 +47,14 @@ services:
   # datamanager:
   #   build: ./data-manager
   #   container_name: datamanager
+  #   environment:
+  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+  #     - DATA_MANAGER_PORT=${DATA_MANAGER_PORT}
   #   ports:
   #     - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
+  #   depends_on:
+  #     - serviceregistry
   # actionmanager:
   #   build: ./action-manager
   #   container_name: actionmanager

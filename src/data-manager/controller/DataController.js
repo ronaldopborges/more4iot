@@ -1,19 +1,24 @@
 const DataRepository = require('../repository/DataRepository');
 const axios = require('../node_modules/axios');
 const addresses = require('../config/addresses');
+const rg = require('../services/RegistryService');
+const m = require('../config/more4iot');
 const config = require('../config/routesConfig');
 
 const persistData = async (req, res) => {
     const data = req.body;
-    let deviceExists = await axios.get(`${addresses.req_deviceManagerIpAndPort}/${config.req_deviceManagerRouteCheckDevice}/${data.deviceUuid}`).then((resp) => {
+    const deviceUrl = await rg.getServiceIPAndPort(m.DEVICE_MANAGER_NAME);
+    let deviceExists = await axios.get(`${deviceUrl}/${config.req_deviceManagerRouteCheckDevice}/${data.deviceUuid}`).then((resp) => {
         return resp.data;
     })
 
     if (deviceExists) {
+        const actionUrl = await rg.getServiceIPAndPort(m.ACTION_MANAGER_NAME);
         let response = await DataRepository.save(data);
         if (response) {
-            axios.get(`${addresses.req_actionManagerIpAndPort}/${config.req_actionManagerRouteNotifyActionCommunicator}/${data.uuid}`).then((res) => {
+            axios.get(`${actionUrl}/${config.req_actionManagerRouteNotifyActionCommunicator}/${data.uuid}`).then((res) => {
             }).catch((error) => {
+                console.log(error);
             })
         }
         return res.send(response);

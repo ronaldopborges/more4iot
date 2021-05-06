@@ -24,7 +24,7 @@ mongoose.connect(DATABASE_URL,
         useCreateIndex: true
     });
 
-server.listen(addresses.actionManagerPort, () => {
+const sv = server.listen(addresses.actionManagerPort, () => {
     console.log(`Action manager online... ${sv.address().port}`);
     rg.sendRegistry(ACTION_MANAGER_NAME, ip.address(), sv.address().port);
 });

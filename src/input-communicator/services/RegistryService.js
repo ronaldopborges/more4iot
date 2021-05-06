@@ -19,5 +19,13 @@ const getService = async (name) => {
   );
 }
 
+const getServiceIPAndPort = async (name) => {
+
+  const { data } = await getService(name);
+
+  return `http://${data.ipv4}:${data.port}`;
+}
+
+exports.getServiceIPAndPort = getServiceIPAndPort;
 exports.sendRegistry = sendRegistry;
 exports.getService = getService;

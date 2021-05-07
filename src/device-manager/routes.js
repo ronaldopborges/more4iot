@@ -1,7 +1,8 @@
 const express = require('express');
-const DeviceController = require('./controller/DeviceController');
-const config = require('./config/routesConfig');
 const routes = express.Router();
+
+const DeviceController = require('./controller/DeviceController');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
 
 routes.post(`/${config.deviceManagerRouteSave}`, DeviceController.inscribeDevice);
 routes.get(`/${config.deviceManagerRouteCheckDevice}/:uuid`, DeviceController.checkDevice);

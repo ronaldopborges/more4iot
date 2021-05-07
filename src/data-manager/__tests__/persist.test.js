@@ -2,7 +2,7 @@ const { setupDB } = require('./test-setup')
 const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
-const routesConfig = require('../config/routesConfig')
+const routesConfig = require('@iotufersa/more4iot-js-sdk/config/routes');
 const databaseName = 'test001' + '?retryWrites=true&w=majority'
 
 jest.setTimeout(30000);

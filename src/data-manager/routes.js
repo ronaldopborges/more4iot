@@ -1,8 +1,9 @@
 const express = require('express');
-const DataController = require('./controller/DataController');
-const config = require('./config/routesConfig');
-
 const routes = express.Router();
+
+const DataController = require('./controller/DataController');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+
 
  routes.post(`/${config.dataManagerRouteSave}`,DataController.persistData);
  routes.get(`/${config.dataManagerRouteGetDataByUuid}/:uuid`,DataController.getData);

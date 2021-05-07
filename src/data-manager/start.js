@@ -1,14 +1,15 @@
 const ip = require('ip');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-const server = require('./server.js');
-const swaggerOptions = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 
-const rg = require('./services/RegistryService');
-const {DATA_MANAGER_NAME, ROUTE_SWAGGER_API} = require('./config/more4iot');
+const server = require('./server.js');
+const swaggerOptions = require('./swagger');
+const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
+const { DATA_MANAGER_NAME, ROUTE_SWAGGER_API } = require('@iotufersa/more4iot-js-sdk/config/services');
 const { DATABASE_URL } = require('./config/mongo');
-const {DATA_MANAGER_PORT} = require('./config/dataManager');
+const { DATA_MANAGER_PORT } = require('./config/dataManager');
 
 server.use(
     `/${ROUTE_SWAGGER_API}`,

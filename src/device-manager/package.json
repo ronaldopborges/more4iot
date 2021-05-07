@@ -12,6 +12,7 @@
     "test": "jest --runInBand --detectOpenHandles --verbose"
   },
   "dependencies": {
+    "@iotufersa/more4iot-js-sdk": "^0.1.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -23,7 +24,7 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "jest": "^25.5.4",
+    "jest": "^26.5.0",
     "nodemon": "^2.0.6",
     "supertest": "^4.0.2"
   }

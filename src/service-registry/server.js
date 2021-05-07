@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const swaggerOptions = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 
 const routes = require('./routes');
-const {ROUTE_SWAGGER_API} = require('./config/more4iot');
-const {SERVICE_REGISTRY_PORT} = require('./config/registry');
+const swaggerOptions = require('./swagger');
+const { ROUTE_SWAGGER_API } = require('@iotufersa/more4iot-js-sdk/config/services');
+const { SERVICE_REGISTRY_PORT } = require('./config/registry');
 
 const server = express();
 server.use(express.json());

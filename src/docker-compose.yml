@@ -58,8 +58,14 @@ services:
   # actionmanager:
   #   build: ./action-manager
   #   container_name: actionmanager
+  #   environment:
+  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+  #     - ACTION_MANAGER_PORT=${ACTION_MANAGER_PORT}
   #   ports:
   #     - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
+  #   depends_on:
+  #     - serviceregistry
   # servicecataloger:
   #   build: ./service-cataloger
   #   container_name: servicecataloger

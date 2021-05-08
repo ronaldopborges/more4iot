@@ -1,8 +1,11 @@
-const ActionRepository = require('../repository/ActionRepository');
-const Action = require('../model/Action');
 const axios = require('axios');
-const config = require('../config/routesConfig');
-const addresses = require('../config/addresses');
+
+const ActionRepository = require('../repository/ActionRepository');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const {ACTION_COMMUNICATOR_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
+const Action = require('../model/Action');
+const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('../config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 
 const inscribeAction = async (req, res) => {
     data = req.body;
@@ -36,11 +39,13 @@ const notifyActionCommunicator = async (req, res) => {
             if (!updated)
                 flag = flag + 1;
         })
-        if (flag == 0)
-            axios.post(`${addresses.req_actionCommunicatorIpAndPort}${config.req_actionCommunicatorRouteNotify}`, response).then((res) => {
+        if (flag == 0){
+            const communicatorUrl = await rg.getServiceIPAndPort(ACTION_COMMUNICATOR_NAME);
+            axios.post(`${communicatorUrl}/${config.req_actionCommunicatorRouteNotify}`, response).then((res) => {
             }).catch((error) => {
                 console.log(error);
             })
+        }
         return res.send(true);
     } else
         return res.send(false);

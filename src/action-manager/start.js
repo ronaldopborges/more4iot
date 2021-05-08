@@ -1,14 +1,15 @@
 const ip = require('ip');
-const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-const addresses = require('./config/addresses');
-const { DATABASE_URL } = require('./config/env');
-const server = require('./server.js');
-const swaggerOptions = require('./swagger');
+const dotenv = require('dotenv').config();
 const swaggerUi = require('swagger-ui-express');
 
-const rg = require('./services/RegistryService');
-const {ACTION_MANAGER_NAME, ROUTE_SWAGGER_API } = require('./config/more4iot')
+const { DATABASE_URL } = require('./config/mongo');
+const { ACTION_MANAGER_PORT } = require('./config/actionManager');
+const server = require('./server');
+const swaggerOptions = require('./swagger');
+const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT } = require('./config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
+const {ACTION_MANAGER_NAME, ROUTE_SWAGGER_API } = require('@iotufersa/more4iot-js-sdk/config/services');
 
 server.use(
     `/${ROUTE_SWAGGER_API}`,
@@ -24,7 +25,7 @@ mongoose.connect(DATABASE_URL,
         useCreateIndex: true
     });
 
-const sv = server.listen(addresses.actionManagerPort, () => {
+const sv = server.listen(ACTION_MANAGER_PORT || 0, () => {
     console.log(`Action manager online... ${sv.address().port}`);
     rg.sendRegistry(ACTION_MANAGER_NAME, ip.address(), sv.address().port);
 });

@@ -1,11 +1,16 @@
-const config = require('../config/routesConfig');
-const addresses = require('../config/addresses');
-const { protocols } = require('../config/options');
-const axios = require('axios');
 const mqtt = require('mqtt');
-const amqp = require('amqplib/callback_api');
-const client = mqtt.connect(addresses.mqttBroker);
+const axios = require('axios');
 const coap = require('coap');
+const amqp = require('amqplib/callback_api');
+
+const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('../config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST,SERVICE_REGISTRY_PORT);
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const {DEVICE_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
+const {BROKER_AMQP,BROKER_MQTT} = require('../config/brokers');
+const protocols = require('@iotufersa/more4iot-js-sdk/config/protocols');
+
+const client = mqtt.connect(BROKER_MQTT);
 
 /**
  * Handles a REST request which contains an action object. From this action object, gets the attribute uuidAtuador, with it, requests the DeviceManager to get this actuator's URL and PROTOCOL and then send the action object to the actuator through his url using the correct protocol
@@ -18,11 +23,11 @@ const sendToActuator = async (req, res) => {
         uuidSensor: "0",
         command: {}
     };
-    var flag = 0;
-    actions.forEach((action, index) => {
+    actions.forEach(async (action, index) => {
         message.command = action.dataAtuador;
         message.uuidSensor = action.uuidSensor;
-        axios.get(`${addresses.req_deviceManagerIpAndPort}/${config.req_deviceManagerRouteCheckDevice}/${action.uuidAtuador}`).then(res => {
+        const deviceUrl = await rg.getServiceIPAndPort(DEVICE_MANAGER_NAME);
+        axios.get(`${deviceUrl}/${config.req_deviceManagerRouteCheckDevice}/${action.uuidAtuador}`).then(res => {
             if (res.data) {
                 console.log(`Atuador: ${action.uuidAtuador}, sensor: ${action.uuidSensor}, Comando: ${action.command} Endereço URI do atuador: ${res.data.uri}`);
                 if (res.data.protocol == protocols.REST) {
@@ -41,7 +46,7 @@ const sendToActuator = async (req, res) => {
                 }
                 if (res.data.protocol == protocols.AMQP) {
                     try {
-                        amqp.connect(addresses.amqpBroker, (err, conn) => {
+                        amqp.connect(BROKER_AMQP, (err, conn) => {
                             if (conn != undefined) {
                                 conn.createChannel((err, ch) => {
                                     ch.assertQueue(res.data.uri, { durable: false });
@@ -64,17 +69,12 @@ const sendToActuator = async (req, res) => {
                 }
             } else {
                 console.log(res.data);
-                flag = 1;
             }
         }).catch((error) => {
             console.log(error);
-            flag = 1;
         })
     })
-    if (!flag)
-        return res.send(true);
-    else
-        return res.send(false);
+    return res.send(true);
 }
 
 exports.sendToActuator = sendToActuator;

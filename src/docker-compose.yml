@@ -81,6 +81,14 @@ services:
   # actioncommunicator:
   #   build: ./action-communicator
   #   container_name: actioncommunicator
+  #   environment:
+  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+  #     - ACTION_COMMUNICATOR_PORT=${ACTION_COMMUNICATOR_PORT}
+  #     - MQTT_HOST:${MQTT_HOST}
+  #     - MQTT_PORT=${MQTT_PORT}
+  #     - AMQP_HOST=${AMQP_HOST}
+  #     - AMQP_PORT=${AMQP_PORT}
   #   ports:
   #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
   # rabbitmq:

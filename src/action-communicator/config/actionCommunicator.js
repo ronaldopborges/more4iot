@@ -1,0 +1,3 @@
+module.exports = {
+  ACTION_COMMUNICATOR_PORT: process.env.ACTION_COMMUNICATOR_PORT
+}

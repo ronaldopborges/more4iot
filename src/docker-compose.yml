@@ -74,9 +74,22 @@ services:
   # inputcommunicator:
   #  build: ./input-communicator
   #  container_name: inputcommunicator
+  #  environment:
+  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+  #     - INPUT_COMMUNICATOR_PORT=${INPUT_COMMUNICATOR_PORT}
+  #     - MQTT_HOST:${MQTT_HOST}
+  #     - MQTT_PORT=${MQTT_PORT}
+  #     - AMQP_HOST=${AMQP_HOST}
+  #     - AMQP_PORT=${AMQP_PORT}
+  #     - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
+  #     - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+  #     - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
+  #     - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
   #  ports:
   #    - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
   #  depends_on:
+  #    - serviceregistry
   #    - rabbitmq
   # actioncommunicator:
   #   build: ./action-communicator
@@ -91,6 +104,9 @@ services:
   #     - AMQP_PORT=${AMQP_PORT}
   #   ports:
   #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+  #  depends_on:
+  #    - serviceregistry
+  #    - rabbitmq
   # rabbitmq:
   #   image: rabbitmq:management-alpine
   #   command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'

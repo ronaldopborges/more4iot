@@ -1,6 +1,5 @@
 const mqtt = require('mqtt');
-const { MQTT_SUBSCRIBER_USER, MQTT_SUBSCRIBER_PASSWORD } = require('./config/env');
-const addresses = require('./config/addresses');
+const {MQTT_HOST,MQTT_PORT, SUBSCRIBER_USER, SUBSCRIBER_PASSWORD} = require('./config/brokers');
 
 /**
  * Connect to the MQTT broker from addresses and subscribe to a topic passed as parameter. Redirects any messages received in this topic to the global sender from index.js
@@ -10,15 +9,15 @@ const addresses = require('./config/addresses');
 module.exports = async (topic) => {
 
     var mqttOptions = {
-        host: 'mqtt://'+addresses.hostnameMqtt,
-        port: addresses.mqttPort,
+        host: 'mqtt://'+MQTT_HOST,
+        port: MQTT_PORT,
         clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
-        username: MQTT_SUBSCRIBER_USER,
-        password: MQTT_SUBSCRIBER_PASSWORD,
+        username: SUBSCRIBER_USER,
+        password: SUBSCRIBER_PASSWORD,
     };
 
     try {
-        const client = mqtt.connect('mqtt://'+addresses.hostnameMqtt, mqttOptions)
+        const client = mqtt.connect('mqtt://'+MQTT_HOST, mqttOptions)
         client.on('connect', () => {
             client.subscribe(topic);
             console.log("[*] Inscrito no topico MQTT: %s.", topic);

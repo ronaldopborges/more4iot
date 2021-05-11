@@ -1,11 +1,14 @@
+const dotenv = require('dotenv').config();
+const axios = require('axios');
+
 const mqtt = require('./mqtt');
 const amqp = require('./amqp');
 const coap = require('./coap');
-const axios = require('axios');
 const rest = require('./rest');
-const config = require('./config/routesConfig');
-const addresses = require('./config/addresses');
-const { services, topic, methods } = require('./config/options');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
+const {DATA_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
 
 /**
  * Receives a json string from a protocol and handles it to get a 'object' with attributes for 'service', 'method' and object 'data'. Then handles the object to communicate and send the 'data object' and 'method' to the correct 'service'
@@ -14,7 +17,8 @@ const { services, topic, methods } = require('./config/options');
 global.sender = async msg => {
     msg = JSON.parse(msg);
     let outputCommunication = false;
-    await axios.post(`${addresses.req_dataManagerIpAndPort}/${config.req_dataManagerRouteSave}`, msg).then((res) => {
+    const dataManagerUrl = await rg.getServiceIPAndPort(DATA_MANAGER_NAME);
+    await axios.post(`${dataManagerUrl}/${config.req_dataManagerRouteSave}`, msg).then((res) => {
         outputCommunication = true;
     }).catch((error) => {
         console.log(error.code);
@@ -23,8 +27,7 @@ global.sender = async msg => {
     return outputCommunication;
 }
 
-mqtt(topic);
+mqtt(config.topic);
 //amqp(topic);
 //coap();
 rest();
-

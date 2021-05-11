@@ -1,6 +1,5 @@
 const amqp = require('amqplib/callback_api');
-const addresses = require('./config/addresses');
-const { MQTT_SUBSCRIBER_USER, MQTT_SUBSCRIBER_PASSWORD } = require('./config/env');
+const { SUBSCRIBER_USER, SUBSCRIBER_PASSWORD, AMQP_HOST, AMQP_PORT } = require('./config/brokers');
 
 /**
  * Connect to the AMQP broker from addresses and subscribe to a topic passed as parameter. Redirects any messages received in this topic to the global sender from index.js
@@ -10,10 +9,10 @@ module.exports = async (amqptopic) => {
 
     var amqpOptions = {
         protocol: 'amqp',
-        hostname: addresses.hostnameAmqp,
-        port: addresses.amqpPort,
-        username: MQTT_SUBSCRIBER_USER,
-        password: MQTT_SUBSCRIBER_PASSWORD,
+        hostname: AMQP_HOST,
+        port: AMQP_PORT,
+        username: SUBSCRIBER_USER,
+        password: SUBSCRIBER_PASSWORD,
         locale: 'en_US',
         frameMax: 0,
         heartbeat: 0,

@@ -1,4 +1,4 @@
-const coap = require('coap') // or coap
+const coap = require('coap');
 
 /**
  * Turns online a COAP server, which will redirect all messages received to the global sender from index.js

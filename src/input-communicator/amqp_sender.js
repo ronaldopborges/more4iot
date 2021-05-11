@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
-const config = require('./config/options');
-const addresses = require('./config/addresses');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const {BROKER_AMQP} = require('../config/brokers');
 
 const msgDados = `{
     "service": "GerenciadorDeDados",
@@ -33,7 +33,7 @@ const msgDispositivos = `{
 }`;
 // "uuid": "66234b80-1126-11ea-abf3-0de1ea1d9635"
 try {
-    amqp.connect(addresses.amqpBroker, (err, conn) => {
+    amqp.connect(BROKER_AMQP, (err, conn) => {
         if (conn != undefined) {
             conn.createChannel((err, ch) => {
                 var msg = msgDados;

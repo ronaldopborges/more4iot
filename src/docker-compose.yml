@@ -33,44 +33,50 @@ services:
       - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
     depends_on: 
       - redis
-  # devicemanager:
-  #   build: ./device-manager
-  #   container_name: devicemanager
-  #   environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - DEVICE_MANAGER_PORT=${DEVICE_MANAGER_PORT}
-  #   ports:
-  #     - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
-  #   depends_on:
-  #     - serviceregistry
-  # datamanager:
-  #   build: ./data-manager
-  #   container_name: datamanager
-  #   environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - DATA_MANAGER_PORT=${DATA_MANAGER_PORT}
-  #   ports:
-  #     - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
-  #   depends_on:
-  #     - serviceregistry
-  # actionmanager:
-  #   build: ./action-manager
-  #   container_name: actionmanager
-  #   environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - ACTION_MANAGER_PORT=${ACTION_MANAGER_PORT}
-  #   ports:
-  #     - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
-  #   depends_on:
-  #     - serviceregistry
-  # servicecataloger:
-  #   build: ./service-cataloger
-  #   container_name: servicecataloger
-  #   ports:
-  #     - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
+  devicemanager:
+    build: ./device-manager
+    container_name: devicemanager
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - DEVICE_MANAGER_PORT=${DEVICE_MANAGER_PORT}
+    ports:
+      - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
+    depends_on:
+      - serviceregistry
+  datamanager:
+    build: ./data-manager
+    container_name: datamanager
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - DATA_MANAGER_PORT=${DATA_MANAGER_PORT}
+    ports:
+      - ${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}
+    depends_on:
+      - serviceregistry
+  actionmanager:
+    build: ./action-manager
+    container_name: actionmanager
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - ACTION_MANAGER_PORT=${ACTION_MANAGER_PORT}
+    ports:
+      - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
+    depends_on:
+      - serviceregistry
+  servicecataloger:
+    build: ./service-cataloger
+    container_name: servicecataloger
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - SERVICE_CATALOGER_PORT=${SERVICE_CATALOGER_PORT}
+    ports:
+      - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
+    depends_on:
+      - serviceregistry
   # inputcommunicator:
   #  build: ./input-communicator
   #  container_name: inputcommunicator

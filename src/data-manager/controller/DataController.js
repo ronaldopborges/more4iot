@@ -1,6 +1,8 @@
 const DataRepository = require('../repository/DataRepository');
 const axios = require('axios');
-const rg = require('../services/RegistryService');
+
+const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('../config/registry');
+const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const {DEVICE_MANAGER_NAME, ACTION_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
 const config = require('@iotufersa/more4iot-js-sdk/config/routes');
 

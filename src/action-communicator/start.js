@@ -10,5 +10,10 @@ const server = require('./server');
 
 const sv = server.listen(ACTION_COMMUNICATOR_PORT || 0, () => {
     console.log(`Action Communicator online... ${sv.address().port}`);
-    rg.sendRegistry(ACTION_COMMUNICATOR_NAME, ip.address(), sv.address().port);
+    rg.sendRegistry(ACTION_COMMUNICATOR_NAME, ip.address(), sv.address().port).then((res)=>{
+        console.log(`service registry: ${res.data}`)
+    })
+    .catch((err)=>{
+        console.log(`service registry: ${err.code}`);
+    });;
 });

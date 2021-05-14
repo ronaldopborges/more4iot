@@ -5,19 +5,23 @@ networks:
     external:
       name: moreiot
 
+volumes:
+  npm-cache:
+    external: false
+
 services:
   redis:
     image: redis:alpine
     container_name: redis
     ports:
-      - "6379:6379"
+      - ${REDIS_PORT}:${REDIS_PORT}
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:${REDIS_HOST}:${REDIS_PORT}
     ports:
       - "8081:8081"
     depends_on: 
@@ -25,9 +29,11 @@ services:
   serviceregistry:
     build: ./service-registry
     container_name: serviceregistry
+    volumes:
+      - npm-cache:/root/.npm
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
     ports:
       - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
@@ -36,6 +42,8 @@ services:
   devicemanager:
     build: ./device-manager
     container_name: devicemanager
+    volumes:
+      - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
@@ -47,6 +55,8 @@ services:
   datamanager:
     build: ./data-manager
     container_name: datamanager
+    volumes:
+      - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
@@ -58,6 +68,8 @@ services:
   actionmanager:
     build: ./action-manager
     container_name: actionmanager
+    volumes:
+      - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
@@ -69,6 +81,8 @@ services:
   servicecataloger:
     build: ./service-cataloger
     container_name: servicecataloger
+    volumes:
+      - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
@@ -77,61 +91,72 @@ services:
       - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
     depends_on:
       - serviceregistry
-  # inputcommunicator:
-  #  build: ./input-communicator
-  #  container_name: inputcommunicator
-  #  environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - INPUT_COMMUNICATOR_PORT=${INPUT_COMMUNICATOR_PORT}
-  #     - MQTT_HOST:${MQTT_HOST}
-  #     - MQTT_PORT=${MQTT_PORT}
-  #     - AMQP_HOST=${AMQP_HOST}
-  #     - AMQP_PORT=${AMQP_PORT}
-  #     - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-  #     - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-  #  ports:
-  #    - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
-  #  depends_on:
-  #    - serviceregistry
-  #    - rabbitmq
-  # actioncommunicator:
-  #   build: ./action-communicator
-  #   container_name: actioncommunicator
-  #   environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - ACTION_COMMUNICATOR_PORT=${ACTION_COMMUNICATOR_PORT}
-  #     - MQTT_HOST:${MQTT_HOST}
-  #     - MQTT_PORT=${MQTT_PORT}
-  #     - AMQP_HOST=${AMQP_HOST}
-  #     - AMQP_PORT=${AMQP_PORT}
-  #   ports:
-  #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
-  #  depends_on:
-  #    - serviceregistry
-  #    - rabbitmq
-  # rabbitmq:
-  #   image: rabbitmq:management-alpine
-  #   command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'
-  #   container_name: rabbitmq
-  #   volumes:
-  #     - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
-  #     - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
-  #     - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-  #     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-  #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
-  #     - 1883:1883
+  inputcommunicator:
+   build: ./input-communicator
+   container_name: inputcommunicator
+   volumes:
+    - npm-cache:/root/.npm
+   environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - INPUT_COMMUNICATOR_PORT=${INPUT_COMMUNICATOR_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - MQTT_HOST=${MQTT_HOST}
+      - MQTT_PORT=${MQTT_PORT}
+      - AMQP_HOST=${AMQP_HOST}
+      - AMQP_PORT=${AMQP_PORT}
+      - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+   ports:
+     - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
+   depends_on:
+     - serviceregistry
+     - rabbitmq
+     - redis
+  actioncommunicator:
+    build: ./action-communicator
+    container_name: actioncommunicator
+    volumes:
+      - npm-cache:/root/.npm
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - ACTION_COMMUNICATOR_PORT=${ACTION_COMMUNICATOR_PORT}
+      - MQTT_HOST=${MQTT_HOST}
+      - MQTT_PORT=${MQTT_PORT}
+      - AMQP_HOST=${AMQP_HOST}
+      - AMQP_PORT=${AMQP_PORT}
+      - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+    depends_on:
+      - serviceregistry
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    command: '/bin/bash -c "rabbitmq-plugins enable rabbitmq_mqtt rabbitmq_management; rabbitmq-server"'
+    container_name: rabbitmq
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 1883:1883
   # node-red:
   #   image: nodered/node-red:latest
   #   ports:
-  #     - "1880:1880"
+  #     - 1880:1880
   # mongo:
   #   image: mongo
   #   container_name: mongo

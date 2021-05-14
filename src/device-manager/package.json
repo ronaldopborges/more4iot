@@ -12,7 +12,7 @@
     "test": "jest --runInBand --detectOpenHandles --verbose"
   },
   "dependencies": {
-    "@iotufersa/more4iot-js-sdk": "^0.1.1",
+    "@iotufersa/more4iot-js-sdk": "^0.1.4",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

@@ -27,5 +27,10 @@ mongoose.connect(DATABASE_URL,
 
 const sv = server.listen(DEVICE_MANAGER_PORT || 0, () => {
     console.log(`Device manager online... ${sv.address().port}`);
-    rg.sendRegistry(DEVICE_MANAGER_NAME, ip.address(), sv.address().port);
+    rg.sendRegistry(DEVICE_MANAGER_NAME, ip.address(), sv.address().port).then((res)=>{
+        console.log(`service registry: ${res.data}`);
+    })
+    .catch((err)=>{
+        console.log(`service registry: ${err.code}`);
+    });
 });

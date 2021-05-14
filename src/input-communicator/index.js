@@ -27,7 +27,7 @@ global.sender = async msg => {
     return outputCommunication;
 }
 
-mqtt(config.topic);
+mqtt(config.async_input);
 //amqp(topic);
 //coap();
 rest();

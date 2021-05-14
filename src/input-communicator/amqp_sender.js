@@ -37,8 +37,8 @@ try {
         if (conn != undefined) {
             conn.createChannel((err, ch) => {
                 var msg = msgDados;
-                ch.assertQueue(config.topic, { durable: false });
-                ch.sendToQueue(config.topic, new Buffer.from(msg));
+                ch.assertQueue(config.async_input, { durable: false });
+                ch.sendToQueue(config.async_input, new Buffer.from(msg));
                 console.log(" [x] Enviada a mensagem: %s", msg);
             });
             setTimeout(function () { conn.close(); process.exit(0) }, 500);
@@ -46,6 +46,7 @@ try {
             console.log("Erro ao conectar ao servidor AMQP.")
         }
     });
+    amqp.close();
 }
 catch (e) {
     console.log("Erro ao conectar ao servidor AMQP.")

@@ -17,5 +17,10 @@ server.use(
 
 const sv = server.listen(SERVICE_CATALOGER_PORT || 0, () => {
     console.log(`Service Cataloger online... ${sv.address().port}`);
-    rg.sendRegistry(SERVICE_CATALOGER_NAME, ip.address(), sv.address().port);
+    rg.sendRegistry(SERVICE_CATALOGER_NAME, ip.address(), sv.address().port).then((res)=>{
+        console.log(`service registry: ${res.data}`);
+    })
+    .catch((err)=>{
+        console.log(`service registry: ${err.code}`);
+    });;
 });

@@ -9,24 +9,21 @@ const {MQTT_HOST,MQTT_PORT, SUBSCRIBER_USER, SUBSCRIBER_PASSWORD} = require('./c
 module.exports = async (topic) => {
 
     var mqttOptions = {
-        host: 'mqtt://'+MQTT_HOST,
+        host: MQTT_HOST,
         port: MQTT_PORT,
-        clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
         username: SUBSCRIBER_USER,
         password: SUBSCRIBER_PASSWORD,
+        protocol:'mqtt'
     };
 
-    try {
-        const client = mqtt.connect('mqtt://'+MQTT_HOST, mqttOptions)
-        client.on('connect', () => {
-            client.subscribe(topic);
-            console.log("[*] Inscrito no topico MQTT: %s.", topic);
-        });
+    let client = mqtt.connect(mqttOptions);
+    
+    client.on('connect', () => {
+        client.subscribe(topic);
+        console.log("[*] Inscrito no topico MQTT: %s.", topic);
+    });
 
-        client.on('message', (topic, message) => {
-            sender(message.toString());
-        });
-    } catch (e) {
-        console.log("Erro ao conectar-se ao servidor MQTT.")
-    }
+    client.on('message', (topic, message) => {
+        sender(message.toString());
+    });
 }

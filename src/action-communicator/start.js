@@ -15,5 +15,5 @@ const sv = server.listen(ACTION_COMMUNICATOR_PORT || 0, () => {
     })
     .catch((err)=>{
         console.log(`service registry: ${err.code}`);
-    });;
+    });
 });

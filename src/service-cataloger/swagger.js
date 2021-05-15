@@ -1,7 +1,7 @@
 module.exports = {
   openapi: "3.0.0",
   info: {
-    title: "Sevice Cataloger API",
+    title: "Service Cataloger API",
     version: "1.0.0",
     description: "",
   },

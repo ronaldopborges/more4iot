@@ -10,16 +10,6 @@ const {DEVICE_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/service
 const {BROKER_AMQP, MQTT_HOST, MQTT_PORT, PUBLISHER_USER, PUBLISHER_PASSWORD} = require('../config/brokers');
 const protocols = require('@iotufersa/more4iot-js-sdk/config/protocols');
 
-var mqttOptions = {
-    host: MQTT_HOST,
-    port: MQTT_PORT,
-    username: PUBLISHER_USER,
-    password: PUBLISHER_PASSWORD,
-    protocol:'mqtt'
-};
-
-const client = mqtt.connect(mqttOptions);
-
 /**
  * Handles a REST request which contains an action object. From this action object, gets the attribute uuidAtuador, with it, requests the DeviceManager to get this actuator's URL and PROTOCOL and then send the action object to the actuator through his url using the correct protocol
  * @param  {Request} req The REST request with the body which contains the Action Object with the  UUID of the target device get his address and protocol, to send him the Action Object
@@ -45,6 +35,15 @@ const sendToActuator = async (req, res) => {
                     })
                 }
                 if (res.data.protocol == protocols.MQTT) {
+                    var mqttOptions = {
+                        host: MQTT_HOST,
+                        port: MQTT_PORT,
+                        username: PUBLISHER_USER,
+                        password: PUBLISHER_PASSWORD,
+                        protocol:'mqtt'
+                    };
+                    
+                    const client = mqtt.connect(mqttOptions);
                     client.subscribe(res.data.uri, function (err) {
                         if (!err) {
                             client.publish(res.data.uri, JSON.stringify(message));

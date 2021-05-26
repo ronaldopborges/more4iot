@@ -16,10 +16,17 @@ const updateDevice = async (req, res) => {
     else return res.send(false);
 }
 
-const checkDevice = async (req, res) => {
+const findDevice = async (req, res) => {
     const response = await DeviceRepository.findByUuid(req.params.uuid);
     if (response)
         return res.json(response);
+    else return res.send({});
+}
+
+const checkDevice = async (req, res) => {
+    const response = await DeviceRepository.findByUuid(req.params.uuid);
+    if (response)
+        return res.json(true);
     else return res.send(false);
 }
 
@@ -44,6 +51,7 @@ const deleteDevice = async (req, res) => {
 
 exports.deleteDevice = deleteDevice;
 exports.getAllDevices = getAllDevices;
+exports.findDevice = findDevice;
 exports.checkDevice = checkDevice;
 exports.updateDevice = updateDevice;
 exports.inscribeDevice = inscribeDevice;

@@ -130,9 +130,34 @@ module.exports = {
     '/devices/{uuid}': {
       get: {
         tags: ["device"],
-        summary: "Find and check the device with uuid",
+        summary: "Find the device with uuid",
         description: "",
         operationId: "findByUuidDevice",
+        parameters: [{
+          name: "uuid",
+          in: "path",
+          description: "Uuid of device",
+          required: true,
+          schema:{
+            type: "string",
+          }
+        }],
+        responses: {
+          "200": {
+            description: "get Device",
+          },
+          "400": {
+            description: "Invalid input"
+          }
+        }
+      }
+    },
+    '/devices/verify/{uuid}': {
+      get: {
+        tags: ["device"],
+        summary: "verify the device with uuid",
+        description: "",
+        operationId: "checkByUuidDevice",
         parameters: [{
           name: "uuid",
           in: "path",

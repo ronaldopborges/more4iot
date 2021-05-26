@@ -2,9 +2,8 @@ const ip = require('ip');
 const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
 
-const swaggerDocument = YAML.load('./yaml_3.0.yaml');
+const swaggerOptions = require('./swagger');
 const routes = require('./routes');
 const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
@@ -21,10 +20,10 @@ module.exports = async () => {
     server.use(
         `/${ROUTE_SWAGGER_API}`,
         swaggerUi.serve,
-        swaggerUi.setup(swaggerDocument, {customSiteTitle: "Input Communicator API"})
+        swaggerUi.setup(swaggerOptions, {customSiteTitle: "Input Communicator API"})
     );
     server.use(express.json());
-    server.use(cors())
+    server.use(cors());
     server.use(routes);
 
     const sv = server.listen(INPUT_COMMUNICATOR_PORT || 0, () => {

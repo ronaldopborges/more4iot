@@ -15,9 +15,6 @@ module.exports = async () => {
         debug('sent to validation and sender');
         sender(req.payload.toString());
         res.end();
-        //console.log(req.payload.toString());
-        //sender(req.url.split('/')[1]);
-        //res.end('Hello ' + req.url.split('/')[1] + '\n')
     })
 
     server.listen(() => {

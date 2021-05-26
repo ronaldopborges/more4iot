@@ -1,12 +1,18 @@
+'use strict';
+
 const coap = require('coap');
+const debug = require('debug')('input:COAP');
 
 /**
- * Turns online a COAP server, which will redirect all messages received to the global sender from index.js
+ * Turns online a COAP server
+ * redirect all messages received to the global sender from index.js
  */
 module.exports = async () => {
-    server = coap.createServer()
-
+    debug('coap server starting...');
+    const server = coap.createServer()
     server.on('request', function (req, res) {
+        debug('received request...');
+        debug('sent to validation and sender');
         sender(req.payload.toString());
         res.end();
         //console.log(req.payload.toString());
@@ -14,7 +20,7 @@ module.exports = async () => {
         //res.end('Hello ' + req.url.split('/')[1] + '\n')
     })
 
-    server.listen(function () {
-        console.log('[*] CoAp server online.')
+    server.listen(() => {
+        debug('[*] CoAp server online');
     })
 }

@@ -10,6 +10,7 @@ const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registr
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const {INPUT_COMMUNICATOR_NAME, ROUTE_SWAGGER_API} = require('@iotufersa/more4iot-js-sdk/config/services');
 const { INPUT_COMMUNICATOR_PORT } = require('./config/inputCommunicator');
+const debug = require('debug')('input:HTTP/REST')
 
 /**
  * Turns online a REST server, which will redirect all messages received to the global sender from index.js
@@ -27,12 +28,12 @@ module.exports = async () => {
     server.use(routes);
 
     const sv = server.listen(INPUT_COMMUNICATOR_PORT || 0, () => {
-        console.log(`[x] Rest online... ${sv.address().port}`);
+        debug(`[*] Http server online on port: ${sv.address().port}`);
         rg.sendRegistry(INPUT_COMMUNICATOR_NAME, ip.address(), sv.address().port).then((res)=>{
-            console.log(`service registry: ${res.data}`);
+            debug(`service registry: ${res.data}`);
         })
         .catch((err)=>{
-            console.log(`service registry: ${err.code}`);
+            debug(`service registry error: ${err.code}`);
         });;
     });
 }

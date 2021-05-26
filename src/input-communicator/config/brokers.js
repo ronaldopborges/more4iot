@@ -9,4 +9,6 @@ module.exports = {
   AMQP_PORT:process.env.MQTT_PORT,
   MQTT_HOST:process.env.MQTT_HOST,
   MQTT_PORT:process.env.MQTT_PORT,
+  COAP_HOST:process.env.COAP_HOST,
+  COAP_PORT:process.env.COAP_PORT,
 }

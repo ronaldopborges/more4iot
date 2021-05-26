@@ -9,6 +9,7 @@ const config = require('@iotufersa/more4iot-js-sdk/config/routes');
 const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const {DATA_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
+const debug = require('debug')('input:validation')
 
 /**
  * Receives a json string from a protocol and handles it to get a 'object' with attributes for 'service', 'method' and object 'data'. Then handles the object to communicate and send the 'data object' and 'method' to the correct 'service'
@@ -21,13 +22,13 @@ global.sender = async msg => {
     await axios.post(`${dataManagerUrl}/${config.req_dataManagerRouteSave}`, msg).then((res) => {
         outputCommunication = true;
     }).catch((error) => {
-        console.log(error.code);
-        console.log(error.config);
+        debug(error.code);
+        debug(error.config);
     })
     return outputCommunication;
 }
 
 mqtt(config.async_input);
 //amqp(topic);
-//coap();
+coap();
 rest();

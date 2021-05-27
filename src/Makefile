@@ -9,8 +9,8 @@ dkdw:
 
 data_m_dw:
 	docker container rm datamanager
-	docker image rm datamanager
+	docker image rm src_datamanager
 
 action_m_dw:
 	docker container rm actionmanager
-	docker image rm actionmanager
+	docker image rm src_actionmanager

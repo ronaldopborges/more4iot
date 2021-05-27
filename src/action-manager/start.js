@@ -5,11 +5,14 @@ const swaggerUi = require('swagger-ui-express');
 
 const { DATABASE_URL } = require('./config/mongo');
 const { ACTION_MANAGER_PORT } = require('./config/actionManager');
+const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const mqttReceiver = require('./services/mqtt_receiver');
 const server = require('./server');
 const swaggerOptions = require('./swagger');
 const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT } = require('./config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const {ACTION_MANAGER_NAME, ROUTE_SWAGGER_API } = require('@iotufersa/more4iot-js-sdk/config/services');
+const debug = require('debug')('action:main')
 
 server.use(
     `/${ROUTE_SWAGGER_API}`,
@@ -26,11 +29,13 @@ mongoose.connect(DATABASE_URL,
     });
 
 const sv = server.listen(ACTION_MANAGER_PORT || 0, () => {
-    console.log(`Action manager online... ${sv.address().port}`);
+    debug(`Action manager online... ${sv.address().port}`);
     rg.sendRegistry(ACTION_MANAGER_NAME, ip.address(), sv.address().port).then((res)=>{
-        console.log(`service registry: ${res.data}`);
+        debug(`service registry: ${res.data}`);
     })
     .catch((err)=>{
-        console.log(`service registry: ${err.code}`);
+        debug(`service registry: ${err.code}`);
     });;
 });
+
+mqttReceiver(config.async_data);

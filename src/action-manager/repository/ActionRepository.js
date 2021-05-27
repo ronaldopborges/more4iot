@@ -43,9 +43,7 @@ const findByActiveUuidSensor = async deviceUuid => {
         if (oneExists) {
             const actionExists = await Action.db.find({ uuidSensor: deviceUuid, status: true });
             return actionExists;
-        }
-        else
-            return false;
+        } else return false;
     } catch (error) {
         return false;
     }

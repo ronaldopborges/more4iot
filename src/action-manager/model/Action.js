@@ -39,16 +39,15 @@ const ActionSchema = new Schema(
     });
 
 db = model('Action', ActionSchema);
-const updateLifetime = actionparam => {
-    const response = actionparam;
-    if (response.lifetime == true) {
-        response.quant -= 1;
-        if (response.quant == 0)
-            response.status = false;
-        return response;
+
+const updateLifetime = (action) => {
+    if (action.lifetime == true) {
+        action.quant -= 1;
+        if (action.quant == 0)
+            action.status = false;
+        return action;
     }
 };
-
 
 exports.db = db;
 exports.updateLifetime = updateLifetime;

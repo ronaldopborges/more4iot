@@ -1,36 +1,38 @@
 const { Schema, model } = require('mongoose');
 
-
 const ActionSchema = new Schema(
     {
-        uuidAtuador: {
+        uuidFrom: {
             type: String,
             required: true,
         },
-        uuidSensor: {
+        uuidTo: {
             type: String,
             required: true,
         },
-        dataSensor: {
+        data: {
             type: Schema.Types.Mixed,
-            required: true,
+            default: {}
         },
-        dataAtuador: {
+        commands: {
             type: Schema.Types.Mixed,
-            required: true,
+            default: {}
         },
-        lifetimeAtuacao: {
-            lifetime: {
+        lifetime: {
+            validity: {
                 type: Boolean,
+                default: true,
                 required: true,
             },
-            quant: {
+            count: {
                 type: Number,
+                default: 0,
                 required: true
             }
         },
         status: {
             type: Boolean,
+            default: true,
             required: true
         },
     },
@@ -41,9 +43,9 @@ const ActionSchema = new Schema(
 db = model('Action', ActionSchema);
 
 const updateLifetime = (action) => {
-    if (action.lifetime == true) {
-        action.quant -= 1;
-        if (action.quant == 0)
+    if (action.lifetime.validity == true) {
+        action.lifetime.count -= 1;
+        if (action.lifetime.count == 0)
             action.status = false;
         return action;
     }

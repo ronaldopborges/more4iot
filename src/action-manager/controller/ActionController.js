@@ -6,32 +6,27 @@ const {ACTION_COMMUNICATOR_NAME} = require('@iotufersa/more4iot-js-sdk/config/se
 const Action = require('../model/Action');
 const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('../config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
+const debug = require('debug')('action:controller');
 
-const inscribeAction = async (req, res) => {
-    data = req.body;
-    response = await ActionRepository.save(data);
-    return res.json(response);
+const inscribe = async (req, res) => {
+    debug('inscribe action...');
+    const action = await ActionRepository.save(req.body);
+    return res.send(action);
 }
 
 const getActions = async (req, res) => {
-    const response = await ActionRepository.findByUuidSensor(req.params.uuidSensor);
-    if (response)
-        return res.json(response);
-    else
-        return res.send(false);
+    debug('find actions from uuid...');
+    return res.send(await ActionRepository.findByUuidFrom(req.params.uuidFrom));
 }
 
 const getAllActions = async (req, res) => {
-    const response = await ActionRepository.findAll();
-    if (response)
-        return res.json(response);
-    else
-        return res.send(false);
+    debug('find all actions...');
+    return res.send(await ActionRepository.findAll());
 }
 
 const notifyActionCommunicator = async (req, res) => {
     var flag = 0;
-    const response = await ActionRepository.findByActiveUuidSensor(req.params.uuidSensor);
+    const response = await ActionRepository.findByActiveUuidFrom(req.params.uuidSensor);
     if (response) {
         response.forEach(async action => {
             action = Action.updateLifetime(action);
@@ -54,4 +49,4 @@ const notifyActionCommunicator = async (req, res) => {
 exports.notifyActionCommunicator = notifyActionCommunicator;
 exports.getAllActions = getAllActions;
 exports.getActions = getActions;
-exports.inscribeAction = inscribeAction;
+exports.inscribe = inscribe;

@@ -17,34 +17,33 @@ module.exports = {
       Action: {
         type: "object",
         properties: {
-          uuidAtuador: {
+          uuidFrom: {
             type: "string",
             required: true,
           },
-          uuidSensor: {
+          uuidTo: {
             type: "string",
             required: true,
           },
-          dataSensor: {
-            type: "object",
-            required: true,
+          data: {
+            type: "object"
           },
-          dataAtuador: {
-            type: "object",
-            required: true,
+          commands: {
+            type: "object"
           },
-          lifetimeAtuacao: {
+          lifetime: {
             type: "object",
             required: true,
             properties: {
-              lifetime: {
+              validity: {
                 type: "boolean",
                 required: true,
-                default: false
+                default: true
               },
-              quant: {
+              count: {
                 type: "number",
                 format: "integer",
+                default: 0,
                 required: true
               }
             }
@@ -95,16 +94,13 @@ module.exports = {
         tags: ["action"],
         summary: "Inscribe a new action",
         description: "",
-        operationId: "inscribeAction",
+        operationId: "inscribe",
         requestBody: {
           $ref: "#/components/requestBodies/Action"
         },
         responses: {
           "200": {
             description: "Action inscribe"
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }
@@ -116,9 +112,9 @@ module.exports = {
         description: "",
         operationId: "getActions",
         parameters: [{
-          name: "uuidSensor",
+          name: "uuidFrom",
           in: "path",
-          description: "Uuid of device",
+          description: "UUID",
           required: true,
           schema: {
             type: "string",
@@ -127,9 +123,6 @@ module.exports = {
         responses: {
           "200": {
             description: "get all actions from device",
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }
@@ -141,9 +134,9 @@ module.exports = {
         description: "",
         operationId: "notifyActionCommunicator",
         parameters: [{
-          name: "uuidSensor",
+          name: "uuidFrom",
           in: "path",
-          description: "Uuid of device",
+          description: "UUID",
           required: true,
           schema: {
             type: "string",
@@ -152,9 +145,6 @@ module.exports = {
         responses: {
           "200": {
             description: "notified if your action from about device exists"
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }

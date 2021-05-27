@@ -1,24 +1,21 @@
 const Action = require('../model/Action');
 
-const save = async actionObj => {
+const debug = require('debug')('action:repo');
+
+const save = async (action) => {
     try {
-        const newAction = await Action.db.create(actionObj);
-        if (newAction)
-            return newAction;
-        else
-            return false;
+        return await Action.db.create(action);
     } catch (error) {
         console.log(error)
         return false;
     }
 }
 
-const findByUuidSensor = async deviceUuid => {
+const findByUuidFrom = async (uuidFrom) => {
     try {
-        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid });
+        const oneExists = await Action.db.findOne({ uuidFrom: uuidFrom });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidSensor: deviceUuid });
-            return actionExists;
+            return await Action.db.find({ uuidFrom: uuidFrom });
         }
     }catch(error){
         return false;
@@ -27,21 +24,18 @@ const findByUuidSensor = async deviceUuid => {
 
 const update = async actionUpdated => {
     try {
-        const updatedAction = await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
-        if (updatedAction)
-            return updatedAction;
-        else
-            return false;
+        return await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
     } catch (error) {
+        console.log(error);
         return false;
     }
 }
 
-const findByActiveUuidSensor = async deviceUuid => {
+const findByActiveUuidFrom = async (uuidFrom) => {
     try {
-        const oneExists = await Action.db.findOne({ uuidSensor: deviceUuid, status: true });
+        const oneExists = await Action.db.findOne({ uuidFrom: uuidFrom, status: true });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidSensor: deviceUuid, status: true });
+            const actionExists = await Action.db.find({ uuidFrom: uuidFrom, status: true });
             return actionExists;
         } else return false;
     } catch (error) {
@@ -50,19 +44,17 @@ const findByActiveUuidSensor = async deviceUuid => {
 }
 
 const findAll = async () => {
+    debug('find all actions');
     try {
-        const all = await Action.db.find({})
-        if (all)
-            return all;
-        else
-            return false;
+        return await Action.db.find({});
     } catch (error) {
-        return false;
+        console.log(error);
+        return {};
     }
 }
 
-exports.findByActiveUuidSensor = findByActiveUuidSensor;
+exports.findByActiveUuidFrom = findByActiveUuidFrom;
 exports.findAll = findAll;
-exports.findByUuidSensor = findByUuidSensor;
+exports.findByUuidFrom = findByUuidFrom;
 exports.save = save;
 exports.update = update;

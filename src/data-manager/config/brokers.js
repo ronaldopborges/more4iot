@@ -1,0 +1,6 @@
+module.exports = {
+  SUBSCRIBER_USER: process.env.RABBITMQ_SUBSCRIBER_USER,
+  SUBSCRIBER_PASSWORD: process.env.RABBITMQ_SUBSCRIBER_PASSWORD,
+  MQTT_HOST:process.env.MQTT_HOST,
+  MQTT_PORT:process.env.MQTT_PORT,
+}

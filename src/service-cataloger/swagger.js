@@ -7,15 +7,15 @@ module.exports = {
   },
   tags: [{
     name: "resource",
-    description: "Everything about your Resource"
+    description: "Everything about Resource"
   },
   {
     name: "data",
-    description: "Everything about your Data"
+    description: "Everything about Data"
   },
   {
     name: "action",
-    description: "Everything about your Action"
+    description: "Everything about Action"
   }],
   schemes: [
     "https", "http"
@@ -464,9 +464,9 @@ module.exports = {
         description: "",
         operationId: "getActions",
         parameters: [{
-          name: "uuidSensor",
+          name: "uuid",
           in: "path",
-          description: "Uuid of device",
+          description: "Uuid of resource",
           required: true,
           schema: {
             type: "string",
@@ -474,7 +474,7 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "get all actions from device",
+            description: "get all actions from resource",
           },
           "400": {
             description: "Invalid input"

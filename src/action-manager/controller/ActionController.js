@@ -16,7 +16,7 @@ const inscribe = async (req, res) => {
 
 const getActions = async (req, res) => {
     debug('find actions from uuid...');
-    return res.send(await ActionRepository.findByUuidFrom(req.params.uuidFrom));
+    return res.send(await ActionRepository.findByUuidFrom(req.params.uuid));
 }
 
 const getAllActions = async (req, res) => {
@@ -26,7 +26,7 @@ const getAllActions = async (req, res) => {
 
 const notifyActionCommunicator = async (req, res) => {
     var flag = 0;
-    const response = await ActionRepository.findByActiveUuidFrom(req.params.uuidSensor);
+    const response = await ActionRepository.findByActiveUuidFrom(req.params.deviceUuid);
     if (response) {
         response.forEach(async action => {
             action = Action.updateLifetime(action);

@@ -6,8 +6,8 @@ module.exports = {
     description: "",
   },
   tags: [{
-    name: "device",
-    description: "Everything about your Device"
+    name: "resource",
+    description: "Everything about your Resource"
   },
   {
     name: "data",
@@ -22,22 +22,23 @@ module.exports = {
   ],
   components: {
     schemas: {
-      Device: {
+      Resource: {
         type: "object",
         properties: {
           uuid: {
             type: "string",
             required: true,
           },
-          latDefault: {
-            type: "number",
-            format: "double",
-            required: true,
+          name: {
+            type: "string"
           },
-          lonDefault: {
+          lat: {
             type: "number",
-            format: "double",
-            required: true,
+            format: "double"
+          },
+          lon: {
+            type: "number",
+            format: "double"
           },
           resource: {
             type: "array",
@@ -54,12 +55,12 @@ module.exports = {
             required: true
           },
           describe: {
-            type: "string",
-            required: true
+            type: "string"
           },
-          typeDevice: {
-            type: "string",
-            required: true
+          isDevice: {
+            type: "boolean",
+            required: true,
+            default: false
           },
         }
       },
@@ -128,20 +129,20 @@ module.exports = {
       }
     },
     requestBodies: {
-      Device: {
+      Resource: {
         content: {
           'application/json': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Resource"
             }
           },
           'application/xml': {
             schema: {
-              $ref: "#/components/schemas/Device"
+              $ref: "#/components/schemas/Resource"
             }
           }
         },
-        description: "Device object that needs to be added to the device manager service",
+        description: "Resource object that needs to be added to the resource manager service",
         required: true
       },
       Data: {
@@ -206,67 +207,61 @@ module.exports = {
     }
   },
   paths: {
-    '/devices': {
+    '/resources': {
       get: {
-        tags: ["device"],
-        summary: "Get all devices",
+        tags: ["resource"],
+        summary: "Get all resources",
         description: "",
-        operationId: "getAllDevice",
+        operationId: "getAllResources",
         responses: {
           "200": {
-            description: "All devices"
+            description: "All resources"
           },
         }
       }
     },
-    '/devices/inscribe': {
+    '/resources/inscribe': {
       post: {
-        tags: ["device"],
-        summary: "Inscribe a new device",
+        tags: ["resource"],
+        summary: "Inscribe a new resource",
         description: "",
-        operationId: "inscribeDevice",
+        operationId: "inscribe",
         requestBody: {
-          $ref: "#/components/requestBodies/Device"
+          $ref: "#/components/requestBodies/Resource"
         },
         responses: {
           "200": {
-            description: "Device inscribe"
+            description: "Resource inscribe"
           },
-          "400": {
-            description: "Invalid input"
-          }
         }
       }
     },
-    '/devices/update': {
+    '/resources/update': {
       put: {
-        tags: ["device"],
-        summary: "Update a new device",
+        tags: ["resource"],
+        summary: "Update a new resource",
         description: "",
-        operationId: "updateDevice",
+        operationId: "update",
         requestBody: {
-          $ref: "#/components/requestBodies/Device"
+          $ref: "#/components/requestBodies/Resource"
         },
         responses: {
           "200": {
-            description: "Device updated"
+            description: "Resource updated"
           },
-          "400": {
-            description: "Invalid input"
-          }
         }
       }
     },
-    '/devices/{uuid}': {
+    '/resources/{uuid}': {
       get: {
-        tags: ["device"],
-        summary: "Find and check the device with uuid",
+        tags: ["resource"],
+        summary: "Find the resource with uuid",
         description: "",
-        operationId: "findByUuidDevice",
+        operationId: "findByUuidResource",
         parameters: [{
           name: "uuid",
           in: "path",
-          description: "Uuid of device",
+          description: "Uuid of resource",
           required: true,
           schema: {
             type: "string",
@@ -274,24 +269,21 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "get Device",
+            description: "get Resource",
           },
-          "400": {
-            description: "Invalid input"
-          }
         }
       }
     },
-    '/devices/delete/{uuid}': {
-      delete: {
-        tags: ["device"],
-        summary: "Delete Device",
+    '/resources/verify/{uuid}': {
+      get: {
+        tags: ["resource"],
+        summary: "verify the resource with uuid",
         description: "",
-        operationId: "deleteDevice",
+        operationId: "checkByUuidResource",
         parameters: [{
           name: "uuid",
           in: "path",
-          description: "Uuid of device",
+          description: "Uuid of resource",
           required: true,
           schema: {
             type: "string",
@@ -299,11 +291,30 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "delete Device",
+            description: "get Resource",
           },
-          "400": {
-            description: "Invalid input"
+        }
+      }
+    },
+    '/resources/delete/{uuid}': {
+      delete: {
+        tags: ["resource"],
+        summary: "Delete resource",
+        description: "",
+        operationId: "delete",
+        parameters: [{
+          name: "uuid",
+          in: "path",
+          description: "Uuid of resource",
+          required: true,
+          schema: {
+            type: "string",
           }
+        }],
+        responses: {
+          "200": {
+            description: "delete Resource",
+          },
         }
       }
     },

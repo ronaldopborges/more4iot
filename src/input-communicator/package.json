@@ -12,7 +12,7 @@
     "dev": "DEBUG=input:* node index.js"
   },
   "dependencies": {
-    "@iotufersa/more4iot-js-sdk": "^0.1.6",
+    "@iotufersa/more4iot-js-sdk": "^0.1.8",
     "amqplib": "^0.7.1",
     "axios": "^0.21.1",
     "coap": "^0.23.1",

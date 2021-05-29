@@ -1,24 +1,23 @@
 const { Schema, model } = require('mongoose');
-const device = require('uuid/v1');
+const resource = require('uuid/v1');
 
-const DeviceSchema = new Schema(
+const ResourceSchema = new Schema(
     {
         uuid: {
             type: String,
             required: true,
             unique: true,
         },
-        latDefault: {
-            type: Number,
-            required: true,
-        },
-        lonDefault: {
-            type: Number,
-            required: true,
-        },
-        resource: [{
+        name: {
             type: String
-        }],
+        },
+        lat: {
+            type: Number,
+        },
+        lon: {
+            type: Number,
+        },
+        resource: [String],
         uri: {
             type: String,
             required: true
@@ -28,12 +27,12 @@ const DeviceSchema = new Schema(
             required: true
         },
         describe: {
-            type: String,
-            required: true
+            type: String
         },
-        typeDevice: {
-            type: String,
-            required: true
+        isDevice: {
+            type: Boolean,
+            required: true,
+            default: false
         },
     },
     {
@@ -41,9 +40,9 @@ const DeviceSchema = new Schema(
     });
 
 const generateUuid = async () => {
-    const hash = await device();
+    const hash = await resource();
     return hash;
 };
 
-exports.db = model('Device', DeviceSchema);
+exports.db = model('Resource', ResourceSchema);
 exports.generateUuid = generateUuid;

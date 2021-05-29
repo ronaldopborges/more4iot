@@ -9,7 +9,7 @@ const mqtt_sender = require('./services/mqtt_sender');
 const config = require('@iotufersa/more4iot-js-sdk/config/routes');
 const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT } = require('./config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
-const { DEVICE_MANAGER_NAME } = require('@iotufersa/more4iot-js-sdk/config/services');
+const { RESOURCE_MANAGER_NAME } = require('@iotufersa/more4iot-js-sdk/config/services');
 const debug = require('debug')('input:validation')
 
 /**
@@ -19,20 +19,20 @@ const debug = require('debug')('input:validation')
 global.sender = async (data) => {
     debug('data in process validation...');
     data = JSON.parse(data);
-    debug('device verify starting...');
-    debug('getting device manager url..');
+    debug('resource verify starting...');
+    debug('getting resource manager url..');
     let inputValidation = false;
-    const deviceManagerUrl = await rg.getServiceIPAndPort(DEVICE_MANAGER_NAME);
-    const url = `${deviceManagerUrl}/${config.req_deviceManagerRouteCheckDevice}/${data.deviceUuid}`;
-    debug(`device verify GET request: ${url}`);
+    const resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
+    const url = `${resourceUrl}/${config.resourceManagerRouteCheck}/${data.deviceUuid}`;
+    debug(`resource verify GET request: ${url}`);
     axios.get(url).then(async (res) => {
         inputValidation = res.data;
         if (inputValidation) {
-            debug(`device verify confirmed...`);
+            debug(`resource verify confirmed...`);
             await mqtt_sender(data);
             return inputValidation;
         }else{
-            debug(`device verify failed...`);
+            debug(`resource verify failed...`);
         }
     }).catch((error) => {
         debug(error.code);

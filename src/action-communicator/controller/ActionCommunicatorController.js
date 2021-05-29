@@ -6,7 +6,7 @@ const amqp = require('amqplib/callback_api');
 const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('../config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST,SERVICE_REGISTRY_PORT);
 const config = require('@iotufersa/more4iot-js-sdk/config/routes');
-const {DEVICE_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
+const {RESOURCE_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
 const {BROKER_AMQP, MQTT_HOST, MQTT_PORT, PUBLISHER_USER, PUBLISHER_PASSWORD} = require('../config/brokers');
 const protocols = require('@iotufersa/more4iot-js-sdk/config/protocols');
 
@@ -24,8 +24,8 @@ const sendToActuator = async (req, res) => {
     actions.forEach(async (action, index) => {
         message.command = action.dataAtuador;
         message.uuidSensor = action.uuidSensor;
-        const deviceUrl = await rg.getServiceIPAndPort(DEVICE_MANAGER_NAME);
-        axios.get(`${deviceUrl}/${config.req_deviceManagerRouteCheckDevice}/${action.uuidAtuador}`).then(res => {
+        const resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
+        axios.get(`${resourceUrl}/${config.resourceManagerRouteCheck}/${action.uuidAtuador}`).then(res => {
             if (res.data) {
                 console.log(`Atuador: ${action.uuidAtuador}, sensor: ${action.uuidSensor}, Comando: ${action.command} Endereço URI do atuador: ${res.data.uri}`);
                 if (res.data.protocol == protocols.REST) {

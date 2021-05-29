@@ -1,4 +1,4 @@
-const Device = require('../model/Device');
+const Device = require('../model/Resource');
 
 const save = async device => {
     try {

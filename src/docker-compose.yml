@@ -23,17 +23,17 @@ services:
       - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
     depends_on: 
       - redis
-  devicemanager:
-    build: ./device-manager
-    container_name: devicemanager
+  resourcemanager:
+    build: ./resource-manager
+    container_name: resourcemanager
     volumes:
       - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
       - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-      - DEVICE_MANAGER_PORT=${DEVICE_MANAGER_PORT}
+      - RESOURCE_MANAGER_PORT=${RESOURCE_MANAGER_PORT}
     ports:
-      - ${DEVICE_MANAGER_PORT}:${DEVICE_MANAGER_PORT}
+      - ${RESOURCE_MANAGER_PORT}:${RESOURCE_MANAGER_PORT}
     depends_on:
       - serviceregistry
   datamanager:
@@ -151,18 +151,18 @@ services:
     container_name: redis
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
-  # redis-commander:
-  #   container_name: redis-commander
-  #   hostname: redis-commander
-  #   image: rediscommander/redis-commander:latest
-  #   restart: always
-  #   environment:
-  #     - PORT=8082
-  #     - REDIS_HOSTS=local:${REDIS_HOST}:${REDIS_PORT}
-  #   ports:
-  #     - "8082:8082"
-  #   depends_on: 
-  #     - redis
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - PORT=8082
+      - REDIS_HOSTS=local:${REDIS_HOST}:${REDIS_PORT}
+    ports:
+      - "8082:8082"
+    depends_on: 
+      - redis
   # node-red:
   #   image: nodered/node-red:latest
   #   ports:

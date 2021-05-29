@@ -3,55 +3,48 @@ const server = require('../server')
 const supertest = require('supertest')
 const request = supertest(server)
 const databaseName = 'test004' + '?retryWrites=true&w=majority'
-const Device = require('../model/Device')
+const Resource = require('../model/Resource')
 const routeConfig = require('@iotufersa/more4iot-js-sdk/config/routes');
 
 jest.setTimeout(30000);
 setupDB(databaseName);
 
-const seedsDevice = [{
+const seed01 = [{
   "uuid": "007",
-  "latDefault": 0,
-  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",
-  "typeDevice": "Sensor"
+  "isDevice": true
 }, {
   "uuid": "006",
-  "latDefault": 0,
-  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",
-  "typeDevice": "Sensor"
+  "inDevice": true
 }, {
   "uuid": "008",
-  "latDefault": 0,
-  "lonDefault": 0,
   "resource": [
     "Teste"
   ],
   "uri": "testeUri",
   "protocol": "MQTT",
   "describe": "Example",
-  "typeDevice": "Sensor"
+  "isDevice": true
 },
 ]
-it("Should return all devices stored in database", async done => {
-  for (const d of seedsDevice) {
-    const seededDevice = new Device.db(d)
-    await seededDevice.save()
-
+it("Should return all resources stored in database", async done => {
+  for (const d of seed01) {
+    const seeded = new Resource.db(d)
+    await seeded.save()
   }
 
-  const res = await request.get(`/${routeConfig.deviceManagerRouteGetAll}`)
+  const res = await request.get(`/${routeConfig.resourceManagerRouteGetAll}`)
 
   expect(res.body[0].describe).toBeTruthy()
 

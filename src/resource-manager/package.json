@@ -1,20 +1,22 @@
 {
-  "name": "DeviceManager",
+  "name": "ResourceManager",
   "version": "1.0.0",
-  "description": "Persist and manage device informations",
+  "description": "Persist and manage resource",
   "main": "server.js",
-  "repository": "https://github.com/iotufersa/middleware/tree/master/DeviceManager",
+  "repository": "https://github.com/iotufersa/middleware/tree/master/ResourceManager",
   "author": "IoTUfersa",
   "license": "MIT",
   "private": false,
   "scripts": {
     "start": "node start.js",
+    "dev": "DEBUG=resource:* node start.js",
     "test": "jest --runInBand --detectOpenHandles --verbose"
   },
   "dependencies": {
-    "@iotufersa/more4iot-js-sdk": "^0.1.6",
+    "@iotufersa/more4iot-js-sdk": "^0.1.8",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "debug": "^2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ip": "^1.1.5",

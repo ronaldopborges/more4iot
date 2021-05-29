@@ -7,7 +7,7 @@ const swaggerOptions = require('./swagger');
 const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT } = require('./config/registry');
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const { SERVICE_CATALOGER_NAME, ROUTE_SWAGGER_API } = require('@iotufersa/more4iot-js-sdk/config/services');
-const {SERVICE_CATALOGER_PORT} = require('./config/serviceCataloger');
+const { SERVICE_CATALOGER_PORT } = require('./config/serviceCataloger');
 
 server.use(
     `/${ROUTE_SWAGGER_API}`,

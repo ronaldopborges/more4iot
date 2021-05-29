@@ -8,18 +8,16 @@ const routeConfig = require('@iotufersa/more4iot-js-sdk/config/routes');
 jest.setTimeout(30000);
 setupDB(databaseName);
 
-it("Should successfully store a device into database", async done => {
-  const res = await request.post(`/${routeConfig.deviceManagerRouteSave}`)
+it("Should successfully store a resource into database", async done => {
+  const res = await request.post(`/${routeConfig.resourceManagerRouteSave}`)
     .send({
-      "latDefault": 0,
-      "lonDefault": 0,
       "resource": [
         "Teste"
       ],
       "uri": "testeUri",
       "protocol": "MQTT",
       "describe": "Example",
-      "typeDevice": "Sensor"
+      "isDevice": true
     })
 
   expect(res.body._id).toBeTruthy()
@@ -27,11 +25,11 @@ it("Should successfully store a device into database", async done => {
   done()
 })
 
-it("Should refuse missing required param when trying to store a device", async done => {
-  const res = await request.post(`/${routeConfig.deviceManagerRouteSave}`)
+it("Should refuse missing required param when trying to store a resource", async done => {
+  const res = await request.post(`/${routeConfig.resourceManagerRouteSave}`)
     .send({
-      "latDefault": 0,
-      "lonDefault": 0,
+      "lat": 0,
+      "lon": 0,
       "resource": [
         "Teste"
       ],
@@ -45,10 +43,10 @@ it("Should refuse missing required param when trying to store a device", async d
   done()
 })
 
-it("Should refuse no matching param type when trying to store a device", async done => {
-  const res = await request.post(`/${routeConfig.deviceManagerRouteSave}`)
+it("Should refuse no matching param type when trying to store a resource", async done => {
+  const res = await request.post(`/${routeConfig.resourceManagerRouteSave}`)
     .send({
-      "lat": "no matching type",
+      "lat": 0,
       "lon": 0,
       "resource": [
         "Teste"
@@ -56,7 +54,7 @@ it("Should refuse no matching param type when trying to store a device", async d
       "uri": "testeUri",
       "protocol": "MQTT",
       "describe": "Example",
-      "typeDevice": "Sensor"
+      "isDevice": "No matching type"
     })
 
   expect(res.body).toBe(false)

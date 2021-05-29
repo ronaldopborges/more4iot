@@ -10,86 +10,90 @@ jest.setTimeout(30000);
 setupDB(databaseName)
 
 const seedsAction = [{
-  "uuidSensor": "100p",
-  "uuidAtuador": "100p",
-  "dataSensor": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  creator: "100p",
+  origin: ["identifier01"],
+  receiver: {
+    identifiers: [],
+    protocol: null,
+    uri: null
   },
-  "dataAtuador": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  scope: {
+    data: {},
+    commands: {}
   },
-  "lifetimeAtuacao": {
-    "lifetime": true,
-    "quant": 10
+  lifetime: {
+    validity: true,
+    count: 3
   },
-  "status": true
-}, {
-  "uuidSensor": "200p",
-  "uuidAtuador": "200p",
-  "dataSensor": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
-  },
-  "dataAtuador": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
-  },
-  "lifetimeAtuacao": {
-    "lifetime": true,
-    "quant": 10
-  },
-  "status": true
+  status: true
 },{
-  "uuidSensor": "300p",
-  "uuidAtuador": "300p",
-  "dataSensor": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  creator: "200p",
+  origin: ["identifier01"],
+  receiver: {
+    identifiers: [],
+    protocol: null,
+    uri: null
   },
-  "dataAtuador": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  scope: {
+    data: {},
+    commands: {}
   },
-  "lifetimeAtuacao": {
-    "lifetime": true,
-    "quant": 10
+  lifetime: {
+    validity: true,
+    count: 3
   },
-  "status": true
+  status: true
 },{
-  "uuidSensor": "400p",
-  "uuidAtuador": "400p",
-  "dataSensor": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  creator: "300p",
+  origin: ["identifier01"],
+  receiver: {
+    identifiers: [],
+    protocol: null,
+    uri: null
   },
-  "dataAtuador": {
-    "liveLat": -45.50,
-    "liveLon": -3.50
+  scope: {
+    data: {},
+    commands: {}
   },
-  "lifetimeAtuacao": {
-    "lifetime": true,
-    "quant": 10
+  lifetime: {
+    validity: true,
+    count: 3
   },
-  "status": true
+  status: true
+},{
+  creator: "400p",
+  origin: ["identifier01"],
+  receiver: {
+    identifiers: [],
+    protocol: null,
+    uri: null
+  },
+  scope: {
+    data: {},
+    commands: {}
+  },
+  lifetime: {
+    validity: true,
+    count: 3
+  },
+  status: true
 },
 ]
 
 it("Should return all actions from all sensors stored in database", async done => {
   for (const d of seedsAction) {
-    const seededAction = new Action.db(d)
-    await seededAction.save()
+    const seeded = new Action.db(d)
+    await seeded.save()
   }
 
   const res = await request.get(`/${routeConfig.actionManagerRouteGetAll}`)
 
   expect(res.body).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({uuidSensor: '100p'}),
-      expect.objectContaining({uuidSensor: '200p'}),
-      expect.objectContaining({uuidSensor: '300p'}),
-      expect.objectContaining({uuidSensor: '400p'})
+      expect.objectContaining({creator: '100p'}),
+      expect.objectContaining({creator: '200p'}),
+      expect.objectContaining({creator: '300p'}),
+      expect.objectContaining({creator: '400p'})
     ])
   )
 

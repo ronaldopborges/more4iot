@@ -11,21 +11,22 @@ setupDB(databaseName)
 it("Should successfully store an action into database", async done => {
   const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
     .send({
-      "uuidSensor": "100p",
-      "uuidAtuador": "100p",
-      "dataSensor": {
-        "liveLat": -45.50,
-        "liveLon": -3.50
+      creator: "identifier01",
+      origin: ["identifier01"],
+      receiver: {
+        identifiers: [],
+        protocol: null,
+        uri: null
       },
-      "dataAtuador": {
-        "liveLat": -45.50,
-        "liveLon": -3.50
+      scope: {
+        data: {},
+        commands: {}
       },
-      "lifetimeAtuacao": {
-        "lifetime": true,
-        "quant": 10
+      lifetime: {
+        validity: true,
+        count: 3
       },
-      "status": true
+      status: true
     })
 
   expect(res.body._id).toBeTruthy()
@@ -35,22 +36,23 @@ it("Should successfully store an action into database", async done => {
 
 it("Should refuse missing required param when trying to store an action", async done => {
   const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
-  .send({
-    "uuidSensor": "100p",
-    "dataSensor": {
-      "liveLat": -45.50,
-      "liveLon": -3.50
-    },
-    "dataAtuador": {
-      "liveLat": -45.50,
-      "liveLon": -3.50
-    },
-    "lifetimeAtuacao": {
-      "lifetime": true,
-      "quant": 10
-    },
-    "status": true
-  })
+    .send({
+      origin: ["identifier01"],
+      receiver: {
+        identifiers: [],
+        protocol: null,
+        uri: null
+      },
+      scope: {
+        data: {},
+        commands: {}
+      },
+      lifetime: {
+        validity: true,
+        count: 3
+      },
+      status: true
+    })
 
   expect(res.body).toBe(false)
 
@@ -59,23 +61,24 @@ it("Should refuse missing required param when trying to store an action", async 
 
 it("Should refuse no matching param type when trying to store an action", async done => {
   const res = await request.post(`/${routeConfig.actionManagerRouteSave}`)
-  .send({
-    "uuidSensor": "100p",
-    "uuidAtuador": "100p",
-    "dataSensor": {
-      "liveLat": -45.50,
-      "liveLon": -3.50
-    },
-    "dataAtuador": {
-      "liveLat": -45.50,
-      "liveLon": -3.50
-    },
-    "lifetimeAtuacao": {
-      "lifetime": true,
-      "quant": "no match"
-    },
-    "status": true
-  })
+    .send({
+      creator: "identifier01",
+      origin: ["identifier01"],
+      receiver: {
+        identifiers: [],
+        protocol: null,
+        uri: null
+      },
+      scope: {
+        data: {},
+        commands: {}
+      },
+      lifetime: {
+        validity: true,
+        count: "NO MATCHING"
+      },
+      status: true
+    })
 
   expect(res.body).toBe(false)
 

@@ -10,7 +10,9 @@ const resolve = async (data) => {
       debug('updating actions lifetime...');
       await acts.forEach(async (act) => {
         act = Action.updateLifetime(act);
-        await repo.update(action);
+        await repo.update(act);
+
+        act.scope.data = data;
       });
       debug('updating lifetime finished...');
 

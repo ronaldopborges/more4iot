@@ -2,21 +2,25 @@ const { Schema, model } = require('mongoose');
 
 const ActionSchema = new Schema(
     {
-        uuidFrom: {
+        creator:{
             type: String,
-            required: true,
+            required: true
         },
-        uuidTo: {
-            type: String,
-            required: true,
+        origin: [String],
+        receiver: {
+            identifiers: [String],
+            protocol: String,
+            uri: String
         },
-        data: {
-            type: Schema.Types.Mixed,
-            default: {}
-        },
-        commands: {
-            type: Schema.Types.Mixed,
-            default: {}
+        scope: {
+            data: {
+                type: Schema.Types.Mixed,
+                default: {}
+            },
+            commands: {
+                type: Schema.Types.Mixed,
+                default: {}
+            }
         },
         lifetime: {
             validity: {
@@ -47,8 +51,8 @@ const updateLifetime = (action) => {
         action.lifetime.count -= 1;
         if (action.lifetime.count == 0)
             action.status = false;
-        return action;
     }
+    return action;
 };
 
 exports.db = db;

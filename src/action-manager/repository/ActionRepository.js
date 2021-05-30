@@ -1,5 +1,4 @@
 const Action = require('../model/Action');
-
 const debug = require('debug')('action:repo');
 
 const save = async (action) => {
@@ -11,31 +10,32 @@ const save = async (action) => {
     }
 }
 
-const findByUuidFrom = async (uuidFrom) => {
+const findByCreator = async (uuid) => {
     try {
-        const oneExists = await Action.db.findOne({ uuidFrom: uuidFrom });
+        const oneExists = await Action.db.findOne({ creator: uuid });
         if (oneExists) {
-            return await Action.db.find({ uuidFrom: uuidFrom });
+            return await Action.db.find({ creator: uuid });
         }
-    }catch(error){
+    } catch (error) {
         return false;
     }
 }
 
-const update = async actionUpdated => {
+const update = async (actionUpdated) => {
     try {
-        return await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
+        return await Action.db.findOneAndUpdate(actionUpdated.creator, actionUpdated, { new: true });
     } catch (error) {
         console.log(error);
-        return false;
     }
+
+    return false;
 }
 
-const findByActiveUuidFrom = async (uuidFrom) => {
+const findWhereActiveByCreator = async (uuid) => {
     try {
-        const oneExists = await Action.db.findOne({ uuidFrom: uuidFrom, status: true });
+        const oneExists = await Action.db.findOne({ creator: uuid, status: true });
         if (oneExists) {
-            const actionExists = await Action.db.find({ uuidFrom: uuidFrom, status: true });
+            const actionExists = await Action.db.find({ creator: uuid, status: true });
             return actionExists;
         } else return false;
     } catch (error) {
@@ -53,8 +53,24 @@ const findAll = async () => {
     }
 }
 
-exports.findByActiveUuidFrom = findByActiveUuidFrom;
+// ------ functions for async data
+
+const findByOriginIdentifierWhereActive = async (identifier) => {
+    const search = { origin: identifier , status: true };
+    try {
+        return await Action.db.find(search);
+    }
+    catch (error) {
+        console.log("Error: findByOriginIdentifierWhereActive");
+        console.log(error);
+        return false;
+    }
+}
+
+exports.findWhereActiveByCreator = findWhereActiveByCreator;
 exports.findAll = findAll;
-exports.findByUuidFrom = findByUuidFrom;
+exports.findByCreator = findByCreator;
 exports.save = save;
 exports.update = update;
+
+exports.findByOriginIdentifierWhereActive = findByOriginIdentifierWhereActive;

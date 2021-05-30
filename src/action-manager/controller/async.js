@@ -4,22 +4,19 @@ const debug = require('debug')('action:async');
 const mqtt_sender = require('../services/mqtt_sender');
 
 const resolve = async (data) => {
-  const actions = await repo.findByActiveUuidFrom(data.deviceUuid);
-  if (actions) {
-    debug(`actions found: ${actions.length}`);
-    debug('updating actions lifetime...');
-    await actions.forEach(async (action) => {
-      action = Action.updateLifetime(action);
-      await repo.update(action);
-    });
-    debug('updating lifetime finished...');
+  repo.findByOriginIdentifierWhereActive(data.deviceUuid).then(
+    (acts) => {
+      debug(`actions found: ${acts.length}`);
+      debug('updating actions lifetime...');
+      await acts.forEach(async (act) => {
+        act = Action.updateLifetime(act);
+        await repo.update(action);
+      });
+      debug('updating lifetime finished...');
 
-    mqtt_sender(actions);
-    
-  } else {
-    debug('no action found!');
-    debug('discarding data...');
-  }
+      mqtt_sender(acts);
+    }
+  );
 }
 
 exports.resolve = resolve;

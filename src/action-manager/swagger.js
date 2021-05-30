@@ -7,7 +7,7 @@ module.exports = {
   },
   tags: [{
     name: "action",
-    description: "Everything about your Action"
+    description: "Everything about Action"
   }],
   schemes: [
     "https", "http"
@@ -17,44 +17,59 @@ module.exports = {
       Action: {
         type: "object",
         properties: {
-          uuidFrom: {
+          creator: {
             type: "string",
-            required: true,
+            required: true
           },
-          uuidTo: {
-            type: "string",
-            required: true,
+          origin: {
+            type: "array",
+            items:{
+              type: "string"
+            }
           },
-          data: {
-            type: "object"
+          receiver: {
+            identifiers: {
+              type: "array",
+              items: {
+                type: "string"
+              }
+            },
+            protocol:{
+              type: "string"
+            },
+            uri: {
+              type: "string"
+            },
           },
-          commands: {
-            type: "object"
+          scope: {
+            data: {
+              type: "object",
+              default: {}
+            },
+            commands: {
+              type: "object",
+              default: {}
+            }
           },
           lifetime: {
-            type: "object",
-            required: true,
-            properties: {
-              validity: {
-                type: "boolean",
-                required: true,
-                default: true
-              },
-              count: {
-                type: "number",
-                format: "integer",
-                default: 0,
-                required: true
-              }
+            validity: {
+              type: "boolean",
+              default: true,
+              required: true,
+            },
+            count: {
+              type: "number",
+              default: 0,
+              required: true
             }
           },
           status: {
             type: "boolean",
-            required: true,
-            default: true
+            default: true,
+            required: true
           },
-        }
-      }
+        },
+      },
     },
     requestBodies: {
       Action: {
@@ -112,9 +127,9 @@ module.exports = {
         description: "",
         operationId: "getActions",
         parameters: [{
-          name: "uuidFrom",
+          name: "uuid",
           in: "path",
-          description: "UUID",
+          description: "creator UUID",
           required: true,
           schema: {
             type: "string",
@@ -122,21 +137,21 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "get all actions from device",
+            description: "get all actions from resources",
           }
         }
       }
     },
-    '/actions/notify': {
+    '/actions/notify/{uuid}': {
       get: {
         tags: ["action"],
-        summary: "notify action communicator about receive data from device",
+        summary: "notify action communicator about receive data from resource",
         description: "",
         operationId: "notifyActionCommunicator",
         parameters: [{
-          name: "uuidFrom",
+          name: "uuid",
           in: "path",
-          description: "UUID",
+          description: "origin UUID",
           required: true,
           schema: {
             type: "string",
@@ -144,7 +159,7 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "notified if your action from about device exists"
+            description: "notified if your action from about resources exists"
           }
         }
       }

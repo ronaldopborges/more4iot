@@ -1,11 +1,24 @@
 const repo = require('../repository/ActionRepository');
 const debug = require('debug')('action:controller');
 const Action = require('../model/Action');
+const mqtt_sender = require('../services/mqtt_sender');
 
 const inscribe = async (req, res) => {
-    debug('inscribe action...');
-    const action = await repo.save(req.body);
-    return res.send(action);
+    let act = req.body;
+    if (act.origin !== undefined && act.origin.length <= 0) {
+        debug('action instant detected');
+        debug('send action...');
+        act.lifetime.validity = false;
+        act.lifetime.count = 0;
+        act.status = false;
+        mqtt_sender(act);
+    } else {
+        debug('inscribe action...');
+    }
+
+    act = await repo.save(req.body);
+
+    return res.send(act);
 }
 
 const getActions = async (req, res) => {

@@ -8,6 +8,7 @@ dkdw:
 	docker-compose down --rmi local
 
 data_m_dw:
+	docker container stop datamanager
 	docker container rm datamanager
 	docker image rm src_datamanager
 

@@ -2,7 +2,7 @@ const mqtt = require('mqtt');
 
 const { async_action } = require('@iotufersa/more4iot-js-sdk/config/routes');
 const { MQTT_HOST, MQTT_PORT, PUBLISHER_USER, PUBLISHER_PASSWORD } = require('../config/brokers');
-const debug = require('debug')("action:MQTT");
+const debug = require('debug')("action:MQTT:sender");
 
 module.exports = async (actions) => {
 
@@ -14,7 +14,7 @@ module.exports = async (actions) => {
     protocol: 'mqtt'
   };
 
-  debug("MQTT publisher starting...")
+  debug("publisher starting...")
   let client = mqtt.connect(mqttOptions);
 
   client.on('connect', () => {

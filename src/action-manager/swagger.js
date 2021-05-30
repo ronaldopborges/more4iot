@@ -23,45 +23,54 @@ module.exports = {
           },
           origin: {
             type: "array",
-            items:{
+            items: {
               type: "string"
             }
           },
           receiver: {
-            identifiers: {
-              type: "array",
-              items: {
+            type: "object",
+            properties: {
+              identifiers: {
+                type: "array",
+                items: {
+                  type: "string"
+                }
+              },
+              protocol: {
                 type: "string"
-              }
-            },
-            protocol:{
-              type: "string"
-            },
-            uri: {
-              type: "string"
+              },
+              uri: {
+                type: "string"
+              },
             },
           },
           scope: {
-            data: {
-              type: "object",
-              default: {}
+            type: "object",
+            properties: {
+              data: {
+                type: "object",
+                default: {}
+              },
+              commands: {
+                type: "object",
+                default: {}
+              },
             },
-            commands: {
-              type: "object",
-              default: {}
-            }
           },
           lifetime: {
-            validity: {
-              type: "boolean",
-              default: true,
-              required: true,
+            type: "object",
+            properties: {
+              validity: {
+                type: "boolean",
+                default: false,
+                required: true,
+              },
+              count: {
+                type: "number",
+                default: 0,
+                required: true
+              },
             },
-            count: {
-              type: "number",
-              default: 0,
-              required: true
-            }
           },
           status: {
             type: "boolean",

@@ -88,45 +88,68 @@ module.exports = {
       Action: {
         type: "object",
         properties: {
-          uuidAtuador: {
+          creator: {
             type: "string",
-            required: true,
+            required: true
           },
-          uuidSensor: {
-            type: "string",
-            required: true,
-          },
-          dataSensor: {
-            type: "object",
-            required: true,
-          },
-          dataAtuador: {
-            type: "object",
-            required: true,
-          },
-          lifetimeAtuacao: {
-            type: "object",
-            required: true,
-            properties: {
-              lifetime: {
-                type: "boolean",
-                required: true,
-                default: false
-              },
-              quant: {
-                type: "number",
-                format: "integer",
-                required: true
-              }
+          origin: {
+            type: "array",
+            items: {
+              type: "string"
             }
+          },
+          receiver: {
+            type: "object",
+            properties: {
+              identifiers: {
+                type: "array",
+                items: {
+                  type: "string"
+                }
+              },
+              protocol: {
+                type: "string"
+              },
+              uri: {
+                type: "string"
+              },
+            },
+          },
+          scope: {
+            type: "object",
+            properties: {
+              data: {
+                type: "object",
+                default: {}
+              },
+              commands: {
+                type: "object",
+                default: {}
+              },
+            },
+          },
+          lifetime: {
+            type: "object",
+            properties: {
+              validity: {
+                type: "boolean",
+                default: false,
+                required: true,
+              },
+              count: {
+                type: "number",
+                default: 0,
+                required: true
+              },
+            },
           },
           status: {
             type: "boolean",
-            required: true,
-            default: true
+            default: true,
+            required: true
           },
-        }
-      }
+        },
+      },
     },
     requestBodies: {
       Resource: {
@@ -160,8 +183,7 @@ module.exports = {
         },
         description: "Data object that needs to be added to the data manager service",
         required: true
-      }
-      ,
+      },
       Action: {
         type: "object",
         properties: {
@@ -443,16 +465,13 @@ module.exports = {
         tags: ["action"],
         summary: "Inscribe a new action",
         description: "",
-        operationId: "inscribeAction",
+        operationId: "inscribe",
         requestBody: {
           $ref: "#/components/requestBodies/Action"
         },
         responses: {
           "200": {
             description: "Action inscribe"
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }
@@ -466,7 +485,7 @@ module.exports = {
         parameters: [{
           name: "uuid",
           in: "path",
-          description: "Uuid of resource",
+          description: "creator UUID",
           required: true,
           schema: {
             type: "string",
@@ -474,24 +493,21 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "get all actions from resource",
-          },
-          "400": {
-            description: "Invalid input"
+            description: "get all actions from resources",
           }
         }
       }
     },
-    '/actions/notify': {
+    '/actions/notify/{uuid}': {
       get: {
         tags: ["action"],
-        summary: "notify action communicator about receive data from device",
+        summary: "notify action communicator about receive data from resource",
         description: "",
         operationId: "notifyActionCommunicator",
         parameters: [{
-          name: "uuidSensor",
+          name: "uuid",
           in: "path",
-          description: "Uuid of device",
+          description: "origin UUID",
           required: true,
           schema: {
             type: "string",
@@ -499,10 +515,7 @@ module.exports = {
         }],
         responses: {
           "200": {
-            description: "notified if your action from about device exists"
-          },
-          "400": {
-            description: "Invalid input"
+            description: "notified if your action from about resources exists"
           }
         }
       }

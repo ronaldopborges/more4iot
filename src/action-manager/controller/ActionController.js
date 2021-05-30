@@ -11,7 +11,7 @@ const inscribe = async (req, res) => {
         act.lifetime.validity = false;
         act.lifetime.count = 0;
         act.status = false;
-        mqtt_sender(act);
+        mqtt_sender([act]);
     } else {
         debug('inscribe action...');
     }

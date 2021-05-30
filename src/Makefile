@@ -26,3 +26,8 @@ cataloger_m_dw:
 	docker container stop servicecataloger
 	docker container rm servicecataloger
 	docker image rm src_servicecataloger
+
+action_c_dw:
+	docker container stop actioncommunicator
+	docker container rm actioncommunicator
+	docker image rm src_actioncommunicator

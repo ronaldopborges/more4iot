@@ -5,6 +5,8 @@ const {SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT} = require('./config/registr
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 const { ACTION_COMMUNICATOR_NAME } = require('@iotufersa/more4iot-js-sdk/config/services');
 const { ACTION_COMMUNICATOR_PORT } = require('./config/actionCommunicator');
+const mqtt_receiver = require('./services/mqtt_receiver');
+const {async_action} = require('@iotufersa/more4iot-js-sdk/config/routes');
 
 const server = require('./server');
 
@@ -17,3 +19,5 @@ const sv = server.listen(ACTION_COMMUNICATOR_PORT || 0, () => {
         console.log(`service registry: ${err.code}`);
     });
 });
+
+mqtt_receiver(async_action);

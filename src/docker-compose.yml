@@ -109,43 +109,43 @@ services:
   #     - serviceregistry
   #     - rabbitmq
   #     - redis
-  # actioncommunicator:
-  #   build: ./action-communicator
-  #   container_name: actioncommunicator
-  #   volumes:
-  #     - npm-cache:/root/.npm
-  #   environment:
-  #     - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
-  #     - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
-  #     - ACTION_COMMUNICATOR_PORT=${ACTION_COMMUNICATOR_PORT}
-  #     - MQTT_HOST=${MQTT_HOST}
-  #     - MQTT_PORT=${MQTT_PORT}
-  #     - AMQP_HOST=${AMQP_HOST}
-  #     - AMQP_PORT=${AMQP_PORT}
-  #     - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-  #     - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-  #   ports:
-  #     - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
-  #   depends_on:
-  #     - serviceregistry
-  #     - rabbitmq
-  # rabbitmq:
-  #   build: ./rabbitmq
-  #   container_name: rabbitmq
-  #   volumes:
-  #     - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
-  #     - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
-  #     - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
-  #   environment:
-  #     - RABBITMQ_PID_FILE=/var/lib/rabbitmq/mnesia/rabbitmq
-  #     - RABBITMQ_USER=${RABBITMQ_DEFAULT_USER}
-  #     - RABBITMQ_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-  #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
-  #     - 1883:1883
+  actioncommunicator:
+    build: ./action-communicator
+    container_name: actioncommunicator
+    volumes:
+      - npm-cache:/root/.npm
+    environment:
+      - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
+      - SERVICE_REGISTRY_PORT=${SERVICE_REGISTRY_PORT}
+      - ACTION_COMMUNICATOR_PORT=${ACTION_COMMUNICATOR_PORT}
+      - MQTT_HOST=${MQTT_HOST}
+      - MQTT_PORT=${MQTT_PORT}
+      - AMQP_HOST=${AMQP_HOST}
+      - AMQP_PORT=${AMQP_PORT}
+      - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - ${ACTION_COMMUNICATOR_PORT}:${ACTION_COMMUNICATOR_PORT}
+    depends_on:
+      - serviceregistry
+      - rabbitmq
+  rabbitmq:
+    build: ./rabbitmq
+    container_name: rabbitmq
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    environment:
+      - RABBITMQ_PID_FILE=/var/lib/rabbitmq/mnesia/rabbitmq
+      - RABBITMQ_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 1883:1883
   redis:
     image: redis:alpine
     container_name: redis
@@ -163,10 +163,10 @@ services:
   #     - "8082:8082"
   #   depends_on: 
   #     - redis
-  # node-red:
-  #   image: nodered/node-red:latest
-  #   ports:
-  #     - 1880:1880
+  node-red:
+    image: nodered/node-red:latest
+    ports:
+      - 1880:1880
   # mongo:
   #   image: mongo
   #   container_name: mongo

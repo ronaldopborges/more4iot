@@ -9,12 +9,13 @@
   "private": false,
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "DEBUG=registry:* node server.js",
     "test": "jest --runInBand --detectOpenHandles --verbose"
   },
   "dependencies": {
-    "@iotufersa/more4iot-js-sdk": "^0.1.0",
+    "@iotufersa/more4iot-js-sdk": "^0.1.9",
     "cors": "^2.8.5",
+    "debug": "^2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "redis": "^3.1.2",

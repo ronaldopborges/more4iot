@@ -3,6 +3,6 @@ FROM node:current-slim
 COPY package.json .
 RUN npm install
 
-CMD ["npm", "start"]
+CMD ["npm", "run","dev"]
 
 COPY . .

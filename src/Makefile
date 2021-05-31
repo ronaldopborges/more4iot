@@ -31,3 +31,8 @@ action_c_dw:
 	docker container stop actioncommunicator
 	docker container rm actioncommunicator
 	docker image rm src_actioncommunicator
+
+service_r_dw:
+	docker container stop serviceregistry
+	docker container rm serviceregistry
+	docker image rm src_serviceregistry

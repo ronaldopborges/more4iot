@@ -2,7 +2,7 @@ const RegistryRepository = require('../repository/RegistryRepository');
 const debug = require('debug')('registry:controller');
 
 const inscribeRegistry = async (req, res) => {
-    debug(`registry service inscribe: ${req.body}`);
+    debug(`registry service inscribe: ${JSON.stringify(req.body)}`);
     response = await RegistryRepository.saveByServiceName(req.body);
     debug(`registry service inscribe: ${response}`);
     return res.json(response);

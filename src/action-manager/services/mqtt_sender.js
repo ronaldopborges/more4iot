@@ -20,7 +20,7 @@ module.exports = async (actions) => {
   client.on('connect', () => {
     debug('MQTT publisher connected...');
     debug(`send actions to ${async_action} topic...`);
-    actions.forEach(async (act) => {
+    actions.forEach((act) => {
       const data = JSON.stringify(act);
       debug(`action packet: ${data}`);
       client.publish(async_action, data, null, () => {

@@ -23,7 +23,7 @@ const findByCreator = async (uuid) => {
 
 const update = async (actionUpdated) => {
     try {
-        return await Action.db.findOneAndUpdate(actionUpdated.creator, actionUpdated, { new: true });
+        return await Action.db.findByIdAndUpdate(actionUpdated._id, actionUpdated, { new: true });
     } catch (error) {
         console.log(error);
     }
@@ -56,7 +56,7 @@ const findAll = async () => {
 // ------ functions for async data
 
 const findByOriginIdentifierWhereActive = async (identifier) => {
-    const search = { origin: identifier , status: true };
+    const search = { origin: identifier, status: true };
     try {
         return await Action.db.find(search);
     }

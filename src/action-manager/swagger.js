@@ -151,7 +151,7 @@ module.exports = {
         }
       }
     },
-    '/actions/notify/{uuid}': {
+    /* '/actions/notify/{uuid}': {
       get: {
         tags: ["action"],
         summary: "notify action communicator about receive data from resource",
@@ -172,6 +172,6 @@ module.exports = {
           }
         }
       }
-    },
+    },*/
   }
 }

@@ -8,6 +8,6 @@ const routes = express.Router();
 routes.post(`/${config.actionManagerRouteSave}`, controller.inscribe);
 routes.get(`/${config.actionManagerRouteGetActionsByUuid}/:uuid`, controller.getActions);
 routes.get(`/${config.actionManagerRouteGetAll}`, controller.getAllActions);
-routes.get(`/${config.actionManagerRouteNotifyActionCommunicator}/:uuid`, controller.notify);
+//routes.get(`/${config.actionManagerRouteNotifyActionCommunicator}/:uuid`, controller.notify);
 
  module.exports = routes;

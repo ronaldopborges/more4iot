@@ -31,7 +31,7 @@ const getAllActions = async (req, res) => {
     return res.send(await repo.findAll());
 }
 
-const notifyActionCommunicator = async (req, res) => {
+/* const notifyActionCommunicator = async (req, res) => {
     repo.findByOriginIdentifierWhereActive(req.params.uuid).then(
         (data) => {
             data.forEach(async (act) => {
@@ -41,9 +41,9 @@ const notifyActionCommunicator = async (req, res) => {
             return res.json(data);
         }
     );
-}
+} */
 
-exports.notify = notifyActionCommunicator
+//exports.notify = notifyActionCommunicator
 exports.getAllActions = getAllActions;
 exports.getActions = getActions;
 exports.inscribe = inscribe;

@@ -353,25 +353,6 @@ module.exports = {
         }
       }
     },
-    '/datas/persist': {
-      post: {
-        tags: ["data"],
-        summary: "persist a new data",
-        description: "",
-        operationId: "persistData",
-        requestBody: {
-          $ref: "#/components/requestBodies/Data"
-        },
-        responses: {
-          "200": {
-            description: "Data persisted"
-          },
-          "400": {
-            description: "Invalid input"
-          }
-        }
-      }
-    },
     '/datas/last/{uuid}': {
       get: {
         tags: ["data"],
@@ -497,28 +478,6 @@ module.exports = {
           }
         }
       }
-    },
-    '/actions/notify/{uuid}': {
-      get: {
-        tags: ["action"],
-        summary: "notify action communicator about receive data from resource",
-        description: "",
-        operationId: "notifyActionCommunicator",
-        parameters: [{
-          name: "uuid",
-          in: "path",
-          description: "origin UUID",
-          required: true,
-          schema: {
-            type: "string",
-          }
-        }],
-        responses: {
-          "200": {
-            description: "notified if your action from about resources exists"
-          }
-        }
-      }
-    },
+    }
   }
 }

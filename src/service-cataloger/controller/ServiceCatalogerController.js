@@ -19,13 +19,7 @@ const actionManager = async (req, res, next) => {
   const actionManagerUrl = await rg.getServiceIPAndPort(ACTION_MANAGER_NAME);
   await httpProxy(actionManagerUrl)(req, res, next);
 }
-// Action Communicator controls
-const actionCommunicator = async (req, res, next) => {
-  const actionCommunicatorUrl = await rg.getServiceIPAndPort(ACTION_COMMUNICATOR_NAME);
-  await httpProxy(actionCommunicatorUrl)(req, res, next);
-}
 
 exports.resourceManager = resourceManager;
 exports.dataManager = dataManager;
 exports.actionManager = actionManager;
-exports.actionCommunicator = actionCommunicator;

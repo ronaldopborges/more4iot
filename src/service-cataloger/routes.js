@@ -13,7 +13,6 @@ routes.get(`/${config.resourceManagerRouteFind}/:uuid`, controller.resourceManag
 routes.get(`/${config.resourceManagerRouteGetAll}`, controller.resourceManager);
 
 // GATEWAY TO DATA MANAGER
-routes.post(`/${config.dataManagerRouteSave}`, controller.dataManager);
 routes.get(`/${config.dataManagerRouteGetDataByUuid}/:uuid`, controller.dataManager);
 routes.get(`/${config.dataManagerRouteGetAll}`, controller.dataManager);
 routes.get(`/${config.dataManagerRouteGetLastByUuid}/:uuid`, controller.dataManager);
@@ -23,10 +22,6 @@ routes.delete(`/${config.dataManagerRouteDelete}/:uuid`, controller.dataManager)
 routes.post(`/${config.actionManagerRouteSave}`, controller.actionManager);
 routes.get(`/${config.actionManagerRouteGetActionsByUuid}/:uuid`, controller.actionManager);
 routes.get(`/${config.actionManagerRouteGetAll}`, controller.actionManager);
-routes.get(`/${config.actionManagerRouteNotifyActionCommunicator}`, controller.actionManager);
-
-// GATEWAY TO ACTION COMMUNICATOR
-routes.post(`/${config.actionCommunicatorRouteNotify}`, controller.actionCommunicator);
 
 module.exports = routes;
 

@@ -1,4 +1,4 @@
-const coap = require('coap')/ // or coap
+const coap = require('coap') // or coap
 const req = coap.request('coap://localhost/Matteo');
 
 const msg = {

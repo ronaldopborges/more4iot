@@ -23,14 +23,18 @@ global.sender = async (data) => {
     debug('getting resource manager url..');
     let inputValidation = false;
     const resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
+    if(!resourceUrl){
+        debug('resource url undefined...');
+        debug('data not sent...');
+        return;
+    }
     const url = `${resourceUrl}/${config.resourceManagerRouteCheck}/${data.deviceUuid}`;
     debug(`resource verify GET request: ${url}`);
     axios.get(url).then(async (res) => {
         inputValidation = res.data;
         if (inputValidation) {
             debug(`resource verify confirmed...`);
-            await mqtt_sender(data);
-            return inputValidation;
+            mqtt_sender(data);
         }else{
             debug(`resource verify failed...`);
         }

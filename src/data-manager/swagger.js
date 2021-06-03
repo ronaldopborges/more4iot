@@ -69,7 +69,7 @@ module.exports = {
         }
       }
     },
-    '/datas/persist': {
+    /* '/datas/persist': {
       post: {
         tags: ["data"],
         summary: "persist a new data",
@@ -87,7 +87,7 @@ module.exports = {
           }
         }
       }
-    },
+    }, */
     '/datas/last/{uuid}': {
       get: {
         tags: ["data"],

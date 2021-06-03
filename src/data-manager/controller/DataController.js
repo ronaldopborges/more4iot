@@ -6,7 +6,7 @@ const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST,
 const {RESOURCE_MANAGER_NAME, ACTION_MANAGER_NAME} = require('@iotufersa/more4iot-js-sdk/config/services');
 const config = require('@iotufersa/more4iot-js-sdk/config/routes');
 
-const persistData = async (req, res) => {
+/* const persistData = async (req, res) => {
     const data = req.body;
     const resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
     let deviceExists = await axios.get(`${resourceUrl}/${config.req_deviceManagerRouteCheckDevice}/${data.deviceUuid}`).then((resp) => {
@@ -24,7 +24,7 @@ const persistData = async (req, res) => {
         }
         return res.send(response);
     } return res.send(false)
-}
+} */
 
 const getData = async (req, res) => {
     const response = await DataRepository.findByUuid(req.params.uuid);
@@ -66,4 +66,4 @@ exports.deleteData = deleteData;
 exports.getAllData = getAllData;
 exports.getLastData = getLastData;
 exports.getData = getData;
-exports.persistData = persistData;
+//exports.persistData = persistData;

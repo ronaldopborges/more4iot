@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@iotufersa/more4iot-js-sdk": "^0.1.9",
+    "@iotufersa/more4iot-js-sdk": "0.2.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "debug": "^2.6.9",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "node start.js",
-    "dev": "DEBUG=data:* node start.js",
+    "docker": "DEBUG=data:* node start.js",
     "test": "jest --runInBand --detectOpenHandles --verbose"
   }
 }

@@ -15,7 +15,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
+  "uuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 },
 {
   "lat": 5,
@@ -23,7 +23,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
+  "uuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 ]
 jest.setTimeout(30000);

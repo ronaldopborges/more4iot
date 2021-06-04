@@ -15,7 +15,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "4545"
+  "uuid": "4545"
 },
 {
   "lat": 5,
@@ -23,7 +23,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "132"
+  "uuid": "132"
 },
 {
   "lat": 5,
@@ -31,7 +31,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "132"
+  "uuid": "132"
 },
 {
   "lat": 5,
@@ -39,7 +39,7 @@ const seedsData = [{
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "122"
+  "uuid": "122"
 }
 ]
 

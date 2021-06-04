@@ -28,7 +28,7 @@ global.sender = async (data) => {
         debug('data not sent...');
         return;
     }
-    const url = `${resourceUrl}/${config.resourceManagerRouteCheck}/${data.deviceUuid}`;
+    const url = `${resourceUrl}/${config.resourceManagerRouteCheck}/${data.uuid}`;
     debug(`resource verify GET request: ${url}`);
     axios.get(url).then(async (res) => {
         inputValidation = res.data;

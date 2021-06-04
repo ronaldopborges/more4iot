@@ -17,7 +17,7 @@ module.exports = {
       Data: {
         type: "object",
         properties: {
-          deviceUuid: {
+          uuid: {
             type: "string",
             required: true,
           },
@@ -69,25 +69,6 @@ module.exports = {
         }
       }
     },
-    /* '/datas/persist': {
-      post: {
-        tags: ["data"],
-        summary: "persist a new data",
-        description: "",
-        operationId: "persistData",
-        requestBody: {
-          $ref: "#/components/requestBodies/Data"
-        },
-        responses: {
-          "200": {
-            description: "Data persisted"
-          },
-          "400": {
-            description: "Invalid input"
-          }
-        }
-      }
-    }, */
     '/datas/last/{uuid}': {
       get: {
         tags: ["data"],
@@ -131,9 +112,6 @@ module.exports = {
         responses: {
           "200": {
             description: "All data from device",
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }
@@ -141,7 +119,7 @@ module.exports = {
     '/datas/delete/{uuid}': {
       delete: {
         tags: ["data"],
-        summary: "Delete data",
+        summary: "Delete all data from uuid",
         description: "",
         operationId: "deleteData",
         parameters: [{
@@ -156,9 +134,6 @@ module.exports = {
         responses: {
           "200": {
             description: "delete data",
-          },
-          "400": {
-            description: "Invalid input"
           }
         }
       }

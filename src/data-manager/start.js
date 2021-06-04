@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 
 const server = require('./server.js');
-const config = require('@iotufersa/more4iot-js-sdk/config/routes');
+const {async_data} = require('@iotufersa/more4iot-js-sdk/config/routes');
 const mqttReceiver = require('./services/mqtt_receiver');
 const swaggerOptions = require('./swagger');
 const { SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT } = require('./config/registry');
@@ -36,4 +36,4 @@ const sv = server.listen(DATA_MANAGER_PORT || 0, () => {
     });;
 });
 
-mqttReceiver(config.async_data);
+mqttReceiver(async_data);

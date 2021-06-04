@@ -4,7 +4,7 @@ const debug = require('debug')('action:resolver');
 const mqtt_sender = require('../services/mqtt_sender');
 
 const resolve = async (data) => {
-  repo.findByOriginIdentifierWhereActive(data.deviceUuid).then(
+  repo.findByOriginIdentifierWhereActive(data.uuid).then(
     (acts) => {
       debug(`actions found: ${acts.length}`);
       debug('updating actions lifetime...');

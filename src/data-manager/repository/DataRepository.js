@@ -12,9 +12,9 @@ const save = async dataObj => {
     }
 }
 
-const findLastByUuid = async deviceUuid => {
+const findLastByUuid = async uuid => {
     try {
-        const dataExists = await Data.db.findOne({ deviceUuid: deviceUuid }, {}, { sort: { 'createdAt': -1 } });
+        const dataExists = await Data.db.findOne({ uuid: uuid }, {}, { sort: { 'createdAt': -1 } });
         if (dataExists) {
             return dataExists;
         } else
@@ -25,11 +25,11 @@ const findLastByUuid = async deviceUuid => {
 
 }
 
-const findByUuid = async dataparam => {
+const findByUuid = async uuid => {
     try {
-        const oneExists = await Data.db.findOne({ deviceUuid: dataparam });
+        const oneExists = await Data.db.findOne({ uuid: uuid });
         if (oneExists) {
-            const dataExists = await Data.db.find({ deviceUuid: dataparam });
+            const dataExists = await Data.db.find({ uuid: uuid });
             return dataExists;
         }
         else
@@ -52,11 +52,11 @@ const findAll = async () => {
     }
 }
 
-const deleteByUuid = async deviceUuid => {
+const deleteByUuid = async uuid => {
     try {
-        const dataExists = await Data.db.findOne({ deviceUuid: deviceUuid });
+        const dataExists = await Data.db.findOne({ uuid: uuid });
         if (dataExists) {
-            await Data.db.deleteMany({ deviceUuid: deviceUuid });
+            await Data.db.deleteMany({ uuid: uuid });
             return true;
         }
         else

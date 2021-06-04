@@ -15,7 +15,7 @@ const seedData = {
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
+  "uuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 const seedData2 = {
   "lat": 0,
@@ -23,14 +23,14 @@ const seedData2 = {
   "data": {
     "gps": 10,
   },
-  "deviceUuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
+  "uuid": "2227dbe0-363b-11eb-88ae-1356f9478859"
 }
 
 it("Should return all data from a specific device", async done => {
   const seededData = new Data.db(seedData)
   await seededData.save()
 
-  const res = await request.get(`/${routeConfig.dataManagerRouteGetAll}/${seedData.deviceUuid}`)
+  const res = await request.get(`/${routeConfig.dataManagerRouteGetAll}/${seedData.uuid}`)
 
   expect(res.body).toBeTruthy()
 
@@ -52,7 +52,7 @@ it("Should return LAST data stored for a specic device", async done => {
   const seededData2 = new Data.db(seedData2)
   await seededData2.save()
 
-  const res = await request.get(`/${routeConfig.dataManagerRouteGetLastByUuid}/${seedData2.deviceUuid}`)
+  const res = await request.get(`/${routeConfig.dataManagerRouteGetLastByUuid}/${seedData2.uuid}`)
 
   expect(res.body).toBeTruthy()
 

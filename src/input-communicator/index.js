@@ -17,8 +17,13 @@ const debug = require('debug')('input:validation')
  * @param  {String} msg A string in json structure with attributes for 'service'(desired service to request), 'method'(desired method to the service to use), object 'data'(data to send to the desired service)
  */
 global.sender = async (data) => {
+    debug(`data received: ${data}`);
     debug('data in process validation...');
-    data = JSON.parse(data);
+    try {
+        data = JSON.parse(data);
+    } catch (error) {
+        console.log(error);
+    }
     debug('resource verify starting...');
     debug('getting resource manager url..');
     let inputValidation = false;
@@ -46,5 +51,5 @@ global.sender = async (data) => {
 
 mqtt(config.async_input);
 //amqp(topic);
-coap();
+coap(config.inputCommunicatorRoute);
 rest();

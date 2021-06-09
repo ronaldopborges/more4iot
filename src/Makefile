@@ -36,3 +36,8 @@ service_r_dw:
 	docker container stop serviceregistry
 	docker container rm serviceregistry
 	docker image rm src_serviceregistry
+
+input_c_dw:
+	docker container stop inputcommunicator
+	docker container rm inputcommunicator
+	docker image rm src_inputcommunicator

@@ -3,14 +3,17 @@
 const coap = require('coap');
 const debug = require('debug')('input:COAP');
 
-module.exports = async () => {
+module.exports = async (path) => {
     debug('coap server starting...');
     const server = coap.createServer()
     server.on('request', function (req, res) {
-        debug('received request...');
-        debug('sent to validation and sender');
+        const url = req.url.split('/')[1];
+        if (path != url) { res.end("path not equal"); return; }
+
+        debug('received request from coap protocol...');
+        debug('send to validation and sender');
         sender(req.payload.toString());
-        res.end();
+        res.end("data received [in process]");
     })
 
     server.listen(() => {

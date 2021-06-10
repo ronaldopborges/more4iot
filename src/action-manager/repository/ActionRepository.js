@@ -10,7 +10,7 @@ const save = async (action) => {
     }
 }
 
-const findByCreator = async (uuid) => {
+const findAllByCreator = async (uuid) => {
     try {
         const oneExists = await Action.db.findOne({ creator: uuid });
         if (oneExists) {
@@ -31,7 +31,7 @@ const update = async (actionUpdated) => {
     return false;
 }
 
-const findWhereActiveByCreator = async (uuid) => {
+const findAllWhereActiveByCreator = async (uuid) => {
     try {
         const oneExists = await Action.db.findOne({ creator: uuid, status: true });
         if (oneExists) {
@@ -53,6 +53,18 @@ const findAll = async () => {
     }
 }
 
+const remove = async (id) => {
+    debug(`removing action with id: ${id}`);
+    try {
+        const action = await Action.db.findByIdAndRemove(id);
+        return action ? true : false;
+    } catch (error) {
+        debug(error);
+    }
+
+    return false;
+}
+
 // ------ functions for async data
 
 const findByOriginIdentifierWhereActive = async (identifier) => {
@@ -67,10 +79,11 @@ const findByOriginIdentifierWhereActive = async (identifier) => {
     }
 }
 
-exports.findWhereActiveByCreator = findWhereActiveByCreator;
+exports.findAllWhereActiveByCreator = findAllWhereActiveByCreator;
 exports.findAll = findAll;
-exports.findByCreator = findByCreator;
+exports.findAllByCreator = findAllByCreator;
 exports.save = save;
 exports.update = update;
+exports.delete = remove;
 
 exports.findByOriginIdentifierWhereActive = findByOriginIdentifierWhereActive;

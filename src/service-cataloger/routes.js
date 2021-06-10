@@ -22,6 +22,7 @@ routes.delete(`/${config.dataManagerRouteDelete}/:uuid`, controller.dataManager)
 routes.post(`/${config.actionManagerRouteSave}`, controller.actionManager);
 routes.get(`/${config.actionManagerRouteGetActionsByUuid}/:uuid`, controller.actionManager);
 routes.get(`/${config.actionManagerRouteGetAll}`, controller.actionManager);
+routes.delete(`/${config.actionManagerRouteDelete}/:id`, controller.actionManager);
 
 module.exports = routes;
 

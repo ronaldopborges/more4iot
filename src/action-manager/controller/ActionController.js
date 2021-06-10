@@ -23,7 +23,7 @@ const inscribe = async (req, res) => {
 
 const getActions = async (req, res) => {
     debug('find actions from uuid...');
-    return res.send(await repo.findByCreator(req.params.uuid));
+    return res.send(await repo.findAllByCreator(req.params.uuid));
 }
 
 const getAllActions = async (req, res) => {
@@ -31,19 +31,12 @@ const getAllActions = async (req, res) => {
     return res.send(await repo.findAll());
 }
 
-/* const notifyActionCommunicator = async (req, res) => {
-    repo.findByOriginIdentifierWhereActive(req.params.uuid).then(
-        (data) => {
-            data.forEach(async (act) => {
-                act = Action.updateLifetime(act);
-                await repo.update(act);
-            })
-            return res.json(data);
-        }
-    );
-} */
+const deleteAction = async (req, res) => {
+    debug('delete action...');
+    return res.send(await repo.delete(req.params.id));
+}
 
-//exports.notify = notifyActionCommunicator
 exports.getAllActions = getAllActions;
 exports.getActions = getActions;
 exports.inscribe = inscribe;
+exports.delete = deleteAction

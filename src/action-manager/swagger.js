@@ -151,6 +151,28 @@ module.exports = {
         }
       }
     },
+    '/actions/delete/{id}':{
+      delete: {
+        tags: ["action"],
+        summary: "Delete action by id",
+        description: "",
+        operationId: "delete",
+        parameters: [{
+          name: "id",
+          in: "path",
+          description: "action by id",
+          required: true,
+          schema:{
+            type: "string",
+          }
+        }],
+        responses: {
+          "200": {
+            description: "action deleted",
+          },
+        }
+      }
+    },
     /* '/actions/notify/{uuid}': {
       get: {
         tags: ["action"],

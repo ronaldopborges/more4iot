@@ -14,7 +14,7 @@ const {
 } = require('@iotufersa/more4iot-js-sdk/config/routes');
 
 const { coapDispatcher } = require('../dispatchers/coap');
-const httpRestDispatcher = require('../dispatchers/http_rest');
+const { httpDispatcher } = require('../dispatchers/http_rest');
 const mqttDispatcher = require('../dispatchers/mqtt');
 
 const resolve = async (act) => {
@@ -67,7 +67,7 @@ const dispatcher = async (protocol, uri, ids, data) => {
       break;
     case protocols.HTTP_REST:
       debug('send with http_rest...');
-      httpRestDispatcher(uri, ids, data);
+      httpDispatcher(uri, ids, data);
       break;
     case protocols.COAP:
       debug('send with coap...');

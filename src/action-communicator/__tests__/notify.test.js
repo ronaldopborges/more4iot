@@ -1,5 +1,5 @@
-const server = require('../server')
-const supertest = require('supertest')
+const supertest = require('supertest');
+const server = require('../server');
 
 const request = supertest(server);
 
@@ -7,19 +7,20 @@ const seed01 = {
   creator: "identifier01",
   receiver: {
     identifiers: ["identifier01"],
-    protocol: "mqtt",
-    uri: "identifier01"
+    protocol: "coap",
+    uri: "coap://localhost/deviceX"
   },
   scope: {
-    data: {},
-    commands: {}
+    data: {"humidity":15},
+    commands: {"water-pump":true}
   },
   lifetime: {
     validity: false,
     count: 0
   },
   status: true
-}
+};
+
 describe("Received action", () => {
   jest.setTimeout(30000);
   it("Should to dispatch action for resources", async () => {
@@ -28,5 +29,3 @@ describe("Received action", () => {
     }).then((res)=>console.log(res.text));
   });
 });
-
-

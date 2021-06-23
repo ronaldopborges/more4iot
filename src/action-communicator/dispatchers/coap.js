@@ -1,26 +1,15 @@
-const coap = require('coap') // or coap
+const coap = require('coap');
+const debug = require('debug')('action:coap');
 
-const coap_dispatcher = async (uri, ids, data) => {
+const coapDispatcher = async (uri, ids, data) => {
+  ids.forEach((id) => {
+    console.log(`dispatcher: ${id}`);
+    const req = coap.request(uri);
 
-  const options = {
-    host: COAP_HOST,
-    port: COAP_PORT,
+    req.write(JSON.stringify(data));
 
-  }
+    req.end();
+  });
+};
 
-  const req = coap.request('coap://localhost/Matteo');
-
-  req.write(JSON.stringify(msg));
-
-  req.on('response', function (res) {
-    res.pipe(process.stdout)
-    res.on('end', function () {
-      process.exit(0)
-    })
-  })
-
-  req.end()
-
-}
-
-exports.coap_dispatcher = coap_dispatcher;
+exports.coapDispatcher = coapDispatcher;

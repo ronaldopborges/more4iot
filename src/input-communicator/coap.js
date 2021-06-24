@@ -8,7 +8,7 @@ module.exports = async (path) => {
     const server = coap.createServer()
     server.on('request', function (req, res) {
         const url = req.url.split('/')[1];
-        if (path != url) { res.end("path not equal"); return; }
+        if (path != url) { res.end("pathname not equal"); return; }
 
         debug('received request from coap protocol...');
         debug('send to validation and sender');

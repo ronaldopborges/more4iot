@@ -23,11 +23,19 @@ global.sender = async (data) => {
         data = JSON.parse(data);
     } catch (error) {
         console.log(error);
+        return;
     }
     debug('resource verify starting...');
     debug('getting resource manager url..');
     let inputValidation = false;
-    const resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
+    let resourceUrl;
+    try{
+        resourceUrl = await rg.getServiceIPAndPort(RESOURCE_MANAGER_NAME);
+    }catch(error){
+        debug(error.code);
+        debug(error.config);
+        return;
+    }
     if(!resourceUrl){
         debug('resource url undefined...');
         debug('data not sent...');

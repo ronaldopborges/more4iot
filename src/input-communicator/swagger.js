@@ -17,7 +17,7 @@ module.exports = {
       Input: {
         type: "object",
         properties: {
-          deviceUuid: {
+          uuid: {
             type: "string",
             required: true
           },

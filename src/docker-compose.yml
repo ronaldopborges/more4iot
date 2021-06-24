@@ -88,6 +88,7 @@ services:
     build: ./input-communicator
     container_name: inputcommunicator
     volumes:
+      - ./input-communicator:/usr/input-communicator
       - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}
@@ -105,10 +106,11 @@ services:
       - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
     ports:
       - ${INPUT_COMMUNICATOR_PORT}:${INPUT_COMMUNICATOR_PORT}
+      - 5683:5683/udp
     depends_on:
       - serviceregistry
-      - rabbitmq
       - redis
+      - rabbitmq
   actioncommunicator:
     build: ./action-communicator
     container_name: actioncommunicator
@@ -163,10 +165,10 @@ services:
   #     - "8082:8082"
   #   depends_on: 
   #     - redis
-  node-red:
-    image: nodered/node-red:latest
-    ports:
-      - 1880:1880
+  # node-red:
+  #   image: nodered/node-red:latest
+  #   ports:
+  #     - 1880:1880
   # mongo:
   #   image: mongo
   #   container_name: mongo

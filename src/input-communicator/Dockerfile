@@ -1,8 +1,11 @@
 FROM node:current-slim
 
+RUN mkdir -p /usr/input-communicator
+WORKDIR /usr/input-communicator
+
 COPY package.json .
 RUN npm install
 
-CMD ["npm","run", "dev"]
-
 COPY . .
+
+CMD ["npm","run", "dev"]

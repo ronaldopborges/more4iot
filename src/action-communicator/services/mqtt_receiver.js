@@ -1,4 +1,5 @@
 const mqtt = require('mqtt');
+
 const { MQTT_HOST, MQTT_PORT, SUBSCRIBER_USER, SUBSCRIBER_PASSWORD } = require('../config/brokers');
 const debug = require('debug')("action:MQTT:resolver")
 

@@ -42,13 +42,13 @@ const seed02 = {
 const seed03 = {
   creator: "identifier01",
   receiver: {
-    identifiers: ["identifier01"],
+    identifiers: ["identifier01", "identifier01"],
     protocol: "coap",
-    uri: "coap://192.168.0.189/light"
+    uri: "192.168.0.189:5683/light"
   },
   scope: {
     data: {},
-    commands: {"light":false}
+    commands: {"light":true}
   },
   lifetime: {
     validity: true,

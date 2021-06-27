@@ -12,7 +12,7 @@ const {
 
 const rg = require('@iotufersa/more4iot-js-sdk/registry')(SERVICE_REGISTRY_HOST, SERVICE_REGISTRY_PORT);
 
-const { asyncAction } = require('@iotufersa/more4iot-js-sdk/config/routes');
+const { async_action } = require('@iotufersa/more4iot-js-sdk/config/routes');
 const { ACTION_COMMUNICATOR_PORT } = require('./config/actionCommunicator');
 const mqttReceiver = require('./services/mqtt_receiver');
 
@@ -28,4 +28,4 @@ const sv = server.listen(ACTION_COMMUNICATOR_PORT || 0, () => {
         });
 });
 
-mqttReceiver(asyncAction);
+mqttReceiver(async_action);

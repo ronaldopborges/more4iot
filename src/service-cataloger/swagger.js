@@ -67,7 +67,7 @@ module.exports = {
       Data: {
         type: "object",
         properties: {
-          deviceUuid: {
+          uuid: {
             type: "string",
             required: true,
           },
@@ -185,48 +185,22 @@ module.exports = {
         required: true
       },
       Action: {
-        type: "object",
-        properties: {
-          uuidAtuador: {
-            type: "string",
-            required: true,
-          },
-          uuidSensor: {
-            type: "string",
-            required: true,
-          },
-          dataSensor: {
-            type: "object",
-            required: true,
-          },
-          dataAtuador: {
-            type: "object",
-            required: true,
-          },
-          lifetimeAtuacao: {
-            type: "object",
-            required: true,
-            properties: {
-              lifetime: {
-                type: "boolean",
-                required: true,
-                default: false
-              },
-              quant: {
-                type: "number",
-                format: "integer",
-                required: true
-              }
+        content: {
+          'application/json': {
+            schema: {
+              $ref: "#/components/schemas/Action"
             }
           },
-          status: {
-            type: "boolean",
-            required: true,
-            default: true
-          },
-        }
-      }
-    }
+          'application/xml': {
+            schema: {
+              $ref: "#/components/schemas/Action"
+            }
+          }
+        },
+        description: "Action object that needs to be added to the action manager service",
+        required: true
+      },
+    },
   },
   paths: {
     '/resources': {

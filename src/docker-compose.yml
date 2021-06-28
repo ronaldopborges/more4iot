@@ -1,9 +1,9 @@
 version: "3"
 
-networks:
-  default:
-    external:
-      name: moreiot
+# networks:
+#   default:
+#     external:
+#       name: more4iot
 
 volumes:
   npm-cache:
@@ -65,16 +65,20 @@ services:
       - ACTION_MANAGER_PORT=${ACTION_MANAGER_PORT}
       - MQTT_HOST=${MQTT_HOST}
       - MQTT_PORT=${MQTT_PORT}
+      - RABBITMQ_PUBLISHER_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PUBLISHER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_SUBSCRIBER_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_SUBSCRIBER_PASSWORD=${RABBITMQ_DEFAULT_PASS}
     ports:
       - ${ACTION_MANAGER_PORT}:${ACTION_MANAGER_PORT}
     depends_on:
       - serviceregistry
+      - rabbitmq
   servicecataloger:
     build: ./service-cataloger
     container_name: servicecataloger
     volumes:
+      - ./service-cataloger:/usr/service-cataloger
       - npm-cache:/root/.npm
     environment:
       - SERVICE_REGISTRY_HOST=${SERVICE_REGISTRY_HOST}

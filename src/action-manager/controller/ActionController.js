@@ -8,15 +8,17 @@ const inscribe = async (req, res) => {
     if (act.origin !== undefined && act.origin.length <= 0) {
         debug('action instant detected');
         debug('send action...');
-        act.lifetime.validity = false;
-        act.lifetime.count = 0;
-        act.status = false;
+        act = Action.updateLifetime(req.body);
         mqtt_sender([act]);
     } else {
         debug('inscribe action...');
     }
+    
+    //act.lifetime.validity = false;
+    //act.lifetime.count = 0;
+    //act.status = false;
 
-    act = await repo.save(req.body);
+    act = await repo.save(act);
 
     return res.send(act);
 }

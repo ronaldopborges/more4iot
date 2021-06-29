@@ -49,7 +49,8 @@ db = model('Action', ActionSchema);
 const updateLifetime = (action) => {
     if (action.lifetime.validity == true) {
         action.lifetime.count -= 1;
-        if (action.lifetime.count == 0)
+        if (action.lifetime.count <= 0)
+            action.lifetime.count = 0;
             action.status = false;
     }
     return action;

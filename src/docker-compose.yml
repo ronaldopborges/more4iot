@@ -1,9 +1,9 @@
 version: "3"
 
-# networks:
-#   default:
-#     external:
-#       name: more4iot
+networks:
+  default:
+    external:
+      name: more4iot
 
 volumes:
   npm-cache:

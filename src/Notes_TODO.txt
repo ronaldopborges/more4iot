@@ -1,0 +1,28 @@
+1 - Não funciona a instalação de alguns módulos do package.json. Tem que entrar no terminal do containter e instalar manualmente
+    - input-comunicator
+        nodemon
+        dotenv
+    - service-cataloger
+        nodemon
+        ip
+2 - String de conecxão do mongodb quando em um containter local: 
+    - mongodb://<user>:<pass>@<server>:<port>/<database>
+    - mongodb://more4iot:1234@mongo:27017/more4iot?authSource=admin&retryWrites=true&w=majority   
+    
+    onde, o <server> é o IP ou o nome do container (funciona melhor pois usa o DNS interno do docker) e após a '?':
+        authSource=admin: 
+            Define a fonte de autenticação como "admin". A autenticação será realizada no banco de dados "admin" antes de acessar o banco de dados "more4iot". Isto é, configurar uma fonte de autenticação separada para gerenciar as credenciais.
+        retryWrites=true:
+            Isso indica que as operações de escrita devem ser automaticamente reexaminadas se houver uma falha temporária na conexão. Isso ajuda a garantir a consistência dos dados.
+        w=majority:   
+            Define o nível de garantia de escrita. "majority" significa que as operações de escrita serão consideradas bem-sucedidas apenas quando a maioria dos servidores no cluster MongoDB confirmar a gravação.
+
+3 - O envio de diferentes comandos a um dispositivo depende de cadastros de actions. Por exemplo ligar e desligar um led são duas actios diferentes. Não é possível enviar um dado numerico de um dispositivo para outro. O SDK Arduino apenas verifica a existencia de uma subchave especifica dentro da chave 'commands' do json recebido e o valor desta chave é definido no cadastro do 'resouce', assim não é possivel usar um valor dinamico.
+
+4 - O more4iot não permite que se use os tópicos do protocolo MQTT como é "costume"¹ com outros brokers. O programador não tem a liberdade de criar os tópicos de forma personalizada. O More4iot encapsula esta 'escolha' obrigando a publicação apensa no tópico 'input'. Ainda não há implementação do de um tópico para subscrição dos dispositivos.  
+        ¹ forma mais comum de criação de tópicos: local/comodo/dispositivo. Ex. Ufersa/LCC/lab1/arcondicionado e Ufersa/LCC/lab1/iluminacao
+
+5 - Quando há dois ou mais dispositivos enviando dados por MQTT o primeiro a se conectar não consegue mais enviar (verificar RabbittMQ). 
+    Sugestão 1: Substituir o RabbittMQ por um broker MQTT nativo(ver mqtt.org). O RabbittMQ usa um plugin para compatibilizar com MQTT. 
+    Sugestão 2: Implementar o broker no próprio imputcommunicator (a partir de projetos opensource como o Mosca, por exemplo) e comunicar os demais microsserviços por API rest. 
+    Sugestão 3: Usar um servidor único (sem microsserviços) pode deixar o software mais robusto (ou menos propenso a falhas). 

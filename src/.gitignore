@@ -1,2 +1,6 @@
 .env
 .docker
+/mongo/db_data
+/rabbittmq/data
+/rabbittmq/etc
+/rabbittmq/logs

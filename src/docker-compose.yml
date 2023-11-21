@@ -1,14 +1,10 @@
-version: "3"
-
+version: "3.1"
 networks:
   default:
-    #external:
     name: IoTnet
-
 volumes:
   npm-cache:
     external: false
-
 services:
   serviceregistry:
     build: ./service-registry
@@ -23,6 +19,7 @@ services:
       - ${SERVICE_REGISTRY_PORT}:${SERVICE_REGISTRY_PORT}
     depends_on: 
       - redis
+    restart: always
   resourcemanager:
     build: ./resource-manager
     container_name: resourcemanager
@@ -36,6 +33,7 @@ services:
       - ${RESOURCE_MANAGER_PORT}:${RESOURCE_MANAGER_PORT}
     depends_on:
       - serviceregistry
+    restart: always
   datamanager:
     build: ./data-manager
     container_name: datamanager
@@ -54,6 +52,7 @@ services:
     depends_on:
       - serviceregistry
       - rabbitmq
+    restart: always
   actionmanager:
     build: ./action-manager
     container_name: actionmanager
@@ -74,6 +73,7 @@ services:
     depends_on:
       - serviceregistry
       - rabbitmq
+    restart: always
   servicecataloger:
     build: ./service-cataloger
     container_name: servicecataloger
@@ -88,6 +88,7 @@ services:
       - ${SERVICE_CATALOGER_PORT}:${SERVICE_CATALOGER_PORT}
     depends_on:
       - serviceregistry
+    restart: always
   inputcommunicator:
     build: ./input-communicator
     container_name: inputcommunicator
@@ -115,6 +116,7 @@ services:
       - serviceregistry
       - redis
       - rabbitmq
+    restart: always
   actioncommunicator:
     build: ./action-communicator
     container_name: actioncommunicator
@@ -137,62 +139,89 @@ services:
     depends_on:
       - serviceregistry
       - rabbitmq
+    restart: always
   rabbitmq:
     build: ./rabbitmq
     container_name: rabbitmq
     volumes:
-      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
-      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
-      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+      - ./rabbitmq/etc/:/etc/rabbitmq/
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/logs/:/var/log/rabbitmq/
     environment:
       - RABBITMQ_PID_FILE=/var/lib/rabbitmq/mnesia/rabbitmq
       - RABBITMQ_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_PASSWORD=${RABBITMQ_DEFAULT_PASS}
     ports:
-      - 5672:5672
-      - 15672:15672
-      - 1883:1883
+      - 5672:5672   # AMQP
+      - 15672:15672 # Interface web HTTP 
+      - 1883:1883   # MQTT
+    restart: always
+  
   redis:
     image: redis:alpine
+    build: ./redis
     container_name: redis
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
+    restart: always
+
+#  ONLY FOR TESTS
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-      - PORT=8082
+      - PORT=${REDIS_COMMANDER_PORT}
       - REDIS_HOSTS=local:${REDIS_HOST}:${REDIS_PORT}
     ports:
-      - "8082:8082"
+      - ${REDIS_COMMANDER_PORT}:${REDIS_COMMANDER_PORT}
     depends_on: 
       - redis
-  # node-red:
-  #   image: nodered/node-red:latest
-  #   ports:
-  #     - 1880:1880
-  # mongo:
-  #   image: mongo
-  #   container_name: mongo
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
-  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
-  #   ports:
-  #     - ${MONGO_PORT}:${MONGO_PORT}
-  # mongo-express:
-  #   image: mongo-express
-  #   restart: always
-  #   depends_on:
-  #     - mongo
-  #   environment:
-  #     - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-  #     - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
-  #     - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASS}
-  #     - VCAP_APP_HOST=${MONGO_EXPRESS_HOST}
-  #     - VCAP_APP_PORT=${MONGO_EXPRESS_PORT}
-  #   ports:
-  #     - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
-  #   depends_on:
-  #     - mongo
+  
+  mongo:
+    image: mongo
+    build: ./mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASS}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    volumes: 
+      - /etc/timezone:/etc/timezone:ro  #sincroniza timezone com o pc hospedeiro
+      - ./mongo/db_data/:/data/db/ # diretorio do pc hospedeiro onde serão persistidos os dados
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+#  ONLY FOR TESTS
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASS}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASS}@mongo:${MONGO_PORT}/
+    depends_on:
+      - mongo      
+ 
+# ONLY FOR TESTS
+#   wireshark:
+#     image: lscr.io/linuxserver/wireshark:latest
+#     container_name: wireshark
+#     cap_add:
+#       - NET_ADMIN
+#     security_opt:
+#       - seccomp:unconfined #optional
+#     network_mode: host
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/Araguaina
+#     volumes:
+#       - ./.docker/wireshark/etc/:/etc/wireshark/config
+#     ports:
+#       - 3000:3000
+#     restart: unless-stopped
